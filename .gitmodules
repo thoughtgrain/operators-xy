@@ -1,0 +1,3 @@
+[submodule "operator-design"]
+	path = operator-design
+	url = https://github.com/thoughtgrain/operator-design

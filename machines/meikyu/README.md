@@ -24,10 +24,10 @@ The labyrinth from the OP-1 screen: the sixteen steps sit on the spiral as diamo
 ## Build and test
 
 ```sh
-# in a checkout of etcetc000/open-xy (main, SDK 1.8 or later)
-python sdk.py test --machine ../labyrinth/opxy/machines/meikyu
-python sdk.py build --machine ../labyrinth/opxy/machines/meikyu --machine ../labyrinth/opxy/machines/toro \
-    --machine ../labyrinth/opxy/machines/theseus --stock-os <private>/stock-1.2.1/os.ldr --out <builds>/labyrinth-001
+# from this repository, with etcetc000/open-xy (SDK 1.8 or later) cloned beside it
+python ../open-xy/sdk.py test --machine machines/meikyu
+python ../open-xy/sdk.py build --machine machines/meikyu --machine machines/toro \
+    --machine machines/theseus --stock-os <private>/stock-1.2.1/os.ldr --out <builds>/operators-xy-001
 ```
 
 `tests/phrases.cpp` checks the phrase logic on the host: determinism of the first phrase, density bounds, scales and pads, velocity as range, the frozen two-phrase repeat, corruption, the eight-root limit, release semantics and the page strings. Players have no browser audio preview; `python3 gen_panel.py > panel.svg.fragment` regenerates the artwork.

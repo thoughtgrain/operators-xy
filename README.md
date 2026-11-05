@@ -1,6 +1,14 @@
-# toro and theseus for the OP-XY
+# operators-xy
 
-This folder is my port of two of the three labyrinth plugins to the teenage engineering OP-XY, built on the [Open-XY SDK](https://github.com/etcetc000/open-xy). The OP-1 versions in the folders above are untouched; this is a separate tree with its own licence (MIT, like the SDK and most XY machines).
+My machines for the teenage engineering OP-XY, built on the [Open-XY SDK](https://github.com/etcetc000/open-xy) and laid out like Open-XY's own [core machines](https://github.com/etcetc000/open-xy-core-machines): one folder per machine under `machines/`, each checked on every push. They started as ports of my OP-1 plugins in [labyrinth](https://github.com/thoughtgrain/labyrinth), which keeps the OP-1 versions; this repository has the XY ones and their history.
+
+| Machine | Kind | What it is |
+| --- | --- | --- |
+| [toro](machines/toro) | Synth | Two oscillators, a wavefolder, a resonant low-pass and APHX drift; a field of stacked slabs on screen |
+| [theseus](machines/theseus) | Synth (drum voice) | A DFAM-style percussion voice where the note picks the drum; the kit as a tower on screen |
+| [meikyu](machines/meikyu) | Player | The self-corrupting shift register as a phrase player (SDK 1.8) |
+
+The screens are designed with [operator-design](https://github.com/thoughtgrain/operator-design), my OP-XY screen guidelines and their MCP server, which is a submodule here (see [Designing screens](#designing-screens)).
 
 - **toro**: the two-oscillator wavefolder synth, with APHX. On the XY its screen is a field of stacked isometric slabs whose heights are a small model of the voice.
 - **theseus**: the DFAM-style percussion voice. On the XY its screen is the kit stacked into a tower, kick to hi-hat, and the drum that's hit jumps and lights.
@@ -20,7 +28,7 @@ This folder is my port of two of the three labyrinth plugins to the teenage engi
 
 ![the meikyu player page: the register on the labyrinth, the last phrase on the right](docs/meikyu_page.png)
 
-## What changed in the port
+## What changed in the port from the OP-1
 
 The OP-XY and the OP-1 are different instruments, and the SDKs reflect that. The sound code moved over almost as is; the screens had to be rebuilt.
 
@@ -54,7 +62,7 @@ On the XY's style guide: it says engine pages should not hold LFOs, because the 
 
 The OP-1 screens drew hundreds of fresh lines per frame. The XY draws authored SVG and lets code move the parts, with a budget of 256 parts (512 from SDK 1.8), 4 reshapable outlines and 16 palette entries. So each screen is a `gen_panel.py` that writes the artwork (`panel.svg.fragment`) with every moving part as a separate element around its own origin, plus the tables `display.cpp` needs (`nodes.h`), and a `display.cpp` that places them each frame.
 
-Both screens were designed first, frame by frame and in motion, in my [operators](https://github.com/thoughtgrain/operators) repository (the OP-XY screen guidance I keep beside these ports), and then fitted to the device here. The drawing is a picture of what the controls do, not a panel of readouts:
+Both screens were designed first, frame by frame and in motion, with [operator-design](https://github.com/thoughtgrain/operator-design), my OP-XY screen guidelines, and then fitted to the device here. The drawing is a picture of what the controls do, not a panel of readouts:
 
 | toro (BLOCKS) | | theseus (TOWER) | |
 |---|---|---|---|
@@ -81,14 +89,18 @@ Two XY-specific things worth knowing, plus the device's own drawing rules:
 
 ## Build and try
 
-You need the Open-XY SDK checked out beside this repository, with its preview tools (Python 3.11+, NumPy 2.3.5, Node 22.12+, clang with wasm32). Then, from the SDK folder:
+Clone the SDK beside this repository (its preview tools need Python 3.11+, NumPy 2.3.5, Node 22.12+ and clang with wasm32), then from here:
 
 ```sh
-python sdk.py test --machine ../labyrinth/opxy/machines/toro
-python sdk.py test --machine ../labyrinth/opxy/machines/theseus
-python sdk.py preview --machine ../labyrinth/opxy/machines/toro --out local/toro
-python tools/serve_harness.py --preview local/toro      # then open http://127.0.0.1:8917/
+git clone --recurse-submodules https://github.com/thoughtgrain/operators-xy
+git clone https://github.com/etcetc000/open-xy           # beside it
+cd operators-xy
+python ../open-xy/sdk.py test --machine machines/toro --machine machines/theseus --machine machines/meikyu
+python ../open-xy/sdk.py preview --machine machines/toro --out ../previews/toro-001
+python ../open-xy/tools/serve_harness.py --preview ../previews/toro-001     # then open http://127.0.0.1:8917/
 ```
+
+CI runs the same checks on every pull request and push to `main`, and compiles the firmware module with all three machines.
 
 `test` runs each machine's own sound checks (`tests/sound.cpp`: the same sweeps as the OP-1 tests, ported), builds the browser preview, checks every drawing frame against the SDK's bounds, and prints a host-timed CPU estimate. To build firmware you need the pinned Blackfin+ toolchain and your own `os.ldr`; the SDK's `docs/build.md` covers that.
 
@@ -114,6 +126,19 @@ The OP-XY has no sequencer plugins. The SDK offers synths, sample engines and ef
 
 The SDK added that in 1.8: it started as the `firmware/native-players` branch of `etcetc000/open-xy` (six hooks into the stock Maestro object, a `<opxy/player.hpp>` API) and is on `main` now with a Chords player as the example in `open-xy-core-machines`. A player answers key presses with a plan of up to eight timed tones; it has no clock and can't sound a note on its own. So `machines/meikyu/` is meikyu as a **phrase player**: every note, live or sequenced, plays the next eight steps of the self-corrupting register, rooted on that note, and the pattern drifts across the bar. Its [README](machines/meikyu/README.md) has the controls and what's missing against the OP-1. It passed the branch's `sdk.py test` on the host, and the merged API is the same one it was written against; it's waiting on a firmware build to be heard.
 
+## Designing screens
+
+`operator-design/` is a submodule pinned to a commit of [operator-design](https://github.com/thoughtgrain/operator-design): the OP-XY screen guidelines, the pattern library, the frame linters and an MCP server that wraps them. `.mcp.json` starts that server with `OPXY_WORKSPACE` pointed at this repository, so a design pass writes its frames, contact sheets and handoffs to `screens/<machine>/` here, beside the machine it's for. `.claude/agents` and `.claude/skills` link into the submodule, so Claude Code gets the designer, auditor and reviewer agents and the `opxy-screen` and `opxy-audit` skills in this repository too. The design work for the current toro and theseus screens predates this and stays in operator-design's own `screens/`.
+
+```sh
+git submodule update --init                      # after a plain clone
+git submodule update --remote operator-design    # move to the latest guidelines, then commit the new pin
+```
+
+## Releases
+
+A release is a tag here, then a pull request against the SDK that changes only `catalog/machines.json`, pinning that commit for each machine with its hardware CPU record (the SDK's `docs/catalog.md` and `docs/profiling.md`).
+
 ## Licence
 
-MIT, see `LICENSE` in this folder. The OP-1 plugins in the folders above stay GPL-3.0-or-later with the OP-1 firmware permission; this tree is a separate work that shares their design and DSP, which I own.
+MIT, see `LICENSE`. The OP-1 plugins in labyrinth stay GPL-3.0-or-later with the OP-1 firmware permission; these are a separate work that shares their design and DSP, which I own.

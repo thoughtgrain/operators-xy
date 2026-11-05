@@ -18,7 +18,7 @@ How it's cut for the device (Open-XY docs/display.md, "Artwork"):
     current Rate is shown. The lit step's slice of the floor is the one mutable outline (path 0).
   - Stroke widths and colours come from the palette entries below, so a node's look is its shade.
 
-The design and its contact sheet live in the operators repository (screens/theseus/concepts/d4_video.py, the
+The design and its contact sheet live in operator-design (screens/theseus/concepts/d4_video.py, the
 theseus-tower entry in library/, pattern P11).
 
     python3 gen_panel.py          # writes panel.svg.fragment, nodes.h and the display block in definition.json
