@@ -16,7 +16,7 @@ How it's built, and why it fits the device:
   - Per-column constants the display needs every frame (phases, the detail term, the noise draw, the hollow scatter)
     are worked out here in floating point and written to nodes.h as Q10 tables, so display.cpp does integer maths only.
 
-The design and its contact sheet live in the operators repository (screens/toro/gen_blocks.py, P10 in the patterns).
+The design and its contact sheet live in operator-design (screens/toro/gen_blocks.py, P10 in the patterns).
 
     python3 gen_panel.py          # writes panel.svg.fragment, nodes.h and the display block in definition.json
 Copyright (c) 2026 briannhinton. MIT."""
