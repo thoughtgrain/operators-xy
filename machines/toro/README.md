@@ -24,7 +24,8 @@ Press any encoder to switch pages.
 **Aphx.** Right of centre every key keeps its own offsets to tuning, cutoff, fold, shape and resonance, growing to
 the right; the top fifth adds a per-key sample-and-hold crush. Left of centre is the same drift, growing to the
 left, but each note takes its offsets from the track's note count instead of its key. Lock a single sequencer step
-to the left side and just that step re-rolls; the same pattern still plays back the same way.
+to the left side and just that step re-rolls, on every pass of the pattern, while the other steps keep their
+keys' drift.
 
 **Accent.** The XY gives engines no velocity, so toro steps its own accent once per note, locked to the sequence:
 strong, weak, medium, weak. An accent deepens Aphx on that note (by half when strong, a quarter when medium), so
