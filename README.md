@@ -49,7 +49,7 @@ Both engines keep their integer DSP byte for byte where the block size allows. T
 
 **toro** gets the split it never had room for on the OP-1: Drive and Aphx are separate slots on page 2. Two things are new on the XY:
 
-- **Aphx is split at its centre.** Centre is off. Right of centre is the OP-1's per-key drift: every key keeps its own detune, cutoff, fold and resonance offsets. Left of centre is the same drift re-rolled on every note, from the track's note count instead of the key. So locking a single sequencer step to the left side re-rolls just that step, and the same pattern still plays back the same way.
+- **Aphx is split at its centre.** Centre is off. Right of centre is the OP-1's per-key drift: every key keeps its own detune, cutoff, fold and resonance offsets. Left of centre is the same drift re-rolled on every note, from the track's note count instead of the key. So locking a single sequencer step to the left side re-rolls just that step, on every pass of the pattern, while the rest keep their keys' drift.
 - **An accent stands in for velocity.** The XY doesn't give engines velocity, so toro steps its own accent once per note, the way theseus steps its hit LFO: a four-note cycle of strong, weak, medium, weak, locked to the sequence. An accent deepens Aphx on that note (by half when strong, a quarter when medium), so it's silent with Aphx at centre. The count lives in `Shared`, so every voice on the track follows the same cycle.
 
 There's a new preset, Roll, to hear the per-step side.

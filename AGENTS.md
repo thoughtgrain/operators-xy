@@ -16,8 +16,10 @@ of these plugins live in [labyrinth](https://github.com/thoughtgrain/labyrinth);
   output goes to `screens/<machine-id>/` here. Then implement from that handoff as above.
 - **Teaching the guidelines something** (a new pattern, a pitfall): that's training mode in operator-design itself,
   not here. Open it as a change to that repository, then bump the submodule.
-- **Releasing:** a tag here, then a pull request against the SDK's `staging` that changes only
-  `catalog/machines.json`, with the hardware CPU record from the SDK's `docs/profiling.md`.
+- **Releasing:** a tag here, then a pull request against the SDK's `main` that changes only
+  `catalog/machines.json`, with the hardware CPU record from the SDK's `docs/profiling.md` (against `staging`
+  only when the machine needs an SDK version that `main` hasn't released yet). Each machine's `QA.md` is the
+  device pass to run on the commit that gets tagged.
 
 ## Checks
 
