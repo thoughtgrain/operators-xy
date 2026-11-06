@@ -70,11 +70,11 @@ Start the sequencer again: program four steps of the same note.
 - [ ] At rest: a field of stacked slabs below the header, some hollow, one row of tops lit by Res; nothing moves
       while no note plays
 - [ ] Each control reshapes the field: Spread adds a beating second wave, Fold folds the heights and wraps the
-      field round a drum (almost closed at 100), Cutoff adds fine ripples, Res moves the lit row front to back,
+      field round a drum (almost closed at 100) in twelve even steps, Cutoff adds fine ripples, Res moves the lit row front to back,
       Shape softens the ridges, Noise jitters the columns, Drive flattens the tallest columns, Aphx makes columns
       wander
-- [ ] A note: a patch of six slabs lifts with white tops, a ripple runs across the field, and it settles within
-      a second
+- [ ] A note: a patch of six slabs lifts with white tops, a ripple spreads a few columns round it and fades,
+      and it settles within a second; slabs far from the note don't move
 - [ ] Fast notes (16ths at 140 BPM and up): every note answers, no flicker, the field keeps up
 - [ ] Fold at 100 with a note: nothing draws over the header
 - [ ] The page while playing and while stopped, and after leaving it and coming back: nothing stale, missing or

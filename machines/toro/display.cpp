@@ -32,6 +32,8 @@ using namespace opxy::draw;
 
 const i32 Q14 = 16384, PI_Q14 = 51472, HALF_PI_Q14 = 25736;
 const i32 H_MIN = 8, H_SPAN = 32;                                                 /* column heights 8..40 px */
+const i32 RIPPLE_REACH = 3;                                                      /* columns: a note's ripple stops here */
+const i32 BEND_STEPS = 12;                                                       /* the drum's bend moves in these steps */
 const i32 HOLLOW_Q10 = (H_MIN * 1024) + (H_SPAN * 1024 * 35) / 100;               /* below 35 % of the range: hollow */
 
 inline i32 q10(i32 q31) { return q31 < 0 ? 0 : q31 >> 21; }
@@ -113,7 +115,8 @@ inline void display(DisplayState& st, const Input& in, Frame& fr)
         if (played) aphx = clamp(aphx + ((aphx * ACCENT[(st.n - 1) & 3u]) >> 10), 0, unit); }
 
     /* a note: the wave rolls forward 0.11 of a cycle, easing in over ~0.2 s; the patch lifts 22 px and settles; tops
-     * flash for 120 ms; a ripple spreads 14 columns a second and fades */
+     * flash for 120 ms; a ripple spreads 14 columns a second and fades out by three columns from the patch, so a note
+     * moves only the slabs near it (a full-field ripple redrew most of the screen on every note) */
     const i32 step = 113;                                                          /* 0.11 cycle, Q10 */
     const i32 ease = still ? unit : unit - expneg((tq * 4655) >> 10);             /* 1 - e^(-t/0.22) */
     const i32 phase = played ? static_cast<i32>(st.n - 1) * step + ((step * ease) >> 10) : 0;
@@ -134,11 +137,14 @@ inline void display(DisplayState& st, const Input& in, Frame& fr)
     const i32 lit_row = res > 51 ? (6 * res + 512) >> 10 : -1;
 
     /* the drum: the field bends through 1.9 pi c about its middle row, c easing in from Fold 0.05. Per row i:
-     * psi = (2i - 9) A / 20; R sin psi and R (1 - cos psi) are written as sinc products so they stay exact as A -> 0 */
+     * psi = (2i - 9) A / 20; R sin psi and R (1 - cos psi) are written as sinc products so they stay exact as A -> 0.
+     * The bend moves in twelve steps rather than smoothly: every change of it moves every column, so a smooth bend
+     * redrew the whole field on every frame of a Fold turn. Heights still follow Fold continuously. */
     i32 c;                                                                         /* Q10 */
     {
         const i32 s = fold > 51 ? ((fold - 51) * 1078) >> 10 : 0;                  /* (fold - 0.05) / 0.95 */
         c = (unit - sine(((clamp(s, 0, unit) * 1800) >> 10) + 900)) / 2;          /* 0.5 - 0.5 cos(pi s) */
+        c = ((c * BEND_STEPS + 512) >> 10) * unit / BEND_STEPS;
     }
     const i32 A = (c * 97797) >> 10;                                               /* 1.9 pi c, Q14 radians */
     const i64 L = 10 * (static_cast<i64>(Q14) + c * 8);                            /* rows, Q14: 10 (1 + 0.5 c) */
@@ -184,7 +190,8 @@ inline void display(DisplayState& st, const Input& in, Frame& fr)
         if (ripple_fade) {
             const i32 d = isqrt(static_cast<u32>(di * di + dj * dj) << 20);       /* columns, Q10 */
             const i32 a = clamp(((d - 14 * tq) * 788) >> 10, -4 * unit, 4 * unit);   /* / 1.3 */
-            h += (11 * ((expneg((a * a) >> 10) * ripple_fade) >> 10));
+            const i32 taper = d >= RIPPLE_REACH * unit ? 0 : unit - d / RIPPLE_REACH;   /* 1 at the patch, 0 at the reach */
+            h += (11 * ((((expneg((a * a) >> 10) * ripple_fade) >> 10) * taper) >> 10));
         }
         const i32 hp = (h + 512) >> 10;                                            /* whole pixels */
 
