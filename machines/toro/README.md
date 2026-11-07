@@ -36,7 +36,7 @@ Presets: Clean, Bull, Drift, Labyrinth, and Roll for the per-step side.
 ## Screen
 
 A field of 70 stacked isometric slabs whose heights are a small model of the voice. A note rolls the wave forward
-a step, pushes a patch of six slabs up with white tops and sends a ripple out; it settles in under a second, and
+a step, pushes a patch of six slabs up with white tops and sends a ripple a few columns out; it settles in under a second, and
 the idle field doesn't move. 218 nodes, no mutable paths, 10 palette entries. `gen_panel.py` writes the artwork
 and the per-column tables in `nodes.h`; `display.cpp` is integer-only. The design is in operator-design's
 `screens/toro/`.
