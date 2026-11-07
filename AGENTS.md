@@ -1,6 +1,6 @@
 # Instructions for agents
 
-This repository holds my OP-XY machines (toro, theseus, meikyu), one folder each under `machines/`, laid out like
+This repository holds my OP-XY machines (toro, theseus, meikyu, clew), one folder each under `machines/`, laid out like
 [open-xy-core-machines](https://github.com/etcetc000/open-xy-core-machines). It is not the SDK. The OP-1 versions
 of these plugins live in [labyrinth](https://github.com/thoughtgrain/labyrinth); don't change them from here.
 
@@ -25,7 +25,7 @@ Clone the SDK beside this repository (`git clone https://github.com/etcetc000/op
 `staging`) and run it from here:
 
 ```sh
-python ../open-xy/sdk.py test --machine machines/toro --machine machines/theseus --machine machines/meikyu
+python ../open-xy/sdk.py test --machine machines/toro --machine machines/theseus --machine machines/meikyu --machine machines/clew
 python3 tools/panel_lint.py machines/*/panel.svg.fragment
 ```
 
