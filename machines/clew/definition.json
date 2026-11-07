@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "id": "clew",
+  "name": "Clew",
+  "press": "page",
+  "parameters": [
+    {
+      "id": "squeeze",
+      "label": "Squeeze",
+      "default": 0.35,
+      "mapping": {
+        "kind": "linear",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "display": "percent"
+    },
+    {
+      "id": "echo",
+      "label": "Echo",
+      "default": 0.6,
+      "mapping": {
+        "kind": "linear",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "display": "division"
+    },
+    {
+      "id": "space",
+      "label": "Space",
+      "default": 0.35,
+      "mapping": {
+        "kind": "linear",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "display": "percent"
+    },
+    {
+      "id": "blend",
+      "label": "Blend",
+      "default": 0.5,
+      "mapping": {
+        "kind": "linear",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "display": "percent"
+    },
+    {
+      "id": "tone",
+      "label": "Tone",
+      "default": 0.5,
+      "mapping": {
+        "kind": "linear",
+        "minimum": -1,
+        "maximum": 1
+      },
+      "display": "bipolar"
+    },
+    {
+      "id": "motion",
+      "label": "Motion",
+      "default": 0.2,
+      "mapping": {
+        "kind": "linear",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "display": "percent"
+    },
+    {
+      "id": "dry",
+      "label": "Dry",
+      "default": 1.0,
+      "mapping": {
+        "kind": "linear",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "display": "percent"
+    },
+    {
+      "id": "attack",
+      "label": "Attack",
+      "default": 0.5624,
+      "mapping": {
+        "kind": "exponential",
+        "minimum": 0.5,
+        "maximum": 30
+      },
+      "display": "duration"
+    }
+  ],
+  "shift": [
+    {
+      "id": "order",
+      "label": "Order",
+      "default": 0,
+      "display": "enum",
+      "mapping": {
+        "kind": "enum",
+        "labels": [
+          "Comp first",
+          "FX first"
+        ]
+      }
+    }
+  ],
+  "presets": {},
+  "resources": {
+    "bufferBytes": 367868,
+    "transport": 1
+  }
+}

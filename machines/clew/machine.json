@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "sdk": "1.10",
+  "kind": "effect",
+  "description": "A compressor, a tempo-synced delay and a small reverb in one box, where how you play makes the echoes and the room breathe.",
+  "dryLevel": 0
+}

@@ -7,6 +7,7 @@ My machines for the teenage engineering OP-XY, built on the [Open-XY SDK](https:
 | [toro](machines/toro) | Synth | Two oscillators, a wavefolder, a resonant low-pass and APHX drift; a field of stacked slabs on screen |
 | [theseus](machines/theseus) | Synth (drum voice) | A DFAM-style percussion voice where the note picks the drum; the kit as a tower on screen |
 | [meikyu](machines/meikyu) | Player | The self-corrupting shift register as a phrase player (SDK 1.8) |
+| [clew](machines/clew) | Send effect | A compressor, a tempo-synced delay and a small reverb in one box, where the playing makes the tails breathe |
 
 The screens are designed with [operator-design](https://github.com/thoughtgrain/operator-design), my OP-XY screen guidelines and their MCP server, which is a submodule here (see [Designing screens](#designing-screens)).
 
@@ -95,12 +96,12 @@ Clone the SDK beside this repository (its preview tools need Python 3.11+, NumPy
 git clone --recurse-submodules https://github.com/thoughtgrain/operators-xy
 git clone https://github.com/etcetc000/open-xy           # beside it
 cd operators-xy
-python ../open-xy/sdk.py test --machine machines/toro --machine machines/theseus --machine machines/meikyu
+python ../open-xy/sdk.py test --machine machines/toro --machine machines/theseus --machine machines/meikyu --machine machines/clew
 python ../open-xy/sdk.py preview --machine machines/toro --out ../previews/toro-001
 python ../open-xy/tools/serve_harness.py --preview ../previews/toro-001     # then open http://127.0.0.1:8917/
 ```
 
-CI runs the same checks on every pull request and push to `main`, and compiles the firmware module with all three machines.
+CI runs the same checks on every pull request and push to `main`, and compiles the firmware module with every machine.
 
 `test` runs each machine's own sound checks (`tests/sound.cpp`: the same sweeps as the OP-1 tests, ported), builds the browser preview, checks every drawing frame against the SDK's bounds, and prints a host-timed CPU estimate. To build firmware you need the pinned Blackfin+ toolchain and your own `os.ldr`; the SDK's `docs/build.md` covers that.
 
