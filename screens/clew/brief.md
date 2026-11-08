@@ -101,21 +101,61 @@ Five candidates, one per direction from `design_pass_start` (or by hand: five di
 | v4 | P1 | engineering schematic | A cutaway schematic of one box: a gain valve the playing passes through, a tape loop with a moving playback head for the echoes, and a coil spring tank for the room, linked by a single lever from the level follower that dips the tape and spring outputs while playing. | Squeeze: the valve's gate closes across the signal path, from fully open to a narrow slot. Echo: the playback head slides along the tape away from the record head; the distance is the note length, and more loops of tape show as repeats grow; at 0 the head lifts off. Space: the spring stretches and gains coils, from a short stub to a long tank. Blend: the follower's lever tips further while playing, pressing the tape and spring outputs down; it lifts in the gaps. Tone: a damper pad moves onto the spring and tape, from touching hard (dark) to clear and then a thin felt (bright). Motion: the tape's guide roller swings, wavering the tape path. Dry: a bypass link from input to output thickens from absent to full width. Attack: the lever's spring: a stiff short spring at fast attack, a long soft one at slow. Order (Shift): the valve slides from before the tape and spring to after them on the path. | Many parts to fit in 480 x 220 at legible weights; three mechanisms may compete for the brightest element. |
 | v5 | P13 | oscilloscope trace | The rule drawn as a scope: the playing's level is a bright envelope trace across the screen and the tails are a second, finer trace held beneath it, captured under the playing while it's loud and rising into the space it leaves in the gaps. | Squeeze: a threshold line drops and the bright trace's peaks flatten against it. Echo: decaying copies of each peak repeat to the right at the note length's spacing. Space: the fine trace's tail stretches longer and smoother after each peak. Blend: how far the bright trace pushes the fine one down where they overlap. Tone: the fine trace's grain: jagged high detail to the right, smooth to the left. Motion: the echo copies drift a little early and late around their spacing. Dry: the bright trace's height, down to a flat line at 0. Attack: the slope of the flattening at each peak's start: a sharp corner at fast attack, a rounded lead-in at slow. Order (Shift): the threshold line extends under the fine trace too. | Outside the effect column for P13: its case is that Clew's rule (the playing holds the tails down) is itself a capture; but a scope trace is P3's ground, and two traces may read as a meter. |
 
-Chosen: pending the owner's pick (uniqueness check passed: every pair differs in pattern and language, word overlap ≤ 0.12).
+Chosen in pass 01: v4, on my recommendation (the owner had no preference). Passes 02–05 then moved away from it at
+the owner's direction: pass 02 drew five schematic rest frames, pass 03 five new subjects (the owner asked for five
+more), pass 04 developed pass 03's v3 (a scope staircase) into a wave compressed by a line angling down, and pass 05
+made that a single rippling wave under a stepped compressor line. **The owner picked pass 05 v2** (full width: one
+step per encoder column) after seeing it animated. Records: `passes/*/pass.json`.
+
+The subject that ships: **one wave, held under a stepped line.** The wave is the send's sound from left to right: its
+first swell is the playing (Dry), each later swell a repeat (Echo). Above it, a compressor line steps down one step
+per encoder column, and each step presses the swell under it. The room ripples on the far end of each step.
+Drawing language: oscilloscope trace with a ruled ceiling, front elevation, no labels.
 
 ## 4 · Map and budget
 
+**An effect page can't follow the playing.** Its display input holds the eight controls (`slots`), Shift and its
+choices, the elapsed time and the track; no notes, no levels, no tempo (open-xy `docs/display.md`, Effect pages, at
+b223b2c). So the drawing is Clew's response worked out from its settings, the way a compressor's transfer curve is
+drawn, and nothing in it moves unless a control does. The swells don't rise with notes and the tails don't duck on
+the device. Pass 05's animation showed both; that part was a picture of the sound, not something the SDK can drive.
+
 | # | score | channel | part (node) | travel 0 → 100 | what the player sees |
 | --- | --- | --- | --- | --- | --- |
-| 1 | | | | | |
+| 1 Squeeze | 4 | position | 4 treads × 10 cells, 3 risers | each step from 64 px above the centre line to 24, the later steps 0.82× lower each; the swells bend under them | the ceiling comes down on the wave and flattens it |
+| 2 Echo | 5 | shape (path) | paths 1–3 | repeat swells from flat (off) to 36 × level; feedback 0.15–0.75 keeps the later ones taller | the wave carries on past the first swell, further as Echo rises |
+| 3 Space | 4 | count + shape | ripple cells | ripple reach 2 → 8 cells at each step's far end, arch height 1 → 3 | the steps' ends ripple, longer and taller |
+| 4 Blend | 3 | position + shape | tail cells, paths 1–3 | the rippling tail leans down to 42 px towards the wave; the repeats swell in over 5 → 35 px instead of starting at once | the tails dip towards the wave: how far the playing pushes them down |
+| 5 Tone | 3 | shape | paths 2–3, ripple cells | later repeats from 4 broad cycles (dark) to 6 fine ones (bright); dark halves the ripple reach and uses every other cell, bright adds a notch of height | darker: fewer, rounder swells and short tails; brighter: finer swells, sharper ripple |
+| 6 Motion | 2 | position | treads 1–3 | steps stagger up and down by 0 → 7 px | the ceiling goes from even to uneven |
+| 7 Dry | 4 | shape (path) | path 0 | first swell from a flat line to 40 px | the playing's own swell, gone at 0 |
+| 8 Attack | 2 | count + shape | tread 0 cells, path 0 | the first step starts 3 → 43 px late, and the swell's start under the gap is 1.6× taller | slower attack lets the first peaks out under the step |
+| S Order | 2 | position + shape | tail cells, paths 1–3 | FX first: tails stop leaning, ripple drops to its lowest arch, repeats levelled to a 10 px band | the whole wave held flat, not just the playing |
+
+Two channels share a part on purpose: Squeeze sets each step's height and Blend only the tail beyond it; Echo sets the
+repeat swells' size, Tone their cycle count and Blend their rise. No control is on/off only: Echo's 0 is the end of
+a continuous fall, and Order (a two-way switch) changes three things at once.
 
 ```json
-"display": {"stateBytes": 0, "stateAlignment": 4,
-            "paths": 0, "points": 0, "nodes": 0, "texts": 0, "palette": 0}
+"display": {"stateBytes": 64, "stateAlignment": 4,
+            "paths": 4, "points": 64, "nodes": 202, "texts": 16, "palette": 4}
 ```
+
+Nodes: 4 paths (wave, one per column), 8 header bars, 160 tread cells (4 treads × 10 cells × 4 variants, one shown),
+30 riser segments. State: `PageHeader` 20 bytes, eight eased controls and Order as `i32` 36, track and an
+initialised flag 8.
+
+There's no playing case, so the budget is the cost of turning a knob (`python3 gen_clew.py budget`):
 
 | case | changed nodes / frame |
 | --- | --- |
-| at rest | 0 |
-| playing, defaults | |
-| playing, heaviest setting (name it) | avg … · peak … |
+| at rest | 0 (nothing in the input changes) |
+| playing, defaults | 0: the page doesn't see the playing |
+| turning, slow (1 % a frame) | Squeeze avg 12.3 · peak 39; Blend avg 6.9; the rest ≤ 2.5 |
+| turning, fast (5 % a frame), heaviest: Squeeze | avg 40.5 · peak 46, only while the knob moves |
+| Order switched | 32, once, eased over 0.15 s |
+| page press | 0 in the body (the header is the SDK's) |
+
+Squeeze is over the ~20 average while it's turned fast, because every step and its ripple moves at once. The target
+is for sustained playing; here it lasts only as long as a hand is on the knob and is 0 the rest of the time, so I'm
+keeping it and stating the peak. Treads snap to whole pixels, which halved the slow-turn cost (from 22.8).
