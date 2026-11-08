@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""Clew's built screen (pass 05 v2) over the audio demo, drawn by gen_clew.py, the generator behind the stills.
+"""Clew's screen (pass 05 v2, the wave as the audio) over the audio demo, drawn by gen_clew.py, the generator behind
+the stills.
 
-It shows what the device page will do, which is less than pass 05's animation (anim_v2.py) showed: an effect page
-sees its controls, Shift and the time, never the playing. So the picture changes only when a control does, easing
-over 0.15 s as motion.md says, and holds still while the notes play.
+The wave is Clew's output scrolling from right to left, the step line above it is the compressor pushed down by what
+comes in, and the ripple on each step's tail is the room. All of it comes from the send's input and output peaks,
+which sim/scope.cpp writes while it runs toro and Clew's engine code on a computer. The device page doesn't receive
+those levels yet (it needs an SDK change, see review.md); this is what it draws once it does.
 
-The score is the audio demo's: toro plays a phrase at 120 BPM through Clew and a control changes every 8 s. Page 2
-controls (Motion, Tone) show the second header page; the Order change shows Shift held for 1.5 s.
+The score: toro plays a phrase at 120 BPM through Clew and a control changes every 8 s. Page 2 controls (Motion,
+Tone) show the second header page; the Order change shows Shift held for 1.5 s.
 
 The soundtrack is a SIMULATION: Clew's and toro's engine code run on a computer, not a recording of an OP-XY.
 
-    python3 anim_device.py <clew-demo.wav> <out.mp4>
+    python3 anim_device.py <out.mp4>
 """
 import hashlib
 import os
@@ -39,7 +41,7 @@ DUR = len(SECTIONS) * SEC
 FONT = '/usr/share/fonts/opentype/inter/Inter-Regular.otf'
 
 
-def score():
+def score(peaks):
     """per frame: the eased controls, the header page, Shift and the section title, stepped like the device"""
     out, shown = [], list(SECTIONS[0][1])
     for i in range(int(DUR * FPS)):
@@ -51,7 +53,11 @@ def score():
         shown = [b if abs(a - b) < 1e-3 else a for a, b in zip(shown, target)]    # settled: stop exactly
         shift = k == 6 and t - k * SEC < 1.5
         page = 1 if k == 5 else 0
-        out.append((tuple(round(v, 4) for v in shown), page, shift, title))
+        head = int(t * gen_clew.SR / gen_clew.WINDOW)
+        lo = head - gen_clew.WINDOWS + 1
+        pad = [0.0] * max(0, -lo)
+        scope = (pad + peaks[0][max(0, lo):head + 1], pad + peaks[1][max(0, lo):head + 1])
+        out.append((tuple(round(v, 4) for v in shown), page, shift, title, scope, head, i))
     return out
 
 
@@ -64,24 +70,28 @@ def render(job):
 
 
 def main():
-    wav, out = sys.argv[1], sys.argv[2]
+    out = sys.argv[1]
     folder = Path(tempfile.mkdtemp(dir=Path(out).resolve().parent))
-    frames = score()
-    svgs = [gen_clew.frame_svg(list(c), page=p, shift=s) for c, p, s, _ in frames]
+    gen_clew.build_sim()
+    wav, peaks_txt = str(folder / 'demo.wav'), str(folder / 'peaks.txt')
+    subprocess.run([str(gen_clew.SIM_BIN), 'demo', wav, peaks_txt], check=True)
+    frames = score(gen_clew.read_peaks(peaks_txt))
+    svgs = [gen_clew.frame_svg(list(c), page=p, shift=s, scope=sc, head=h, tick=i) for c, p, s, _, sc, h, i in frames]
     unique = {}
     for svg in svgs:
         unique.setdefault(hashlib.sha1(svg.encode()).hexdigest(), svg)
     with Pool() as pool:
         pool.map(render, [(svg, str(folder / f'{h}.png')) for h, svg in unique.items()], chunksize=4)
     big, small = ImageFont.truetype(FONT, 22), ImageFont.truetype(FONT, 15)
-    for i, ((_, _, _, title), svg) in enumerate(zip(frames, svgs)):
+    for i, (fr, svg) in enumerate(zip(frames, svgs)):
+        title = fr[3]
         h = hashlib.sha1(svg.encode()).hexdigest()
         im = Image.new('RGB', (960, 440 + 56), (10, 10, 10))
         im.paste(Image.open(folder / f'{h}.png').convert('RGB'), (0, 0))
         d = ImageDraw.Draw(im)
         d.text((16, 452), title, fill='#CDCDCD', font=big)
         d.text((944, 450), 'audio: simulated (engine code on a computer, not an OP-XY)', fill='#646464', font=small, anchor='ra')
-        d.text((944, 470), 'the page sees the controls, not the playing', fill='#646464', font=small, anchor='ra')
+        d.text((944, 470), 'levels: needs an SDK change to reach the page', fill='#646464', font=small, anchor='ra')
         im.save(folder / f'f{i:05d}.png')
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', str(folder / 'f%05d.png'), '-i', wav,
                     '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k',

@@ -1,30 +1,33 @@
 # Clew · motion
 
-The page only sees its controls, Shift and the elapsed time (no notes or levels; see the brief, phase 4), so every
-motion here starts from a hand on a control. Nothing moves at rest. That also means the note triggers in the
-protocol (note on, held, hold ended) have nothing to drive them, and the table says so rather than leaving them out.
+The wave is the send's audio, so most of the motion here comes from the playing. That needs the send's levels on
+the page, which open-xy doesn't provide yet (`handoff.md`, The SDK change); every row marked *levels* waits for it.
 
-Vocabulary from `opxy/patterns.md`: **ease** (exponential, settles in 0.15 s), **snap** (jump to the end state).
+Vocabulary from `opxy/patterns.md`: **scroll** (moves with time at a fixed rate), **ease** (exponential, settles in
+0.15 s), **snap** (jump to the end state).
 
 | trigger | what moves | from → to | how | reduced motion / track change |
 | --- | --- | --- | --- | --- |
-| turn Squeeze | all four steps and their risers; the swells under them | each step's height to `64 − 40·squeeze` px above the centre line (×0.82 per later step); swells re-bent under them | ease 0.15 s, steps in whole pixels | snap |
-| turn Echo | repeat swells (paths 1–3) | their size to `36 × level`, level from Echo (0 → flat) | ease 0.15 s; the path key changes only when the points do | snap |
-| turn Space | ripple at each step's far end | reach 2 → 8 cells, arch height 1 → 3 | ease the reach and height; cells swap variant as they cross a whole step | snap |
-| turn Blend | tail cells; repeat swells' rise | tails lean 0 → 42 px towards the wave; swells rise over 5 → 35 px | ease 0.15 s | snap |
-| turn Tone | later repeats' cycles; ripple grain | 4 → 5 → 6 cycles in paths 2–3; dark halves the ripple reach and skips every other cell; bright raises each arch a notch | cycle count changes at −33 and +33 (whole cycles keep the wave continuous); reach eases | snap |
-| turn Motion | steps 1–3 | stagger 0 → 7 px, alternate steps up and down | ease 0.15 s | snap |
-| turn Dry | the first swell (path 0) | 0 → 40 px | ease 0.15 s | snap |
-| turn Attack | the first step's start; the first swell under it | the step begins 3 → 43 px late; the swell there 1.6× taller | ease 0.15 s | snap |
-| Order (Shift) | tails, ripple, repeat swells | Comp first → FX first: tails stop leaning, ripple drops to its lowest arch, repeats level to a 10 px band; and back | ease 0.15 s, once per change | snap |
-| page press | header only | the SDK's two-page header swaps rows | `page_header()`, settles in 0.15 s | snap (the helper does it) |
-| hold Shift | header's edited row | shows `order` and its choice while `shift` is 1 | no ease; it's text | same |
-| note on / held / hold ended | nothing | the effect page gets no note activity | — | — |
+| sound comes in (*levels*) | the wave (paths 0–3) | the newest 31.9 ms enters at the right edge; everything shifts left one window (7.8 px) | scroll, 31.3 windows a second; its drawn cycles travel with it | the wave still shows the levels but doesn't scroll: it redraws once a second |
+| loud input (*levels*) | the steps over it | down by 1.2 px per dB of gain reduction, until it rests on the wave; back up as that part scrolls out | 4 px steps, so a step moves only when the change is worth seeing | same, once a second |
+| the room ringing (*levels*) | ripple on each step's tail | arches appear while Space and the output there are high enough, and walk one cell every six frames, each step a little out of phase | walk, 5 cells a second | still arches, no walk |
+| playing with Blend up (*levels*) | the tail cells | lean down by up to 28 px with how hard that part was played | follows the scroll | same, once a second |
+| sound stops | everything | the wave scrolls out to a flat line; the steps rise back to the ceiling; the ripple stops when the room is gone | as above, then nothing | snap |
+| turn Squeeze | the steps' ceiling | 64 → 24 px above the centre line | ease 0.15 s | snap |
+| turn Space, Tone | the ripple's reach and grain | reach 2 → 8 cells; dark skips every other cell, bright adds a notch | ease the reach | snap |
+| turn Motion | steps 1–3 | stagger 0 → 7 px | ease 0.15 s | snap |
+| turn Attack | each step's first cells | the step starts 3 → 43 px late | ease 0.15 s | snap |
+| turn Echo, Blend, Dry | nothing directly | they change the sound, and the wave shows it as it scrolls in | — | — |
+| Order (Shift) | the tails | FX first: no lean, lowest ripple | ease 0.15 s | snap |
+| page press | header only | the SDK's two-page header swaps rows | `page_header()` | the helper snaps |
+| hold Shift | the header's edited row | `order` and `comp` / `fx` | text, no ease | same |
 
 Gate:
 
-- Nothing moves at rest: yes. With every control still, every target is unchanged and every ease has settled, so
-  0 nodes change (`gen_clew.py budget`). The elapsed time is only used to run the eases; there's no idle motion.
-- Every ease settles in 0.15–0.2 s: yes, 0.15 s (the header helper's curve, halving every 21 ms).
-- Held-note motion lasts as long as notes are held: n/a, no note input on effect pages.
-- Reduced motion and track change jump to the end state: yes, every row snaps.
+- Nothing moves at rest: yes. In silence the levels are 0 and every ease has settled, so nothing changes. The wave
+  scrolls only while sound is on screen and stops about 1.9 s after the last of it, which is the note-response rule
+  (motion lasts as long as the sound does).
+- Every ease settles in 0.15–0.2 s: yes, 0.15 s.
+- Held-note motion lasts as long as the sound: yes, the scroll and the ripple follow the audio, not a timer.
+- Reduced motion and track change: the controls snap; the wave keeps showing the levels but redraws once a second
+  instead of scrolling, and the ripple doesn't walk.
