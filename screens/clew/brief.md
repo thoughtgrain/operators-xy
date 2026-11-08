@@ -128,15 +128,19 @@ change lands, `sim/scope.cpp` stands in for it by running toro and Clew's engine
 
 | # | score | channel | part (node) | travel 0 → 100 | what the player sees |
 | --- | --- | --- | --- | --- | --- |
-| 1 Squeeze | 4 | position | 4 steps × 10 cells, 3 risers | the line from 64 px above the centre to 24, each later step 0.77× lower (50, 38, 29, 22 px at the default, as the design); the first dips up to 10·sq² px more with the gain reduction | the line comes down and presses the wave flatter |
+| 1 Squeeze | 4 | position + shape | 4 steps × 10 cells, 3 risers; paths | the line from 64 px above the centre to 24, each later step 0.77× lower (50, 38, 29, 22 px at the default, as the design); the first dips up to 10·sq² px more with the gain reduction. The wave bends under each step and never crosses it, and below the default height the wave sinks by 0.55 px per px the step is lower | the line comes down and pushes the wave down and flat |
 | 2 Echo | 5 | shape (path) | paths 1–3 | the repeats' swells: at rest the design's 48, 36 and 26 px scaled by Echo's level and feedback; while playing, the input a delay time ago adds to them | each note comes back on the next steps |
 | 3 Space | 4 | count + shape | tail cells | ripple over 20 → 90 % of each step (half at the default, as the design), growing towards the riser, 3 + k px on step k at the default, taller with the room, travelling a third of a cycle at a time | the steps' ends ripple, longer and taller |
 | 4 Blend | 3 | position | steps 1–3 | the later steps dip up to 16 px with the ducking | the tails' steps press down while you play and come back in the gaps |
 | 5 Tone | 3 | shape | paths 1–3, tail cells | darker: the repeats fade sooner and the ripple is shorter and lower; brighter: longer and taller | darker tails die quicker |
 | 6 Motion | 2 | position | steps 1–3 | sway ±3 px, alternate steps opposite, while it sounds | the line rocks gently |
 | 7 Dry | 4 | shape (path) | path 0 | the playing's swell on the first step: 62 px at rest, as the design, plus the playing | at 0 the first step has no swell, only repeats follow |
-| 8 Attack | 2 | count + shape | step 0's first cells, path 0 | the swell's start gets past the first step over 3 → 83 px (`3 + 80a²`), overshooting up to 1.8×; past 5 ms the step itself starts late | slow attack lets the note's start out under the line |
+| 8 Attack | 2 | shape (path) | paths | the knee: how much of the wave passes unbent before it flattens under a step, 40 → 85 % of the room under it | fast: the wave rounds off early; slow: it runs up to the line before flattening |
 | S Order | 2 | position + shape | steps 1–3, tail cells | FX first: the later steps dip with the gain reduction too, and the ripple lies flat | the whole line presses, not just the first step |
+
+Nothing in the wave ever rises past the line over it: each step is a ceiling, 2 px clear of the step and its ripple,
+and the wave is squeezed under it, both halves, so its shape warps rather than being cut. Checked over every frame
+of the demo and the extreme settings: the wave never comes closer than 2.0 px.
 
 At rest the screen is the chosen design (pass 05 v2, `passes/05-revision/v2/rest.svg`) for the current controls: its
 step heights, its swells (62, 48, 36, 26 px), its half-step ripple. The playing adds to that.

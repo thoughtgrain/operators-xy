@@ -54,13 +54,14 @@ NAMES = ['squeeze', 'echo', 'space', 'blend', 'tone', 'motion', 'dry', 'attack']
 DIVS = [1, 1.5, 2, 3, 4, 6, 8, 16]
 
 
-def soft(v, limit):
-    """the compressor's knee on the drawing: a value's size bends towards `limit`"""
+def soft(v, limit, knee=0.6):
+    """the compressor's knee on the drawing: a value passes up to knee x limit, then bends towards `limit` and never
+    reaches it"""
     a = abs(v)
-    if a <= limit * 0.6:
+    if a <= limit * knee:
         return v
-    over = a - limit * 0.6
-    return math.copysign(limit * 0.6 + over / (1 + over / (limit * 0.4)), v)
+    over = a - limit * knee
+    return math.copysign(limit * knee + over / (1 + over / (limit * (1 - knee))), v)
 
 
 WINDOW = 22 * 64                            # one level window: 1408 samples, 31.9 ms
@@ -120,7 +121,7 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
     # reduction); Motion sways them while it sounds
     base = 64 - 40 * sq
     sw = motion * 3 * math.sin(sway)
-    tread_y, limits = [], []
+    tread_y, limits, dips = [], [], []
     for k in range(4):
         lim = base * 0.77 ** k
         if k == 0 or fx_first:
@@ -129,13 +130,13 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
             lim -= lv['duck'] * 16
         lim = max(4.0, lim)
         limits.append(lim)
+        dips.append(max(0.0, 50 * 0.77 ** k - lim))                # how far below the design's default the step is
         y = C_Y - lim + ((sw if k % 2 else -sw) if k > 0 else 0)
         tread_y.append(float(round(y)))
 
     # the tails: the far part of each step ripples (half of it at the default Space), growing towards the riser,
     # taller on the later steps (3 to 6 px at the defaults) and taller still while the room rings; it travels with
     # the phase. Tone: darker shorter and lower (the room damps sooner), brighter taller.
-    att_px = 3 + 80 * attack ** 2                                 # how much of the first swell's start gets out
     reach = min(CELLS - 1, int(round(CELLS * (0.2 + 0.85 * space) * (1 - 0.4 * max(0.0, -tone))))) if space > 0.01 else 0
     turn = int(math.floor(1.3 * phase / (2 * math.pi / PHASES))) % PHASES
     cells = []                                                      # (tread, cell, variant, x, y)
@@ -151,8 +152,6 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
                 a = amp * (1 + 0.5 * tone) * (j - first + 1) / reach
                 h = 0 if a < 0.75 else (1 if a < 2.5 else (2 if a < 4.75 else 3))
                 v = h + 3 * turn if h else 0
-            if k == 0 and j * CELL_W + CELL_W < att_px - 20:          # past 5 ms the step starts late
-                v = -1                                              # Attack: the first step starts late
             cells.append((k, j, v, round(x * 2) / 2, tread_y[k]))
 
     risers = []
@@ -166,7 +165,35 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
     # the swells stand at the design's sizes; the playing adds to them.
     amps = [a + 32 * v for a, v in zip(standing(c), lv['swells'])]
 
+    # the compressor warps the wave and pushes it down: each step is a ceiling the wave bends under and never
+    # crosses (2 px clear of the step and its ripple), and where a step is lower than the design's default (more
+    # Squeeze, the gain reduction, the ducking), the wave's centre sinks with it, so it's pushed down as well as
+    # squeezed: its lower half has the room the push gave it.
+    # Attack sets the knee: a fast one bends the wave early, a slow one lets more through before it flattens.
+    knee = 0.4 + 0.45 * attack ** 2
+    drop = {}                                                       # the ripple's reach below each tail cell
+    for (k, j, v, x, y) in cells:
+        drop[(k, j)] = WIGGLE[(v - 1) % 3 + 1] if v > 0 else 0.0
+    push = [0.55 * d for d in dips]                                 # the wave sinks with the step: about half its drop
+
+    def centre(x):
+        y = C_Y + push[0]
+        for k in range(1, 4):                                       # ease from one step's push to the next's
+            t = min(1.0, max(0.0, (x - (COL_X[k] - 12)) / 24))
+            y += (push[k] - push[k - 1]) * t * t * (3 - 2 * t)
+        return y
+
+    def ceiling(x):
+        """the lowest underside of the line within 3 px of x"""
+        low = 0.0
+        for k in range(4):
+            if COL_X[k] - 3 <= x < COL_X[k + 1] + 3:
+                j = max(0, min(CELLS - 1, int((x - COL_X[k]) / CELL_W)))
+                low = max(low, tread_y[k] + drop[(k, j)])
+        return low + 2
+
     def value(x, k):
+        """the wave's height above C_Y at x"""
         env = 1.2
         for j in range(4):
             d0 = x - COL_X[j]
@@ -175,12 +202,10 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
                 fade = 0.022 if j == 0 else 0.022 * (1 - 0.5 * tone)   # Tone: darker repeats die sooner
                 env = max(env, amps[j] * (1 - math.exp(-d0 / 4)) * math.exp(-d0 * fade))
         v = env * math.sin(2 * math.pi * (x - COL_X[0]) / PERIOD - phase)
-        if k == 0 and x - COL_X[0] < att_px:
-            v *= 1 + 0.8 * attack ** 2                              # the transient the compressor didn't catch
-            v = max(-limits[0] - 20 * attack ** 2, min(limits[0] + 20 * attack ** 2, v))
-        else:
-            v = soft(v, max(1.5, limits[k] - 2))
-        return max(-62.0, min(62.0, v))                             # the outline stays within 64 px of its origin
+        c = centre(x)
+        up, down = max(1.0, c - ceiling(x)), max(1.0, 203 - c)       # under the line, above the floor
+        v = soft(v, up, knee) if v > 0 else soft(v, min(down, up + 2 * (c - C_Y) + 4), knee)
+        return max(-62.0, min(62.0, (C_Y - c) + v))                 # within 64 px of its origin
 
     # 32 points a column can't sample an 11 px cycle evenly, so the points go where the shape is: every crest and
     # trough (about 21 a column), the column's two ends, and the rest rounding the tallest crests either side

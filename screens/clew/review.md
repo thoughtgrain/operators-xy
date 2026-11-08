@@ -47,8 +47,8 @@ riser, the same 11 px wave. The differences:
       `#4B4B4B` 2.4:1, is ground.
 - [x] No part under ~3 px; no repeated lines closer than ~3 px: the wave's cycle is 11 px; the ripple's 11.7 px.
 - [x] No state by shade alone.
-- [x] Each control visibly different at 0 / 50 / 100 while playing, and `perceptibility.py` passes: squeeze 9.94 %,
-      echo 4.86, space 6.35, blend 4.84, tone 5.56, motion 1.89, dry 6.80, attack 3.94; note response 11.13.
+- [x] Each control visibly different at 0 / 50 / 100 while playing, and `perceptibility.py` passes: squeeze 15.99 %,
+      echo 5.74, space 6.25, blend 9.62, tone 6.61, motion 2.12, dry 6.68, attack 2.93; note response 11.38.
 - [ ] Visual travel matches the audible score: Squeeze (4), Dry (4) and Space (4) show more than Echo (5). Every
       control clears its floor, so I kept the design's proportions.
 - [x] Nothing moves at rest; nothing flashes more than 3×/s: the ripple moves about five times a second, a travelling ripple rather than a flash.

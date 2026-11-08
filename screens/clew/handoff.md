@@ -81,7 +81,7 @@ whole pixels.
 `a = amp_k·(1 + 0.5t)·(j − first + 1)/reach`; height 0 below 0.75, 1 below 2.5, 2 below 4.75, else 3. Variant is
 `h + 3p` with `p = ⌊1.3·phase / (2π/3)⌋ mod 3`, so the ripple travels a third of a cycle at a time. Other cells are v0.
 
-**Attack.** `att = 3 + 80·a²` px. Hide step 0's cells that end before `att − 20` px from x 6.
+**Attack.** Sets the knee of the squeeze: `knee = 0.4 + 0.45·a²`. Every cell stays on its step.
 
 **Risers.** From step k to step k+1 at the column edge, 4 px segments from the top, up to 10, the last pulled up to
 end on the lower step; none when the gap is under 3 px.
@@ -96,12 +96,16 @@ trough of the 11 px cycle inside it, then points ⅙ of a half-cycle either side
 env = max(1.2, max over j of amp_j · (1 − exp(−dj/4)) · exp(−dj·f_j)),   amp_j = standing_j + 32·swell_j,  dj = x − (6 + 117j) ≥ −2 (clamped at 0)
       f_0 = 0.022,  f_j = 0.022·(1 − 0.5t) for the repeats
 v   = env · sin(2π·(x − 6)/11 − phase)
-step 0 within att px of x 6:       v ·= 1 + 0.8a², held within ±(limit_0 + 20a²)
-otherwise:                         v = soft(v, max(1.5, limit_k − 2))
-v   = clamp(v, −62, 62);   point (x, 150 − v), then the same 1 px lower in reverse: a closed 64-point ribbon
+push_k  = 0.55 · max(0, 50·0.77^k − limit_k)        the wave sinks as a step comes below the design's default
+centre  = 150 + push, eased from one column's push to the next over 24 px around each riser (smoothstep)
+ceiling = the lowest underside within 3 px of x: the step's y plus its ripple's height there, plus 2 px
+up      = max(1, centre − ceiling);   down = max(1, min(203 − centre, up + 2·(centre − 150) + 4))
+v       = v > 0 ? soft(v, up, knee) : soft(v, down, knee)
+y       = centre − v, held within 62 px of 150; then the same points 1 px lower in reverse: a closed 64-point ribbon
 ```
 
-`soft(v, L)` passes `|v| ≤ 0.6L` and bends the rest: `0.6L + over/(1 + over/(0.4L))`, sign kept. Place each path at
+`soft(v, L, knee)` passes `|v| ≤ knee·L` and bends the rest towards L without reaching it:
+`knee·L + over/(1 + over/((1 − knee)·L))`, sign kept. So the wave never touches its ceiling. Place each path at
 its column's centre (`6 + 117k + 58.5`, 150) with points relative to it.
 
 ## Palette
