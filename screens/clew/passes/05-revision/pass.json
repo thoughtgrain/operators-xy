@@ -3,7 +3,7 @@
   "category": "effect",
   "kind": "revision",
   "number": 5,
-  "state": "needs_revision",
+  "state": "ready_for_pick",
   "created": "2026-11-07T22:04:41",
   "focus": "Develop pass 04 v1 (stepped ceiling) as the owner asked: a single continuous rippling wave (the playing and its echoes as swells along one wave, not separate bursts), under a compressor line that steps down, one step per encoder column, pressing the wave; the room ripples on the line. Five unique variations. Grey, two-page header y 0-38.",
   "subject": {
@@ -91,22 +91,22 @@
     "pairs": [
       {
         "pair": "v1–v2",
-        "bodyDiffPct": 15.01,
+        "bodyDiffPct": 14.1,
         "ok": true
       },
       {
         "pair": "v1–v3",
-        "bodyDiffPct": 14.24,
+        "bodyDiffPct": 13.33,
         "ok": true
       },
       {
         "pair": "v1–v4",
-        "bodyDiffPct": 15.01,
+        "bodyDiffPct": 14.03,
         "ok": true
       },
       {
         "pair": "v1–v5",
-        "bodyDiffPct": 12.47,
+        "bodyDiffPct": 11.5,
         "ok": true
       },
       {
@@ -140,10 +140,8 @@
         "ok": true
       }
     ],
-    "problems": [
-      "v1: 1 lint error(s); first: screens/clew/passes/05-revision/v1/rest.svg <path #clew_node_27>: turn at (126.53, 125.95) is 1.16° from straight back; give the tip a small flat end"
-    ],
-    "checked": "2026-11-07T22:06:09"
+    "problems": [],
+    "checked": "2026-11-07T22:06:27"
   },
   "selection": null
 }

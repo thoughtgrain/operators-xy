@@ -86,8 +86,8 @@ def v1_diagonal():
     # the wave threads under the stairs, its centre falling with them and each tread pressing its swell
     centre = lambda x: 96 + (x - 24) * 0.21
     lim = lambda x: next((centre(x) - y - 6 for (a, b, y) in treads if a <= x < b), 6)
-    env = lambda x: envelope(x, 26, 100, [40, 32, 25, 18], fall=0.016)
-    F.line(wave(26, 424, centre, env, lim, period=13.0, step=0.4), LINE, G[5])
+    env = lambda x: envelope(x, 26, 100, [32, 26, 20, 15], fall=0.016)
+    F.line(wave(26, 424, centre, env, lim, period=16.0, step=0.4), LINE, G[5])
     return F
 
 
