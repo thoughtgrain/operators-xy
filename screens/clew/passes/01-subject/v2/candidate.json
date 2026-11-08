@@ -1,0 +1,19 @@
+{
+  "variant": "v2",
+  "pattern": "P10",
+  "drawing_language": "hidden-line isometric",
+  "subject": "An isometric floor of slabs as the room: a note lands as a raised block at the front, its echoes are rows of lower blocks marching back across the floor at the delay spacing, and the reverb is a fine low relief that spreads from them.",
+  "controls": [
+    "Squeeze: every block's height is clipped to a plateau that comes down as it rises, so tall and short notes even out.",
+    "Echo: the rows' spacing is the note length and their count the repeats; 0 leaves the floor flat behind the note.",
+    "Space: how far the relief spreads across the floor and how slowly it flattens.",
+    "Blend: while playing, the echo rows and relief sink into the floor; in the gaps they rise again.",
+    "Tone: the relief's fine detail: rough, many small bumps to the right, smooth broad swells to the left.",
+    "Motion: the echo rows bend sideways in a slow S across the floor.",
+    "Dry: the note's own front block, from full height to flush with the floor.",
+    "Attack: the plateau's edge: a soft ramp into the clip at slow attack, a hard step at fast.",
+    "Order (Shift): with FX first the plateau also caps the echo rows and relief, not only the note's block."
+  ],
+  "reference": "library/toro-blocks (P10, the house reference)",
+  "risks": "Close to toro's look, so the two machines may read as one; field-wide sinking on every note is costly in redraw."
+}

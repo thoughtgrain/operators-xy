@@ -1,0 +1,19 @@
+{
+  "variant": "v1",
+  "pattern": "P4",
+  "drawing_language": "patent section",
+  "subject": "A stack of glass echo plates in section, receding into the screen: the front plate is the playing, held in a clamp, and each plate behind is one repeat, set back by the delay time, with the room as a hatched back wall the stack fades into.",
+  "controls": [
+    "Squeeze: the clamp's jaws close on the front plate and press its height down, from loose to tight.",
+    "Echo: the plates' spacing is the note length (1/32 close, 1/2 far apart) and more plates stand as the repeats grow; at 0 only the front plate.",
+    "Space: the back wall recedes and gains hatching lines, from none to a deep, dense wall.",
+    "Blend: while playing, the plates behind the front one sink down out of the light; in the gaps they rise back.",
+    "Tone: the plates taper with depth: steeply (dark, top cut away) to the left, squarer to the right.",
+    "Motion: the plates sway left and right out of line with each other.",
+    "Dry: the front plate's height, down to a thin sliver at 0.",
+    "Attack: the clamp's lead-in bevel: long and gradual at slow attack, short and sharp at fast.",
+    "Order (Shift): the clamp moves from the front plate to around the whole stack."
+  ],
+  "reference": "library/theseus-tower (line drawing of a known object), P4 Stack in depth (MNMD DPRO-WAVE)",
+  "risks": "Plates in a stack can read as a wavetable display rather than echoes; a clamp is close to an icon if drawn loosely."
+}

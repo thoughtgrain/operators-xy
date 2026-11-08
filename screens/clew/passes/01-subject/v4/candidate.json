@@ -1,0 +1,19 @@
+{
+  "variant": "v4",
+  "pattern": "P1",
+  "drawing_language": "engineering schematic",
+  "subject": "A cutaway schematic of one box: a gain valve the playing passes through, a tape loop with a moving playback head for the echoes, and a coil spring tank for the room, linked by a single lever from the level follower that dips the tape and spring outputs while playing.",
+  "controls": [
+    "Squeeze: the valve's gate closes across the signal path, from fully open to a narrow slot.",
+    "Echo: the playback head slides along the tape away from the record head; the distance is the note length, and more loops of tape show as repeats grow; at 0 the head lifts off.",
+    "Space: the spring stretches and gains coils, from a short stub to a long tank.",
+    "Blend: the follower's lever tips further while playing, pressing the tape and spring outputs down; it lifts in the gaps.",
+    "Tone: a damper pad moves onto the spring and tape, from touching hard (dark) to clear and then a thin felt (bright).",
+    "Motion: the tape's guide roller swings, wavering the tape path.",
+    "Dry: a bypass link from input to output thickens from absent to full width.",
+    "Attack: the lever's spring: a stiff short spring at fast attack, a long soft one at slow.",
+    "Order (Shift): the valve slides from before the tape and spring to after them on the path."
+  ],
+  "reference": "library/theseus-tower (geometric line drawing of real apparatus), P1 Section drawing (MNMD MD KIT)",
+  "risks": "Many parts to fit in 480 x 220 at legible weights; three mechanisms may compete for the brightest element."
+}

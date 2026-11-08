@@ -1,0 +1,19 @@
+{
+  "variant": "v5",
+  "pattern": "P13",
+  "drawing_language": "oscilloscope trace",
+  "subject": "The rule drawn as a scope: the playing's level is a bright envelope trace across the screen and the tails are a second, finer trace held beneath it, captured under the playing while it's loud and rising into the space it leaves in the gaps.",
+  "controls": [
+    "Squeeze: a threshold line drops and the bright trace's peaks flatten against it.",
+    "Echo: decaying copies of each peak repeat to the right at the note length's spacing.",
+    "Space: the fine trace's tail stretches longer and smoother after each peak.",
+    "Blend: how far the bright trace pushes the fine one down where they overlap.",
+    "Tone: the fine trace's grain: jagged high detail to the right, smooth to the left.",
+    "Motion: the echo copies drift a little early and late around their spacing.",
+    "Dry: the bright trace's height, down to a flat line at 0.",
+    "Attack: the slope of the flattening at each peak's start: a sharp corner at fast attack, a rounded lead-in at slow.",
+    "Order (Shift): the threshold line extends under the fine trace too."
+  ],
+  "reference": "P3 Trace as subject, library/meikyu-capture (P13: draw the machine's own rule)",
+  "risks": "Outside the effect column for P13: its case is that Clew's rule (the playing holds the tails down) is itself a capture; but a scope trace is P3's ground, and two traces may read as a meter."
+}

@@ -1,0 +1,19 @@
+{
+  "variant": "v3",
+  "pattern": "P15",
+  "drawing_language": "star atlas",
+  "subject": "A star chart of the send: the playing is a bright star plotted on the left, each echo a fainter star repeated along a dotted ecliptic at the delay spacing, and the room a scatter of square cell-stars around them, labelled like an atlas plate.",
+  "controls": [
+    "Squeeze: the main star's magnitude marks pull in, so loud and soft notes plot the same size.",
+    "Echo: the copies' spacing along the ecliptic is the note length and their count the repeats.",
+    "Space: how many cell-stars fill the field and how far they spread.",
+    "Blend: while playing the copies and cells dim to faint; in the gaps they brighten back.",
+    "Tone: the cell-stars' grain: single fine points to the right, clumped runs to the left.",
+    "Motion: the ecliptic wavers, its dotted line bending.",
+    "Dry: the main star's size, down to a hollow ring at 0.",
+    "Attack: the main star's halo: tight at fast attack, a soft wide ring at slow.",
+    "Order (Shift): the atlas plate's label switches between COMP FIRST and FX FIRST, and the magnitude marks move to the whole field."
+  ],
+  "reference": "library/meikyu-orrery (an atlas-like plate), toro's first Taurus chart in labyrinth",
+  "risks": "Brightness-only changes (Blend, Space) lean on shade; an atlas with no sky subject is decoration."
+}

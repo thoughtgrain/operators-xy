@@ -1,0 +1,231 @@
+{
+  "machine": "clew",
+  "category": "effect",
+  "kind": "subject",
+  "number": 1,
+  "state": "ready_for_pick",
+  "created": "2026-11-07T16:06:28",
+  "focus": "Clew: one send effect = compressor + tempo-synced delay + small reverb. One level follower drives the compression and (Blend) ducks the echoes and room while playing so tails swell in the gaps. Controls: Squeeze, Echo (synced note lengths), Space, Blend; page 2 Tone, Motion, Dry, Attack; Shift: Order (Comp first / FX first).",
+  "subject": null,
+  "directions": [
+    {
+      "variant": "v1",
+      "pattern": "P4",
+      "patternName": "Stack in depth",
+      "drawingLanguage": "patent section",
+      "stretch": false,
+      "caution": null,
+      "brief": "Subject built on P4 Stack in depth; drawing language: patent section."
+    },
+    {
+      "variant": "v2",
+      "pattern": "P10",
+      "patternName": "Voice field",
+      "drawingLanguage": "hidden-line isometric",
+      "stretch": false,
+      "caution": null,
+      "brief": "Subject built on P10 Voice field; drawing language: hidden-line isometric."
+    },
+    {
+      "variant": "v3",
+      "pattern": "P15",
+      "patternName": "Cell field",
+      "drawingLanguage": "star atlas",
+      "stretch": false,
+      "caution": null,
+      "brief": "Subject built on P15 Cell field; drawing language: star atlas."
+    },
+    {
+      "variant": "v4",
+      "pattern": "P1",
+      "patternName": "Section drawing",
+      "drawingLanguage": "engineering schematic",
+      "stretch": false,
+      "caution": null,
+      "brief": "Subject built on P1 Section drawing; drawing language: engineering schematic."
+    },
+    {
+      "variant": "v5",
+      "pattern": "P13",
+      "patternName": "Capture",
+      "drawingLanguage": "oscilloscope trace",
+      "stretch": true,
+      "caution": null,
+      "brief": "Subject built on P13 Capture; drawing language: oscilloscope trace. This pattern is outside the category's column: say why this machine is the exception, or say plainly it doesn't fit."
+    }
+  ],
+  "variants": [
+    {
+      "variant": "v1",
+      "pattern": "P4",
+      "drawing_language": "patent section",
+      "subject": "A stack of glass echo plates in section, receding into the screen: the front plate is the playing, held in a clamp, and each plate behind is one repeat, set back by the delay time, with the room as a hatched back wall the stack fades into.",
+      "controls": [
+        "Squeeze: the clamp's jaws close on the front plate and press its height down, from loose to tight.",
+        "Echo: the plates' spacing is the note length (1/32 close, 1/2 far apart) and more plates stand as the repeats grow; at 0 only the front plate.",
+        "Space: the back wall recedes and gains hatching lines, from none to a deep, dense wall.",
+        "Blend: while playing, the plates behind the front one sink down out of the light; in the gaps they rise back.",
+        "Tone: the plates taper with depth: steeply (dark, top cut away) to the left, squarer to the right.",
+        "Motion: the plates sway left and right out of line with each other.",
+        "Dry: the front plate's height, down to a thin sliver at 0.",
+        "Attack: the clamp's lead-in bevel: long and gradual at slow attack, short and sharp at fast.",
+        "Order (Shift): the clamp moves from the front plate to around the whole stack."
+      ],
+      "reference": "library/theseus-tower (line drawing of a known object), P4 Stack in depth (MNMD DPRO-WAVE)",
+      "risks": "Plates in a stack can read as a wavetable display rather than echoes; a clamp is close to an icon if drawn loosely."
+    },
+    {
+      "variant": "v2",
+      "pattern": "P10",
+      "drawing_language": "hidden-line isometric",
+      "subject": "An isometric floor of slabs as the room: a note lands as a raised block at the front, its echoes are rows of lower blocks marching back across the floor at the delay spacing, and the reverb is a fine low relief that spreads from them.",
+      "controls": [
+        "Squeeze: every block's height is clipped to a plateau that comes down as it rises, so tall and short notes even out.",
+        "Echo: the rows' spacing is the note length and their count the repeats; 0 leaves the floor flat behind the note.",
+        "Space: how far the relief spreads across the floor and how slowly it flattens.",
+        "Blend: while playing, the echo rows and relief sink into the floor; in the gaps they rise again.",
+        "Tone: the relief's fine detail: rough, many small bumps to the right, smooth broad swells to the left.",
+        "Motion: the echo rows bend sideways in a slow S across the floor.",
+        "Dry: the note's own front block, from full height to flush with the floor.",
+        "Attack: the plateau's edge: a soft ramp into the clip at slow attack, a hard step at fast.",
+        "Order (Shift): with FX first the plateau also caps the echo rows and relief, not only the note's block."
+      ],
+      "reference": "library/toro-blocks (P10, the house reference)",
+      "risks": "Close to toro's look, so the two machines may read as one; field-wide sinking on every note is costly in redraw."
+    },
+    {
+      "variant": "v3",
+      "pattern": "P15",
+      "drawing_language": "star atlas",
+      "subject": "A star chart of the send: the playing is a bright star plotted on the left, each echo a fainter star repeated along a dotted ecliptic at the delay spacing, and the room a scatter of square cell-stars around them, labelled like an atlas plate.",
+      "controls": [
+        "Squeeze: the main star's magnitude marks pull in, so loud and soft notes plot the same size.",
+        "Echo: the copies' spacing along the ecliptic is the note length and their count the repeats.",
+        "Space: how many cell-stars fill the field and how far they spread.",
+        "Blend: while playing the copies and cells dim to faint; in the gaps they brighten back.",
+        "Tone: the cell-stars' grain: single fine points to the right, clumped runs to the left.",
+        "Motion: the ecliptic wavers, its dotted line bending.",
+        "Dry: the main star's size, down to a hollow ring at 0.",
+        "Attack: the main star's halo: tight at fast attack, a soft wide ring at slow.",
+        "Order (Shift): the atlas plate's label switches between COMP FIRST and FX FIRST, and the magnitude marks move to the whole field."
+      ],
+      "reference": "library/meikyu-orrery (an atlas-like plate), toro's first Taurus chart in labyrinth",
+      "risks": "Brightness-only changes (Blend, Space) lean on shade; an atlas with no sky subject is decoration."
+    },
+    {
+      "variant": "v4",
+      "pattern": "P1",
+      "drawing_language": "engineering schematic",
+      "subject": "A cutaway schematic of one box: a gain valve the playing passes through, a tape loop with a moving playback head for the echoes, and a coil spring tank for the room, linked by a single lever from the level follower that dips the tape and spring outputs while playing.",
+      "controls": [
+        "Squeeze: the valve's gate closes across the signal path, from fully open to a narrow slot.",
+        "Echo: the playback head slides along the tape away from the record head; the distance is the note length, and more loops of tape show as repeats grow; at 0 the head lifts off.",
+        "Space: the spring stretches and gains coils, from a short stub to a long tank.",
+        "Blend: the follower's lever tips further while playing, pressing the tape and spring outputs down; it lifts in the gaps.",
+        "Tone: a damper pad moves onto the spring and tape, from touching hard (dark) to clear and then a thin felt (bright).",
+        "Motion: the tape's guide roller swings, wavering the tape path.",
+        "Dry: a bypass link from input to output thickens from absent to full width.",
+        "Attack: the lever's spring: a stiff short spring at fast attack, a long soft one at slow.",
+        "Order (Shift): the valve slides from before the tape and spring to after them on the path."
+      ],
+      "reference": "library/theseus-tower (geometric line drawing of real apparatus), P1 Section drawing (MNMD MD KIT)",
+      "risks": "Many parts to fit in 480 x 220 at legible weights; three mechanisms may compete for the brightest element."
+    },
+    {
+      "variant": "v5",
+      "pattern": "P13",
+      "drawing_language": "oscilloscope trace",
+      "subject": "The rule drawn as a scope: the playing's level is a bright envelope trace across the screen and the tails are a second, finer trace held beneath it, captured under the playing while it's loud and rising into the space it leaves in the gaps.",
+      "controls": [
+        "Squeeze: a threshold line drops and the bright trace's peaks flatten against it.",
+        "Echo: decaying copies of each peak repeat to the right at the note length's spacing.",
+        "Space: the fine trace's tail stretches longer and smoother after each peak.",
+        "Blend: how far the bright trace pushes the fine one down where they overlap.",
+        "Tone: the fine trace's grain: jagged high detail to the right, smooth to the left.",
+        "Motion: the echo copies drift a little early and late around their spacing.",
+        "Dry: the bright trace's height, down to a flat line at 0.",
+        "Attack: the slope of the flattening at each peak's start: a sharp corner at fast attack, a rounded lead-in at slow.",
+        "Order (Shift): the threshold line extends under the fine trace too."
+      ],
+      "reference": "P3 Trace as subject, library/meikyu-capture (P13: draw the machine's own rule)",
+      "risks": "Outside the effect column for P13: its case is that Clew's rule (the playing holds the tails down) is itself a capture; but a scope trace is P3's ground, and two traces may read as a meter."
+    }
+  ],
+  "uniqueness": {
+    "pairs": [
+      {
+        "pair": "v1–v2",
+        "samePattern": false,
+        "sameLanguage": false,
+        "subjectOverlap": 0.1,
+        "ok": true
+      },
+      {
+        "pair": "v1–v3",
+        "samePattern": false,
+        "sameLanguage": false,
+        "subjectOverlap": 0.12,
+        "ok": true
+      },
+      {
+        "pair": "v1–v4",
+        "samePattern": false,
+        "sameLanguage": false,
+        "subjectOverlap": 0.04,
+        "ok": true
+      },
+      {
+        "pair": "v1–v5",
+        "samePattern": false,
+        "sameLanguage": false,
+        "subjectOverlap": 0.07,
+        "ok": true
+      },
+      {
+        "pair": "v2–v3",
+        "samePattern": false,
+        "sameLanguage": false,
+        "subjectOverlap": 0.07,
+        "ok": true
+      },
+      {
+        "pair": "v2–v4",
+        "samePattern": false,
+        "sameLanguage": false,
+        "subjectOverlap": 0.04,
+        "ok": true
+      },
+      {
+        "pair": "v2–v5",
+        "samePattern": false,
+        "sameLanguage": false,
+        "subjectOverlap": 0.02,
+        "ok": true
+      },
+      {
+        "pair": "v3–v4",
+        "samePattern": false,
+        "sameLanguage": false,
+        "subjectOverlap": 0.04,
+        "ok": true
+      },
+      {
+        "pair": "v3–v5",
+        "samePattern": false,
+        "sameLanguage": false,
+        "subjectOverlap": 0.04,
+        "ok": true
+      },
+      {
+        "pair": "v4–v5",
+        "samePattern": false,
+        "sameLanguage": false,
+        "subjectOverlap": 0.07,
+        "ok": true
+      }
+    ],
+    "problems": [],
+    "checked": "2026-11-07T16:07:35"
+  },
+  "selection": null
+}
