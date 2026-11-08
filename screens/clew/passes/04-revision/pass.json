@@ -3,7 +3,7 @@
   "category": "effect",
   "kind": "revision",
   "number": 4,
-  "state": "ready_for_pick",
+  "state": "selected",
   "created": "2026-11-07T16:30:53",
   "focus": "Develop pass 03 v3 (scope staircase) as the owner described: the playing as a wave that echoes in decaying repeats, a line angling down across the screen that compresses the waves under it (the compressor), and that compressor line carrying a tail that ripples the sound (the room), or with the ripple inside the descending line. Five unique versions of this idea. Grey, two-page header y 0-38.",
   "subject": {
@@ -143,5 +143,11 @@
     "problems": [],
     "checked": "2026-11-07T16:32:47"
   },
-  "selection": null
+  "selection": {
+    "variant": "v1",
+    "reason": "The owner likes the stepped ceiling, with one change: the wave is a single continuous rippling wave, not separate bursts.",
+    "chosenBy": "owner",
+    "at": "2026-11-07T22:04:41",
+    "frame": "screens/clew/passes/04-revision/v1/rest.svg"
+  }
 }
