@@ -8,9 +8,9 @@ redrawing:
 
   paths 0..3   the wave, one mutable outline per column (32 samples along it, 32 back 1 px below: a closed ribbon)
   nodes 4..11  the SDK's two-page header bar
-  treads       4 steps x 12 cells; each cell is a flat segment or one cycle of ripple at three heights and three phases (10 nodes, one
+  treads       4 steps x 10 cells; each cell is a flat segment or one 11.7 px cycle of ripple at three heights and three phases (10 nodes, one
                shown), authored at the cell's left end on the step line, so a cell only ever translates
-  risers       3 risers x 6 segments of 7 px, stacked from one step down to the next; spare segments hidden
+  risers       3 risers x 10 segments of 4 px, stacked from one step down to the next; spare segments hidden
 
 Every frame comes from pose(controls, live, phase, sway). live() works out what's sounding from the send's input
 peaks and the tempo; effect pages don't receive those yet (it needs an SDK change, handoff.md), so sim/scope.cpp
@@ -31,15 +31,15 @@ G = ['#000000', '#323232', '#4B4B4B', '#646464', '#7D7D7D', '#969696', '#AFAFAF'
 C_Y = 150                                   # the wave's centre line
 COL_X = [6 + 117 * k for k in range(5)]     # column edges: 6 .. 474
 SAMPLES = 32                                # wave samples per column (64 points with the way back)
-CELLS = 12
+CELLS = 10
 CELL_W = 117 / CELLS
-WIGGLE = [0, 1.5, 3.0, 4.5]                 # ripple heights: flat, low, mid, high (one 9.75 px cycle per cell; taller folds the 1 px ribbon)
+WIGGLE = [0, 1.5, 3.5, 6.0]                 # ripple heights: flat, low, mid, high (one 11.7 px cycle per cell)
 PHASES = 3                                  # the ripple travels a third of a cycle at a time
 VARIANTS = 1 + 3 * PHASES                   # flat, then each height at each phase
-RISER_SEG, RISER_N = 7.0, 6
+RISER_SEG, RISER_N = 4.0, 10
 
 # palette: (name, fill, stroke, width). Paths draw hollow, so their fill is none.
-PALETTE = [('P_WAVE', 'none', G[5], 1.5), ('P_WAVE_DRY', 'none', G[7], 2.0),
+PALETTE = [('P_WAVE', 'none', G[5], 1.5), ('P_WAVE_DRY', 'none', G[7], 2.2),
            ('P_TREAD', G[5], G[5], 0.3), ('P_RIPPLE', G[4], G[4], 0.3)]
 P = {n: k for k, (n, *_r) in enumerate(PALETTE)}
 
@@ -67,7 +67,7 @@ WINDOW = 22 * 64                            # one level window: 1408 samples, 31
 WIN_S = WINDOW / 44100
 HISTORY = 128                               # windows of input the page keeps in view: about 4.1 s
 SR = 44100
-PERIOD = 117 / 7                            # the wave's drawn cycle: seven per column, as fine as 32 samples allow
+PERIOD = 11.0                               # the wave's cycle, as the design draws it
 
 
 def live(c, inp, head, bpm=120.0):
@@ -97,21 +97,32 @@ def advance(phase, sway, lv, fps=30):
     return phase + 2 * math.pi * 0.9 / fps * energy, sway + 2 * math.pi * 0.3 / fps * energy
 
 
+def standing(c):
+    """the swells the chosen design draws at rest: the playing at Dry, then each repeat at Echo's level and
+    feedback (62, 48, 36 and 26 px at the defaults)"""
+    sq, echo, space, blend, tone, motion, dry, attack, order = c
+    level = min(1.0, echo * 8) if echo > 0.01 else 0.0
+    fb = (0.15 + 0.6 * echo) / 0.51
+    return [62 * dry, 48 * level, 36 * level * fb, 26 * level * fb * fb]
+
+
 def pose(c, lv=None, phase=0.0, sway=0.0):
     """everything the screen draws for controls c (eight controls and Order, each 0..1) and what's sounding (lv,
-    from live(); None is silence). phase and sway advance only while it sounds (advance())."""
+    from live(); None is silence). phase and sway advance only while it sounds (advance()). In silence it's the
+    chosen design (pass 05 v2) for those controls; the playing grows the swells, dips the steps and lifts the room."""
     sq, echo, space, blend, tone, motion, dry, attack, order = c
     tone = 2 * tone - 1
     lv = lv or {'swells': [0.0] * 4, 'room': 0.0, 'duck': 0.0, 'gr': 0.0}
     fx_first = order > 0.5                                          # FX first: the compressor presses the tails too
 
-    # the compressor line: steps down from Squeeze's ceiling; the first dips with the gain reduction, the later
-    # ones with the ducking (with FX first, all with the gain reduction); Motion sways them while it sounds
+    # the compressor line: steps down from Squeeze's ceiling (50, 38, 29, 22 px above the centre at the defaults);
+    # the first dips with the gain reduction, the later ones with the ducking (with FX first, all with the gain
+    # reduction); Motion sways them while it sounds
     base = 64 - 40 * sq
     sw = motion * 3 * math.sin(sway)
     tread_y, limits = [], []
     for k in range(4):
-        lim = base * 0.82 ** k
+        lim = base * 0.77 ** k
         if k == 0 or fx_first:
             lim -= lv['gr'] * 10 * sq
         else:
@@ -121,13 +132,15 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
         y = C_Y - lim + ((sw if k % 2 else -sw) if k > 0 else 0)
         tread_y.append(float(round(y)))
 
-    # the tails: the far part of each step ripples with the room, more on the later steps, travelling with the
-    # phase. Tone: darker shorter and lower (the room damps sooner), brighter taller.
-    reach = int(round(CELLS * (0.15 + 0.75 * space) * (1 - 0.4 * max(0.0, -tone)))) if space > 0.01 else 0   # darker damps sooner
-    turn = int(math.floor(1.3 * phase / (2 * math.pi / PHASES))) % PHASES   # the ripple travels with the phase
+    # the tails: the far part of each step ripples (half of it at the default Space), growing towards the riser,
+    # taller on the later steps (3 to 6 px at the defaults) and taller still while the room rings; it travels with
+    # the phase. Tone: darker shorter and lower (the room damps sooner), brighter taller.
+    att_px = 3 + 80 * attack ** 2                                 # how much of the first swell's start gets out
+    reach = min(CELLS - 1, int(round(CELLS * (0.2 + 0.85 * space) * (1 - 0.4 * max(0.0, -tone))))) if space > 0.01 else 0
+    turn = int(math.floor(1.3 * phase / (2 * math.pi / PHASES))) % PHASES
     cells = []                                                      # (tread, cell, variant, x, y)
     for k in range(4):
-        amp = (1.0 + 7 * lv['room']) * (0.6 + 0.4 * k / 3) if reach else 0.0
+        amp = (3 + k) * min(2.0, space / 0.35) ** 0.5 * (1 + 0.8 * lv['room']) if reach else 0.0
         if fx_first:
             amp = min(amp, 1.0)
         first = CELLS - reach
@@ -135,10 +148,10 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
             x = COL_X[k] + j * CELL_W
             v = 0
             if reach and j >= first:
-                a = amp * (1 + 0.5 * tone) * (j - first + 1) / reach   # grows along the tail; Tone: brighter taller
-                h = 0 if a < 0.75 else (1 if a < 2.25 else (2 if a < 3.75 else 3))
+                a = amp * (1 + 0.5 * tone) * (j - first + 1) / reach
+                h = 0 if a < 0.75 else (1 if a < 2.5 else (2 if a < 4.75 else 3))
                 v = h + 3 * turn if h else 0
-            if k == 0 and j * CELL_W + CELL_W / 2 < 3 + attack * 80:
+            if k == 0 and j * CELL_W + CELL_W < att_px - 20:          # past 5 ms the step starts late
                 v = -1                                              # Attack: the first step starts late
             cells.append((k, j, v, round(x * 2) / 2, tread_y[k]))
 
@@ -149,30 +162,58 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
         n = 0 if gap < 3 else min(RISER_N, int(math.ceil(gap / RISER_SEG)))
         risers.append([(COL_X[k + 1], max(top, min(top + s * RISER_SEG, bot - RISER_SEG))) for s in range(n)])
 
-    # the wave: one line, a swell per step (the playing, then each repeat), each pressed by its step
-    amps = [80 * v for v in lv['swells']]
-    att_px = 3 + attack * 80
+    # the wave: one line with a swell per step (the playing, then each repeat), each pressed by its step. At rest
+    # the swells stand at the design's sizes; the playing adds to them.
+    amps = [a + 32 * v for a, v in zip(standing(c), lv['swells'])]
+
+    def value(x, k):
+        env = 1.2
+        for j in range(4):
+            d0 = x - COL_X[j]
+            if d0 >= -2:
+                d0 = max(0.0, d0)
+                fade = 0.022 if j == 0 else 0.022 * (1 - 0.5 * tone)   # Tone: darker repeats die sooner
+                env = max(env, amps[j] * (1 - math.exp(-d0 / 4)) * math.exp(-d0 * fade))
+        v = env * math.sin(2 * math.pi * (x - COL_X[0]) / PERIOD - phase)
+        if k == 0 and x - COL_X[0] < att_px:
+            v *= 1 + 0.8 * attack ** 2                              # the transient the compressor didn't catch
+            v = max(-limits[0] - 20 * attack ** 2, min(limits[0] + 20 * attack ** 2, v))
+        else:
+            v = soft(v, max(1.5, limits[k] - 2))
+        return max(-62.0, min(62.0, v))                             # the outline stays within 64 px of its origin
+
+    # 32 points a column can't sample an 11 px cycle evenly, so the points go where the shape is: every crest and
+    # trough (about 21 a column), the column's two ends, and the rest rounding the tallest crests either side
     waves = []
+    turn_px = phase * PERIOD / (2 * math.pi)
     for k in range(4):
-        pts = []
-        for s in range(SAMPLES):
-            x = COL_X[k] + 117 * s / (SAMPLES - 1)
-            env = 1.2                                               # the line never quite vanishes
-            for j in range(4):
-                d0 = x - COL_X[j]
-                if d0 >= -2:
-                    d0 = max(0.0, d0)
-                    fade = 0.022 if j == 0 else 0.022 * (1 - 0.5 * tone)   # Tone: darker repeats die sooner
-                    env = max(env, amps[j] * (1 - math.exp(-d0 / 4)) * math.exp(-d0 * fade))
-            v = env * math.sin(2 * math.pi * (x - COL_X[0]) / PERIOD - phase)
-            if k == 0 and x - COL_X[0] < att_px:
-                v *= 1 + 0.8 * attack                               # the transient the compressor didn't catch
-                v = max(-limits[0] - 20, min(limits[0] + 20, v))   # a slow attack lets the note's start out
-            else:
-                v = soft(v, max(1.5, limits[k] - 2))
-            v = max(-62.0, min(62.0, v))                            # the outline stays within 64 px of its origin
-            pts.append((x, C_Y - v))
-        waves.append(pts)
+        a, b = COL_X[k], COL_X[k + 1]
+        m = math.ceil((a - COL_X[0] - turn_px) / (PERIOD / 2) - 0.5)
+        ext = []
+        while True:
+            x = COL_X[0] + turn_px + (m + 0.5) * PERIOD / 2
+            if x >= b - 0.5:
+                break
+            if x > a + 1.0 and x < b - 1.0:
+                ext.append(x)
+            m += 1
+        xs = {a: None, a + 0.5: None, b - 0.5: None, b: None}     # a short flat at each end: no sharp turn there
+        for x in ext:
+            xs[x] = None
+        by_size = sorted(ext, key=lambda x: -abs(value(x, k)))
+        for x in by_size:
+            if len(xs) + 2 > SAMPLES:
+                break
+            for dx in (-PERIOD / 12, PERIOD / 12):
+                if a + 0.3 < x + dx < b - 0.3:
+                    xs[x + dx] = None
+        pts = sorted(xs)
+        while len(pts) < SAMPLES:                                   # always 32: split the longest gap
+            g = max(range(len(pts) - 1), key=lambda i: pts[i + 1] - pts[i])
+            pts.insert(g + 1, (pts[g] + pts[g + 1]) / 2)
+        ys = {x: C_Y - value(x, k) for x in pts[:SAMPLES]}
+        ys[a + 0.5], ys[b - 0.5] = ys[a], ys[b]
+        waves.append([(x, ys[x]) for x in pts[:SAMPLES]])
     return {'tread_y': tread_y, 'cells': cells, 'risers': risers, 'waves': waves}
 
 

@@ -33,7 +33,7 @@ Until it lands, `sim/scope.cpp` writes the same peaks from the engine code on a 
 
 ```json
 "display": {"stateBytes": 64, "stateAlignment": 4,
-            "paths": 4, "points": 64, "nodes": 510, "texts": 16, "palette": 4}
+            "paths": 4, "points": 64, "nodes": 442, "texts": 16, "palette": 4}
 ```
 
 ## Coordinates
@@ -48,13 +48,13 @@ Until it lands, `sim/scope.cpp` writes the same peaks from the engine code on a 
 | --- | --- | --- |
 | paths 0–3 | the wave, one per column; path 0 carries the playing's swell | what's sounding, Squeeze, Tone, Attack |
 | 4–11 | header bars | `page_header()` |
-| 12–491 | step cells: step k, cell j, variant v at `12 + (k·12 + j)·10 + v` | Squeeze, the gain reduction and ducking, Space, the room, Tone, Motion, Attack, Order |
-| 492–509 | riser segments: riser r, segment s at `492 + r·6 + s` | follows the steps |
+| 12–411 | step cells: step k, cell j, variant v at `12 + (k·10 + j)·10 + v` | Squeeze, the gain reduction and ducking, Space, the room, Tone, Motion, Attack, Order |
+| 412–441 | riser segments: riser r, segment s at `412 + r·10 + s` | follows the steps |
 
-Cell variants, each authored at the cell's left end on the step line (9.75 px wide): v0 a flat 1.5 px ribbon
-(`P_TREAD`); then one cycle of ripple (`P_RIPPLE`, 1.0 px ribbons) at height h (1.5 / 3.0 / 4.5 px, h = 1..3) and
+Cell variants, each authored at the cell's left end on the step line (11.7 px wide): v0 a flat 1.5 px ribbon
+(`P_TREAD`); then one cycle of ripple (`P_RIPPLE`, 1.0 px ribbons) at height h (1.5 / 3.5 / 6.0 px, h = 1..3) and
 phase p (0, ⅓, ⅔ of a cycle on, p = 0..2), as variant `h + 3p`. Show one variant, hide the others; a cell only
-translates. Taller ripple would fold the 1 px ribbon at its crests. Riser segments are 1.5 × 7 px.
+translates. Riser segments are 1.5 × 4 px.
 
 ## What's sounding
 
@@ -72,27 +72,31 @@ phase  += 2π · 0.9 / fps · energy;   sway += 2π · 0.3 / fps · energy      
 
 ## The pose
 
-**Steps.** `limit_k = (64 − 40·sq)·0.82^k`, minus `gr·10·sq` on step 0 (on every step with FX first) and
+**Steps.** `limit_k = (64 − 40·sq)·0.77^k`, minus `gr·10·sq` on step 0 (on every step with FX first) and
 `duck·16` on steps 1–3; at least 4. y = `150 − limit_k`, plus `±3·m·sin(sway)` on steps 1–3 (odd down, even up),
 whole pixels.
 
-**Ripple.** `reach = round(12·(0.15 + 0.75·sp)·(1 − 0.4·max(0, −t)))` cells at each step's end, none when
-`sp ≤ 0.01`. `amp_k = (1 + 7·room)·(0.6 + 0.4·k/3)`, at most 1 with FX first. For a tail cell,
-`a = amp_k·(1 + 0.5t)·(j − first + 1)/reach`; height 0 below 0.75, 1 below 2.25, 2 below 3.75, else 3. Variant is
+**Ripple.** `reach = min(9, round(10·(0.2 + 0.85·sp)·(1 − 0.4·max(0, −t))))` cells at each step's end, none when
+`sp ≤ 0.01`. `amp_k = (3 + k)·√min(2, sp/0.35)·(1 + 0.8·room)`, at most 1 with FX first. For a tail cell,
+`a = amp_k·(1 + 0.5t)·(j − first + 1)/reach`; height 0 below 0.75, 1 below 2.5, 2 below 4.75, else 3. Variant is
 `h + 3p` with `p = ⌊1.3·phase / (2π/3)⌋ mod 3`, so the ripple travels a third of a cycle at a time. Other cells are v0.
 
-**Attack.** Hide step 0's cells whose middle is within `3 + 80·a` px of x 6.
+**Attack.** `att = 3 + 80·a²` px. Hide step 0's cells that end before `att − 20` px from x 6.
 
-**Risers.** From step k to step k+1 at the column edge, 7 px segments from the top, up to 6, the last pulled up to
+**Risers.** From step k to step k+1 at the column edge, 4 px segments from the top, up to 10, the last pulled up to
 end on the lower step; none when the gap is under 3 px.
 
-**Wave.** Column k's 32 samples at `x = 6 + 117k + 117·s/31`:
+**Wave.** The swells at rest are the design's: `standing = [62·d, 48·L, 36·L·F, 26·L·F²]` with `L = min(1, 8e)` (0 when
+`e ≤ 0.01`) and `F = (0.15 + 0.6e)/0.51`; the playing adds `32·swell_j`. Column k's 32 points: its two ends, a point
+0.5 px in from each end at the same height (a short flat, so the outline never turns sharply there), every crest and
+trough of the 11 px cycle inside it, then points ⅙ of a half-cycle either side of the tallest crests, until there are
+32 (if fewer, split the longest gap). At each:
 
 ```
-env = max(1.2, max over j of 80·swell_j · (1 − exp(−dj/4)) · exp(−dj·f_j)),  dj = x − (6 + 117j) ≥ −2 (clamped at 0)
+env = max(1.2, max over j of amp_j · (1 − exp(−dj/4)) · exp(−dj·f_j)),   amp_j = standing_j + 32·swell_j,  dj = x − (6 + 117j) ≥ −2 (clamped at 0)
       f_0 = 0.022,  f_j = 0.022·(1 − 0.5t) for the repeats
-v   = env · sin(2π·(x − 6)/(117/7) − phase)
-step 0 within 3 + 80·a px of x 6:  v ·= 1 + 0.8a, held within ±(limit_0 + 20)
+v   = env · sin(2π·(x − 6)/11 − phase)
+step 0 within att px of x 6:       v ·= 1 + 0.8a², held within ±(limit_0 + 20a²)
 otherwise:                         v = soft(v, max(1.5, limit_k − 2))
 v   = clamp(v, −62, 62);   point (x, 150 − v), then the same 1 px lower in reverse: a closed 64-point ribbon
 ```
@@ -138,8 +142,8 @@ sounds (`energy > 0`) or a control it depends on eases. In silence it stays put,
 
 ## Budget
 
-`python3 gen_clew.py budget`: 0 at rest; 22.7 a frame on average while the phrase plays at the defaults (peak 71);
-25.1 at Space 100 (peak 91); 27.2 at Echo, Space and Blend 100 (peak 92). The peaks are the ripple moving on every
+`python3 gen_clew.py budget`: 0 at rest; 21.1 a frame on average while the phrase plays at the defaults (peak 74);
+24.1 at Space 100 (peak 90); 25.9 at Echo, Space and Blend 100 (peak 92). The peaks are the ripple moving on every
 tail at once, about every 6.6 frames.
 
 ## Open checks

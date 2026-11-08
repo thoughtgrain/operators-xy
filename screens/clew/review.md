@@ -11,20 +11,20 @@ The design follows the playing, and effect pages don't receive it (open-xy `docs
 Without the SDK change in `handoff.md`, the page could only draw the rest frame. That change is a separate pull
 request to open-xy, not written yet.
 
-## Against the sketch
+## Against the design
 
-Stills from both videos at 6, 21, 37 and 45 s, side by side at 1:1. Same subject, same layout, same motion. The
-differences:
+The rest frame beside `passes/05-revision/v2/rest.svg` at 1:1, and four stills of the preview: the same step
+heights (50, 38, 29, 22 px), the same swells (62, 48, 36, 26 px), the same half-step ripple growing towards each
+riser, the same 11 px wave. The differences:
 
-- The wave's cycle is 16.7 px, not 11: a mutable outline holds 32 points along a 117 px column, and an 11 px cycle at
-  that spacing breaks the SDK's path rules (3 points a cycle).
-- The tails' ripple is one 9.75 px cycle per cell, moving a third of a cycle every ~6.6 frames, instead of a smooth
-  travelling sine: the cells are fixed artwork that can only be placed, not reshaped.
-- The step layout is fixed to the encoder columns; the sketch widened the steps with longer echoes. The device can't
-  reshape the cells, and the column layout ties each step to a control's column.
-- The swells come from the simulated audio's levels, so they're as big as the playing really is; the sketch used a
-  model of the notes.
-- The sketch swayed the steps on a timer even in silence; here they sway only while something sounds.
+- The wave's points: 32 along a 117 px column can't sample an 11 px cycle evenly, so they sit on the crests and
+  troughs and round the tallest crests. The low stretches read a little more angular than the design's.
+- The bright part is the whole first column (one outline), where the design brightens its first 70 px.
+- The tails' ripple is one 11.7 px cycle per cell (five on a half step; the design has four to seven), moving a
+  third of a cycle every ~6.6 frames instead of sliding smoothly: the cells are fixed artwork that can only be
+  placed.
+- While playing, the swells grow with the simulated audio, the first step dips with the gain reduction, the later
+  ones with the ducking, and the steps sway only while something sounds (the animated sketch swayed in silence too).
 
 ## Craft, side by side
 
@@ -45,14 +45,13 @@ differences:
 - [x] Text: only the SDK header.
 - [x] Meaningful non-text parts ≥ 3:1: `#7D7D7D` 5.1:1 (ripple), `#969696` 7.1:1, `#CDCDCD` 13.2:1. The floor,
       `#4B4B4B` 2.4:1, is ground.
-- [x] No part under ~3 px; no repeated lines closer than ~3 px: the wave's cycle is 16.7 px; the ripple's 9.75 px.
+- [x] No part under ~3 px; no repeated lines closer than ~3 px: the wave's cycle is 11 px; the ripple's 11.7 px.
 - [x] No state by shade alone.
-- [x] Each control visibly different at 0 / 50 / 100 while playing, and `perceptibility.py` passes: squeeze 4.52 %,
-      echo 2.57, space 3.84, blend 2.21, tone 2.52, motion 1.83, dry 3.72, attack 2.83; note response 6.49.
-- [ ] Visual travel matches the audible score: Squeeze (4) and Space (4) show more than Echo (5), which only just
-      clears its floor (2.57 against 2.50) at this moment of the phrase. Every control clears its floor, so I kept the
-      sketch's proportions.
-- [x] Nothing moves at rest; nothing flashes more than 3×/s: the ripple flips about twice a second.
+- [x] Each control visibly different at 0 / 50 / 100 while playing, and `perceptibility.py` passes: squeeze 9.94 %,
+      echo 4.86, space 6.35, blend 4.84, tone 5.56, motion 1.89, dry 6.80, attack 3.94; note response 11.13.
+- [ ] Visual travel matches the audible score: Squeeze (4), Dry (4) and Space (4) show more than Echo (5). Every
+      control clears its floor, so I kept the design's proportions.
+- [x] Nothing moves at rest; nothing flashes more than 3×/s: the ripple moves about five times a second, a travelling ripple rather than a flash.
 - [x] Reduced-motion end states differ by more than shade.
 - [x] Labels ≤ 8 characters, lower case. Captions in Univers Next Pro Light: **pending device**.
 - [x] No red.
@@ -60,9 +59,9 @@ differences:
 
 ## Before you submit (open-xy PR #260, house rules)
 
-- [ ] ~20 changed nodes a frame on average while notes sound, 0 at rest: 22.7 at the defaults; 25.1 at Space 100;
-      27.2 at Echo, Space and Blend 100 (peaks 71 / 91 / 92, the frames where every tail's ripple moves). Over, to
-      keep the sketch's travelling ripple. 0 at rest.
+- [ ] ~20 changed nodes a frame on average while notes sound, 0 at rest: 21.1 at the defaults; 24.1 at Space 100;
+      25.9 at Echo, Space and Blend 100 (peaks 74 / 90 / 92, the frames where every tail's ripple moves). Over, to
+      keep the design's travelling ripple. 0 at rest.
       The device cost: **pending device**.
 - [x] A path's key changes only when its points do (handoff, Path keys).
 - [x] Moving fills: none.

@@ -128,37 +128,41 @@ change lands, `sim/scope.cpp` stands in for it by running toro and Clew's engine
 
 | # | score | channel | part (node) | travel 0 → 100 | what the player sees |
 | --- | --- | --- | --- | --- | --- |
-| 1 Squeeze | 4 | position | 4 steps × 12 cells, 3 risers | the line from 64 px above the centre to 24, each later step 0.82× lower; the first dips up to 10·sq² px more with the gain reduction | the line comes down and presses the wave flatter |
-| 2 Echo | 5 | shape (path) | paths 1–3 | the repeats' swells, at the input's level a delay time ago, times Echo's level and its feedback | each note comes back on the next steps |
-| 3 Space | 4 | count + shape | tail cells | ripple over 15 → 90 % of each step, its height with the room (more on later steps), travelling half a cycle at a time | the steps' ends ripple, longer and taller |
+| 1 Squeeze | 4 | position | 4 steps × 10 cells, 3 risers | the line from 64 px above the centre to 24, each later step 0.77× lower (50, 38, 29, 22 px at the default, as the design); the first dips up to 10·sq² px more with the gain reduction | the line comes down and presses the wave flatter |
+| 2 Echo | 5 | shape (path) | paths 1–3 | the repeats' swells: at rest the design's 48, 36 and 26 px scaled by Echo's level and feedback; while playing, the input a delay time ago adds to them | each note comes back on the next steps |
+| 3 Space | 4 | count + shape | tail cells | ripple over 20 → 90 % of each step (half at the default, as the design), growing towards the riser, 3 + k px on step k at the default, taller with the room, travelling a third of a cycle at a time | the steps' ends ripple, longer and taller |
 | 4 Blend | 3 | position | steps 1–3 | the later steps dip up to 16 px with the ducking | the tails' steps press down while you play and come back in the gaps |
 | 5 Tone | 3 | shape | paths 1–3, tail cells | darker: the repeats fade sooner and the ripple is shorter and lower; brighter: longer and taller | darker tails die quicker |
 | 6 Motion | 2 | position | steps 1–3 | sway ±3 px, alternate steps opposite, while it sounds | the line rocks gently |
-| 7 Dry | 4 | shape (path) | path 0 | the playing's swell on the first step | at 0 the first step has no swell, only repeats follow |
-| 8 Attack | 2 | count + shape | step 0's first cells, path 0 | the first step starts 3 → 83 px late and the swell's start under the gap overshoots up to 1.8× | slow attack lets the note's start out under the line |
+| 7 Dry | 4 | shape (path) | path 0 | the playing's swell on the first step: 62 px at rest, as the design, plus the playing | at 0 the first step has no swell, only repeats follow |
+| 8 Attack | 2 | count + shape | step 0's first cells, path 0 | the swell's start gets past the first step over 3 → 83 px (`3 + 80a²`), overshooting up to 1.8×; past 5 ms the step itself starts late | slow attack lets the note's start out under the line |
 | S Order | 2 | position + shape | steps 1–3, tail cells | FX first: the later steps dip with the gain reduction too, and the ripple lies flat | the whole line presses, not just the first step |
 
-The wave's drawn cycle is 117/7 px (16.7 px), not pass 05's 11 px: a mutable outline holds 64 points, 32 along and
-32 back, so a column of 117 px can't carry a finer cycle without breaking the SDK's path rules. That's the one
-visible difference from the sketch.
+At rest the screen is the chosen design (pass 05 v2, `passes/05-revision/v2/rest.svg`) for the current controls: its
+step heights, its swells (62, 48, 36, 26 px), its half-step ripple. The playing adds to that.
+
+The wave keeps the design's 11 px cycle. A mutable outline holds 64 points, 32 along and 32 back, which is fewer than
+an even sampling of 11 px cycles needs, so the points go where the shape is: on every crest and trough (about 21 a
+column), a short flat at each end, and the rest rounding the tallest crests. The low parts of the wave read a
+little more angular than the design's; the swells match.
 
 ```json
 "display": {"stateBytes": 64, "stateAlignment": 4,
-            "paths": 4, "points": 64, "nodes": 510, "texts": 16, "palette": 4}
+            "paths": 4, "points": 64, "nodes": 442, "texts": 16, "palette": 4}
 ```
 
-Nodes: 4 paths, 8 header bars, 480 step cells (4 × 12 cells × 10 variants: flat, then three ripple heights at three
-phases), 18 riser segments. 510 of the 512 a frame allows; over 256 needs SDK 1.8 or later. The cells are 9.75 px, one
-ripple cycle each, which is the sketch's ripple (about 8.4 px a cycle) as closely as fixed artwork can draw it.
+Nodes: 4 paths, 8 header bars, 400 step cells (4 × 10 cells × 10 variants: flat, then three ripple heights at three
+phases), 30 riser segments. Over 256 needs SDK 1.8 or later. Each cell is 11.7 px, one ripple cycle, so a half-step
+tail carries five cycles: the design's four to seven.
 
 Budget (`python3 gen_clew.py budget`, the phrase at 120 BPM through Clew from the second bar on):
 
 | case | changed nodes / frame |
 | --- | --- |
 | at rest (silence, controls still) | 0 |
-| playing, defaults | avg 22.7 · peak 71 |
-| playing, Space 100 | avg 25.1 · peak 91 |
-| playing, Echo, Space and Blend 100 | avg 27.2 · peak 92 |
+| playing, defaults | avg 21.1 · peak 74 |
+| playing, Space 100 | avg 24.1 · peak 90 |
+| playing, Echo, Space and Blend 100 | avg 25.9 · peak 92 |
 
 The wave's four paths change every frame while it sounds, and the ripple moves a third of a cycle on every tail at
 once every ~6.6 frames, which is where the peaks are. That's over the ~20 average: the travelling ripple is the
