@@ -1,0 +1,223 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="220" viewBox="0 0 480 220">
+<g id="preview_canvas"><rect x="0" y="0" width="480" height="220" fill="#000000" stroke="none"/></g>
+<g id="preview_header">
+<rect x="0" y="0" width="60" height="20" fill="#000000" stroke="none"/>
+<rect x="60" y="0" width="60" height="20" fill="#323232" stroke="none"/>
+<rect x="120" y="0" width="60" height="20" fill="#4B4B4B" stroke="none"/>
+<rect x="180" y="0" width="60" height="20" fill="#646464" stroke="none"/>
+<rect x="240" y="0" width="60" height="20" fill="#7D7D7D" stroke="none"/>
+<rect x="300" y="0" width="60" height="20" fill="#969696" stroke="none"/>
+<rect x="360" y="0" width="60" height="20" fill="#AFAFAF" stroke="none"/>
+<rect x="420" y="0" width="60" height="20" fill="#CDCDCD" stroke="none"/>
+<text transform="matrix(1 0 0 1 5 10)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="10px">squeeze</text>
+<text transform="matrix(1 0 0 1 65 17.44)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="20px">35</text>
+<text transform="matrix(1 0 0 1 125 10)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="10px">echo</text>
+<text transform="matrix(1 0 0 1 185 17.44)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="20px">1/8</text>
+<text transform="matrix(1 0 0 1 245 10)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="10px">space</text>
+<text transform="matrix(1 0 0 1 305 17.44)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="20px">35</text>
+<text transform="matrix(1 0 0 1 365 10)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="10px">blend</text>
+<text transform="matrix(1 0 0 1 425 17.44)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="20px">50</text>
+<text transform="matrix(1 0 0 1 5 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">tone</text>
+<text transform="matrix(1 0 0 1 65 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">0</text>
+<text transform="matrix(1 0 0 1 125 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">motion</text>
+<text transform="matrix(1 0 0 1 185 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">20</text>
+<text transform="matrix(1 0 0 1 245 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">dry</text>
+<text transform="matrix(1 0 0 1 305 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">100</text>
+<text transform="matrix(1 0 0 1 365 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">attack</text>
+<text transform="matrix(1 0 0 1 425 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">5.0</text>
+</g>
+<path id="clew_node_0" d="M 4 46 L 476 46 L 476 212 L 4 212 Z" fill="#000000" stroke="#646464" stroke-width="1.5"/>
+<path id="clew_node_1" d="M 7.7 47.83 L 13.7 53.33 L 14.3 52.67 L 8.3 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_2" d="M 7.7 205.33 L 13.7 210.83 L 14.3 210.17 L 8.3 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_3" d="M 10.7 47.83 L 16.7 53.33 L 17.3 52.67 L 11.3 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_4" d="M 10.7 205.33 L 16.7 210.83 L 17.3 210.17 L 11.3 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_5" d="M 13.75 47.83 L 19.75 53.33 L 20.36 52.67 L 14.36 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_6" d="M 13.75 205.33 L 19.75 210.83 L 20.36 210.17 L 14.36 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_7" d="M 16.87 47.83 L 22.87 53.33 L 23.48 52.67 L 17.48 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_8" d="M 16.87 205.33 L 22.87 210.83 L 23.48 210.17 L 17.48 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_9" d="M 20.05 47.83 L 26.05 53.33 L 26.66 52.67 L 20.66 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_10" d="M 20.05 205.33 L 26.05 210.83 L 26.66 210.17 L 20.66 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_11" d="M 23.29 47.83 L 29.29 53.33 L 29.9 52.67 L 23.9 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_12" d="M 23.29 205.33 L 29.29 210.83 L 29.9 210.17 L 23.9 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_13" d="M 26.59 47.83 L 32.59 53.33 L 33.2 52.67 L 27.2 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_14" d="M 26.59 205.33 L 32.59 210.83 L 33.2 210.17 L 27.2 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_15" d="M 29.96 47.83 L 35.96 53.33 L 36.57 52.67 L 30.57 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_16" d="M 29.96 205.33 L 35.96 210.83 L 36.57 210.17 L 30.57 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_17" d="M 33.39 47.83 L 39.39 53.33 L 40 52.67 L 34 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_18" d="M 33.39 205.33 L 39.39 210.83 L 40 210.17 L 34 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_19" d="M 36.89 47.83 L 42.89 53.33 L 43.5 52.67 L 37.5 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_20" d="M 36.89 205.33 L 42.89 210.83 L 43.5 210.17 L 37.5 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_21" d="M 40.45 47.83 L 46.45 53.33 L 47.06 52.67 L 41.06 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_22" d="M 40.45 205.33 L 46.45 210.83 L 47.06 210.17 L 41.06 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_23" d="M 44.09 47.83 L 50.09 53.33 L 50.7 52.67 L 44.7 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_24" d="M 44.09 205.33 L 50.09 210.83 L 50.7 210.17 L 44.7 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_25" d="M 47.8 47.83 L 53.8 53.33 L 54.4 52.67 L 48.4 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_26" d="M 47.8 205.33 L 53.8 210.83 L 54.4 210.17 L 48.4 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_27" d="M 51.57 47.83 L 57.57 53.33 L 58.18 52.67 L 52.18 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_28" d="M 51.57 205.33 L 57.57 210.83 L 58.18 210.17 L 52.18 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_29" d="M 55.42 47.83 L 61.42 53.33 L 62.03 52.67 L 56.03 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_30" d="M 55.42 205.33 L 61.42 210.83 L 62.03 210.17 L 56.03 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_31" d="M 59.35 47.83 L 65.35 53.33 L 65.96 52.67 L 59.96 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_32" d="M 59.35 205.33 L 65.35 210.83 L 65.96 210.17 L 59.96 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_33" d="M 63.35 47.83 L 69.35 53.33 L 69.96 52.67 L 63.96 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_34" d="M 63.35 205.33 L 69.35 210.83 L 69.96 210.17 L 63.96 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_35" d="M 67.43 47.83 L 73.43 53.33 L 74.04 52.67 L 68.04 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_36" d="M 67.43 205.33 L 73.43 210.83 L 74.04 210.17 L 68.04 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_37" d="M 71.59 47.83 L 77.59 53.33 L 78.2 52.67 L 72.2 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_38" d="M 71.59 205.33 L 77.59 210.83 L 78.2 210.17 L 72.2 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_39" d="M 75.83 47.83 L 81.83 53.33 L 82.44 52.67 L 76.44 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_40" d="M 75.83 205.33 L 81.83 210.83 L 82.44 210.17 L 76.44 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_41" d="M 80.15 47.83 L 86.15 53.33 L 86.76 52.67 L 80.76 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_42" d="M 80.15 205.33 L 86.15 210.83 L 86.76 210.17 L 80.76 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_43" d="M 84.56 47.83 L 90.56 53.33 L 91.17 52.67 L 85.17 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_44" d="M 84.56 205.33 L 90.56 210.83 L 91.17 210.17 L 85.17 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_45" d="M 89.05 47.83 L 95.05 53.33 L 95.66 52.67 L 89.66 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_46" d="M 89.05 205.33 L 95.05 210.83 L 95.66 210.17 L 89.66 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_47" d="M 93.63 47.83 L 99.63 53.33 L 100.23 52.67 L 94.23 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_48" d="M 93.63 205.33 L 99.63 210.83 L 100.23 210.17 L 94.23 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_49" d="M 98.29 47.83 L 104.29 53.33 L 104.9 52.67 L 98.9 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_50" d="M 98.29 205.33 L 104.29 210.83 L 104.9 210.17 L 98.9 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_51" d="M 103.05 47.83 L 109.05 53.33 L 109.66 52.67 L 103.66 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_52" d="M 103.05 205.33 L 109.05 210.83 L 109.66 210.17 L 103.66 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_53" d="M 107.9 47.83 L 113.9 53.33 L 114.51 52.67 L 108.51 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_54" d="M 107.9 205.33 L 113.9 210.83 L 114.51 210.17 L 108.51 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_55" d="M 112.84 47.83 L 118.84 53.33 L 119.45 52.67 L 113.45 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_56" d="M 112.84 205.33 L 118.84 210.83 L 119.45 210.17 L 113.45 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_57" d="M 117.88 47.83 L 123.88 53.33 L 124.49 52.67 L 118.49 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_58" d="M 117.88 205.33 L 123.88 210.83 L 124.49 210.17 L 118.49 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_59" d="M 123.02 47.83 L 129.02 53.33 L 129.63 52.67 L 123.63 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_60" d="M 123.02 205.33 L 129.02 210.83 L 129.63 210.17 L 123.63 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_61" d="M 128.26 47.83 L 134.26 53.33 L 134.86 52.67 L 128.86 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_62" d="M 128.26 205.33 L 134.26 210.83 L 134.86 210.17 L 128.86 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_63" d="M 133.6 47.83 L 139.6 53.33 L 140.2 52.67 L 134.2 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_64" d="M 133.6 205.33 L 139.6 210.83 L 140.2 210.17 L 134.2 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_65" d="M 139.04 47.83 L 145.04 53.33 L 145.65 52.67 L 139.65 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_66" d="M 139.04 205.33 L 145.04 210.83 L 145.65 210.17 L 139.65 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_67" d="M 144.58 47.83 L 150.58 53.33 L 151.19 52.67 L 145.19 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_68" d="M 144.58 205.33 L 150.58 210.83 L 151.19 210.17 L 145.19 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_69" d="M 150.24 47.83 L 156.24 53.33 L 156.85 52.67 L 150.85 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_70" d="M 150.24 205.33 L 156.24 210.83 L 156.85 210.17 L 150.85 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_71" d="M 156 47.83 L 162 53.33 L 162.61 52.67 L 156.61 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_72" d="M 156 205.33 L 162 210.83 L 162.61 210.17 L 156.61 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_73" d="M 161.88 47.83 L 167.88 53.33 L 168.49 52.67 L 162.49 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_74" d="M 161.88 205.33 L 167.88 210.83 L 168.49 210.17 L 162.49 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_75" d="M 167.87 47.83 L 173.87 53.33 L 174.48 52.67 L 168.48 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_76" d="M 167.87 205.33 L 173.87 210.83 L 174.48 210.17 L 168.48 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_77" d="M 173.98 47.83 L 179.98 53.33 L 180.59 52.67 L 174.59 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_78" d="M 173.98 205.33 L 179.98 210.83 L 180.59 210.17 L 174.59 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_79" d="M 180.2 47.83 L 186.2 53.33 L 186.81 52.67 L 180.81 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_80" d="M 180.2 205.33 L 186.2 210.83 L 186.81 210.17 L 180.81 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_81" d="M 186.55 47.83 L 192.55 53.33 L 193.16 52.67 L 187.16 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_82" d="M 186.55 205.33 L 192.55 210.83 L 193.16 210.17 L 187.16 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_83" d="M 193.02 47.83 L 199.02 53.33 L 199.63 52.67 L 193.63 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_84" d="M 193.02 205.33 L 199.02 210.83 L 199.63 210.17 L 193.63 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_85" d="M 199.61 47.83 L 205.61 53.33 L 206.22 52.67 L 200.22 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_86" d="M 199.61 205.33 L 205.61 210.83 L 206.22 210.17 L 200.22 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_87" d="M 206.34 47.83 L 212.34 53.33 L 212.94 52.67 L 206.94 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_88" d="M 206.34 205.33 L 212.34 210.83 L 212.94 210.17 L 206.94 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_89" d="M 213.19 47.83 L 219.19 53.33 L 219.8 52.67 L 213.8 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_90" d="M 213.19 205.33 L 219.19 210.83 L 219.8 210.17 L 213.8 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_91" d="M 220.18 47.83 L 226.18 53.33 L 226.78 52.67 L 220.78 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_92" d="M 220.18 205.33 L 226.18 210.83 L 226.78 210.17 L 220.78 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_93" d="M 227.3 47.83 L 233.3 53.33 L 233.9 52.67 L 227.9 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_94" d="M 227.3 205.33 L 233.3 210.83 L 233.9 210.17 L 227.9 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_95" d="M 234.56 47.83 L 240.56 53.33 L 241.16 52.67 L 235.16 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_96" d="M 234.56 205.33 L 240.56 210.83 L 241.16 210.17 L 235.16 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_97" d="M 241.96 47.83 L 247.96 53.33 L 248.56 52.67 L 242.56 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_98" d="M 241.96 205.33 L 247.96 210.83 L 248.56 210.17 L 242.56 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_99" d="M 249.5 47.83 L 255.5 53.33 L 256.11 52.67 L 250.11 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_100" d="M 249.5 205.33 L 255.5 210.83 L 256.11 210.17 L 250.11 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_101" d="M 257.19 47.83 L 263.19 53.33 L 263.8 52.67 L 257.8 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_102" d="M 257.19 205.33 L 263.19 210.83 L 263.8 210.17 L 257.8 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_103" d="M 265.03 47.83 L 271.03 53.33 L 271.64 52.67 L 265.64 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_104" d="M 265.03 205.33 L 271.03 210.83 L 271.64 210.17 L 265.64 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_105" d="M 273.02 47.83 L 279.02 53.33 L 279.63 52.67 L 273.63 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_106" d="M 273.02 205.33 L 279.02 210.83 L 279.63 210.17 L 273.63 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_107" d="M 281.17 47.83 L 287.17 53.33 L 287.78 52.67 L 281.78 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_108" d="M 281.17 205.33 L 287.17 210.83 L 287.78 210.17 L 281.78 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_109" d="M 289.47 47.83 L 295.47 53.33 L 296.08 52.67 L 290.08 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_110" d="M 289.47 205.33 L 295.47 210.83 L 296.08 210.17 L 290.08 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_111" d="M 297.94 47.83 L 303.94 53.33 L 304.55 52.67 L 298.55 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_112" d="M 297.94 205.33 L 303.94 210.83 L 304.55 210.17 L 298.55 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_113" d="M 306.57 47.83 L 312.57 53.33 L 313.18 52.67 L 307.18 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_114" d="M 306.57 205.33 L 312.57 210.83 L 313.18 210.17 L 307.18 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_115" d="M 315.36 47.83 L 321.36 53.33 L 321.97 52.67 L 315.97 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_116" d="M 315.36 205.33 L 321.36 210.83 L 321.97 210.17 L 315.97 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_117" d="M 324.33 47.83 L 330.33 53.33 L 330.94 52.67 L 324.94 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_118" d="M 324.33 205.33 L 330.33 210.83 L 330.94 210.17 L 324.94 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_119" d="M 333.47 47.83 L 339.47 53.33 L 340.08 52.67 L 334.08 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_120" d="M 333.47 205.33 L 339.47 210.83 L 340.08 210.17 L 334.08 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_121" d="M 342.79 47.83 L 348.79 53.33 L 349.4 52.67 L 343.4 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_122" d="M 342.79 205.33 L 348.79 210.83 L 349.4 210.17 L 343.4 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_123" d="M 352.29 47.83 L 358.29 53.33 L 358.9 52.67 L 352.9 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_124" d="M 352.29 205.33 L 358.29 210.83 L 358.9 210.17 L 352.9 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_125" d="M 361.98 47.83 L 367.98 53.33 L 368.58 52.67 L 362.58 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_126" d="M 361.98 205.33 L 367.98 210.83 L 368.58 210.17 L 362.58 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_127" d="M 371.85 47.83 L 377.85 53.33 L 378.46 52.67 L 372.46 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_128" d="M 371.85 205.33 L 377.85 210.83 L 378.46 210.17 L 372.46 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_129" d="M 381.91 47.83 L 387.91 53.33 L 388.52 52.67 L 382.52 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_130" d="M 381.91 205.33 L 387.91 210.83 L 388.52 210.17 L 382.52 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_131" d="M 392.17 47.83 L 398.17 53.33 L 398.78 52.67 L 392.78 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_132" d="M 392.17 205.33 L 398.17 210.83 L 398.78 210.17 L 392.78 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_133" d="M 402.63 47.83 L 408.63 53.33 L 409.24 52.67 L 403.24 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_134" d="M 402.63 205.33 L 408.63 210.83 L 409.24 210.17 L 403.24 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_135" d="M 413.29 47.83 L 419.29 53.33 L 419.9 52.67 L 413.9 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_136" d="M 413.29 205.33 L 419.29 210.83 L 419.9 210.17 L 413.9 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_137" d="M 424.15 47.83 L 430.15 53.33 L 430.76 52.67 L 424.76 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_138" d="M 424.15 205.33 L 430.15 210.83 L 430.76 210.17 L 424.76 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_139" d="M 435.23 47.83 L 441.23 53.33 L 441.84 52.67 L 435.84 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_140" d="M 435.23 205.33 L 441.23 210.83 L 441.84 210.17 L 435.84 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_141" d="M 446.53 47.83 L 452.53 53.33 L 453.13 52.67 L 447.13 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_142" d="M 446.53 205.33 L 452.53 210.83 L 453.13 210.17 L 447.13 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_143" d="M 458.04 47.83 L 464.04 53.33 L 464.65 52.67 L 458.65 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_144" d="M 458.04 205.33 L 464.04 210.83 L 464.65 210.17 L 458.65 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_145" d="M 469.77 47.83 L 475.77 53.33 L 476.38 52.67 L 470.38 47.17 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_146" d="M 469.77 205.33 L 475.77 210.83 L 476.38 210.17 L 470.38 204.67 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_147" d="M 10 55.5 L 470 55.5 L 470 54.5 L 10 54.5 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_148" d="M 10 203.5 L 470 203.5 L 470 202.5 L 10 202.5 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_149" d="M 10 128.5 L 40 128.5 L 40 127.5 L 10 127.5 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_150" d="M 40 106 L 74 106 L 74 150 L 40 150 Z" fill="#000000" stroke="#7D7D7D" stroke-width="1.5"/>
+<path id="clew_node_151" d="M 50.2 108 L 63.8 108 L 63.8 118 L 50.2 118 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_152" d="M 50.2 138 L 63.8 138 L 63.8 148 L 50.2 148 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_153" d="M 74 128.5 L 96 128.5 L 96 127.5 L 74 127.5 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_154" d="M 154 100 L 153.68 104.07 L 152.73 108.03 L 151.17 111.8 L 149.03 115.28 L 146.38 118.38 L 143.28 121.03 L 139.8 123.17 L 136.03 124.73 L 132.07 125.68 L 128 126 L 123.93 125.68 L 119.97 124.73 L 116.2 123.17 L 112.72 121.03 L 109.62 118.38 L 106.97 115.28 L 104.83 111.8 L 103.27 108.03 L 102.32 104.07 L 102 100 L 102.32 95.93 L 103.27 91.97 L 104.83 88.2 L 106.97 84.72 L 109.62 81.62 L 112.72 78.97 L 116.2 76.83 L 119.97 75.27 L 123.93 74.32 L 128 74 L 132.07 74.32 L 136.03 75.27 L 139.8 76.83 L 143.28 78.97 L 146.38 81.62 L 149.03 84.72 L 151.17 88.2 L 152.73 91.97 L 153.68 95.93 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_155" d="M 139.41 100.42 L 138.93 103.32 L 137.71 106.01 L 135.85 108.29 L 133.47 110.03 L 130.72 111.09 L 127.79 111.42 L 124.88 110.98 L 122.17 109.82 L 119.85 108 L 118.08 105.65 L 116.96 102.92 L 116.58 100 L 116.96 97.08 L 118.08 94.35 L 119.85 92 L 122.17 90.18 L 124.88 89.02 L 127.79 88.58 L 130.72 88.91 L 133.47 89.97 L 135.85 91.71 L 137.71 93.99 L 138.93 96.68 L 139.41 99.58 L 138.41 99.62 L 137.97 96.97 L 136.86 94.52 L 135.16 92.43 L 132.99 90.85 L 130.48 89.88 L 127.81 89.58 L 125.15 89.98 L 122.68 91.04 L 120.56 92.7 L 118.94 94.85 L 117.93 97.33 L 117.58 100 L 117.93 102.67 L 118.94 105.15 L 120.56 107.3 L 122.68 108.96 L 125.15 110.02 L 127.81 110.42 L 130.48 110.12 L 132.99 109.15 L 135.16 107.57 L 136.86 105.48 L 137.97 103.03 L 138.41 100.38 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_156" d="M 133.2 100.5 L 148.8 100.5 L 148.8 99.5 L 133.2 99.5 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_157" d="M 124.97 104.25 L 117.17 117.76 L 118.03 118.26 L 125.83 104.75 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_158" d="M 125.83 95.25 L 118.03 81.74 L 117.17 82.24 L 124.97 95.75 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_159" d="M 132.16 100 L 131.84 101.59 L 130.94 102.94 L 129.59 103.84 L 128 104.16 L 126.41 103.84 L 125.06 102.94 L 124.16 101.59 L 123.84 100 L 124.16 98.41 L 125.06 97.06 L 126.41 96.16 L 128 95.84 L 129.59 96.16 L 130.94 97.06 L 131.84 98.41 Z" fill="#000000" stroke="#7D7D7D" stroke-width="1.0"/>
+<path id="clew_node_160" d="M 294 100 L 293.68 104.07 L 292.73 108.03 L 291.17 111.8 L 289.03 115.28 L 286.38 118.38 L 283.28 121.03 L 279.8 123.17 L 276.03 124.73 L 272.07 125.68 L 268 126 L 263.93 125.68 L 259.97 124.73 L 256.2 123.17 L 252.72 121.03 L 249.62 118.38 L 246.97 115.28 L 244.83 111.8 L 243.27 108.03 L 242.32 104.07 L 242 100 L 242.32 95.93 L 243.27 91.97 L 244.83 88.2 L 246.97 84.72 L 249.62 81.62 L 252.72 78.97 L 256.2 76.83 L 259.97 75.27 L 263.93 74.32 L 268 74 L 272.07 74.32 L 276.03 75.27 L 279.8 76.83 L 283.28 78.97 L 286.38 81.62 L 289.03 84.72 L 291.17 88.2 L 292.73 91.97 L 293.68 95.93 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_161" d="M 279.41 100.42 L 278.93 103.32 L 277.71 106.01 L 275.85 108.29 L 273.47 110.03 L 270.72 111.09 L 267.79 111.42 L 264.88 110.98 L 262.17 109.82 L 259.85 108 L 258.08 105.65 L 256.96 102.92 L 256.58 100 L 256.96 97.08 L 258.08 94.35 L 259.85 92 L 262.17 90.18 L 264.88 89.02 L 267.79 88.58 L 270.72 88.91 L 273.47 89.97 L 275.85 91.71 L 277.71 93.99 L 278.93 96.68 L 279.41 99.58 L 278.41 99.62 L 277.97 96.97 L 276.86 94.52 L 275.16 92.43 L 272.99 90.85 L 270.48 89.88 L 267.81 89.58 L 265.15 89.98 L 262.68 91.04 L 260.56 92.7 L 258.94 94.85 L 257.93 97.33 L 257.58 100 L 257.93 102.67 L 258.94 105.15 L 260.56 107.3 L 262.68 108.96 L 265.15 110.02 L 267.81 110.42 L 270.48 110.12 L 272.99 109.15 L 275.16 107.57 L 276.86 105.48 L 277.97 103.03 L 278.41 100.38 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_162" d="M 273.2 100.5 L 288.8 100.5 L 288.8 99.5 L 273.2 99.5 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_163" d="M 264.97 104.25 L 257.17 117.76 L 258.03 118.26 L 265.83 104.75 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_164" d="M 265.83 95.25 L 258.03 81.74 L 257.17 82.24 L 264.97 95.75 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_165" d="M 272.16 100 L 271.84 101.59 L 270.94 102.94 L 269.59 103.84 L 268 104.16 L 266.41 103.84 L 265.06 102.94 L 264.16 101.59 L 263.84 100 L 264.16 98.41 L 265.06 97.06 L 266.41 96.16 L 268 95.84 L 269.59 96.16 L 270.94 97.06 L 271.84 98.41 Z" fill="#000000" stroke="#7D7D7D" stroke-width="1.0"/>
+<path id="clew_node_166" d="M 101.25 100 L 101.88 130.74 L 294.12 130.74 L 294.75 100 L 293.25 100 L 293.88 129.26 L 102.12 129.26 L 102.75 100 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_167" d="M 144 131 L 156 131 L 156 145 L 144 145 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_168" d="M 149.5 132 L 149.5 137.3 L 150.5 137.3 L 150.5 132 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_169" d="M 216 131 L 228 131 L 228 145 L 216 145 Z" fill="#000000" stroke="#CDCDCD" stroke-width="2.2"/>
+<path id="clew_node_170" d="M 221.5 132 L 221.5 137.3 L 222.5 137.3 L 222.5 132 Z" fill="#CDCDCD" stroke="#CDCDCD" stroke-width="0.3"/>
+<path id="clew_node_171" d="M 191.48 136.44 L 190.92 138.46 L 189.65 140.12 L 187.85 141.18 L 185.78 141.5 L 183.74 141.02 L 182.03 139.81 L 180.9 138.05 L 180.5 136 L 180.9 133.95 L 182.03 132.19 L 183.74 130.98 L 185.78 130.5 L 187.85 130.82 L 189.65 131.88 L 190.92 133.54 L 191.48 135.56 L 190.49 135.64 L 190.03 133.99 L 188.99 132.63 L 187.51 131.76 L 185.82 131.5 L 184.15 131.9 L 182.76 132.88 L 181.83 134.32 L 181.5 136 L 181.83 137.68 L 182.76 139.12 L 184.15 140.1 L 185.82 140.5 L 187.51 140.24 L 188.99 139.37 L 190.03 138.01 L 190.49 136.36 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_172" d="M 96 161 L 296 161 L 296 183 L 96 183 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_173" d="M 99 168 L 105 168 L 105 176 L 99 176 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_174" d="M 287 168 L 293 168 L 293 176 L 287 176 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_175" d="M 104.68 165.57 L 103.18 166.9 L 102.61 170.15 L 103.48 174.07 L 105.81 177.28 L 109.14 178.55 L 112.47 177.28 L 114.79 174.07 L 115.66 170.15 L 115.09 166.9 L 113.27 165.45 L 111.46 166.9 L 110.89 170.15 L 111.76 174.07 L 114.08 177.28 L 117.41 178.55 L 120.74 177.28 L 123.06 174.07 L 123.93 170.15 L 123.36 166.9 L 121.55 165.45 L 119.73 166.9 L 119.16 170.15 L 120.03 174.07 L 122.35 177.28 L 125.68 178.55 L 129.01 177.28 L 131.33 174.07 L 132.2 170.15 L 131.67 167.02 L 130.69 167.19 L 131.2 170.11 L 130.42 173.67 L 128.38 176.51 L 125.68 177.55 L 122.98 176.51 L 120.94 173.67 L 120.16 170.11 L 120.64 167.31 L 121.55 166.45 L 122.45 167.31 L 122.93 170.11 L 122.15 173.67 L 120.11 176.51 L 117.41 177.55 L 114.71 176.51 L 112.67 173.67 L 111.89 170.11 L 112.37 167.31 L 113.27 166.45 L 114.18 167.31 L 114.66 170.11 L 113.87 173.67 L 111.84 176.51 L 109.14 177.55 L 106.43 176.51 L 104.4 173.67 L 103.61 170.11 L 104.09 167.31 L 105.32 166.33 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_176" d="M 131.5 166.72 L 129.82 165.45 L 128 166.9 L 127.43 170.15 L 128.3 174.07 L 130.63 177.28 L 133.95 178.55 L 137.28 177.28 L 139.61 174.07 L 140.48 170.15 L 139.91 166.9 L 138.09 165.45 L 136.27 166.9 L 135.71 170.15 L 136.58 174.07 L 138.9 177.28 L 142.23 178.55 L 145.56 177.28 L 147.88 174.07 L 148.75 170.15 L 148.18 166.9 L 146.36 165.45 L 144.55 166.9 L 143.98 170.15 L 144.85 174.07 L 147.17 177.28 L 150.5 178.55 L 153.83 177.28 L 156.15 174.07 L 157.01 170.24 L 156.03 170.02 L 155.24 173.67 L 153.2 176.51 L 150.5 177.55 L 147.8 176.51 L 145.76 173.67 L 144.98 170.11 L 145.46 167.31 L 146.36 166.45 L 147.27 167.31 L 147.75 170.11 L 146.97 173.67 L 144.93 176.51 L 142.23 177.55 L 139.53 176.51 L 137.49 173.67 L 136.7 170.11 L 137.19 167.31 L 138.09 166.45 L 139 167.31 L 139.48 170.11 L 138.69 173.67 L 136.66 176.51 L 133.95 177.55 L 131.25 176.51 L 129.22 173.67 L 128.43 170.11 L 128.91 167.31 L 129.82 166.45 L 130.86 167.49 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_177" d="M 157.01 170.04 L 156.45 166.9 L 154.64 165.45 L 152.82 166.9 L 152.25 170.15 L 153.12 174.07 L 155.44 177.28 L 158.77 178.55 L 162.1 177.28 L 164.42 174.07 L 165.29 170.15 L 164.73 166.9 L 162.91 165.45 L 161.09 166.9 L 160.52 170.15 L 161.39 174.07 L 163.72 177.28 L 167.05 178.55 L 170.37 177.28 L 172.7 174.07 L 173.57 170.15 L 173 166.9 L 171.18 165.45 L 169.37 166.9 L 168.8 170.15 L 169.67 174.07 L 171.99 177.28 L 175.32 178.55 L 178.65 177.28 L 180.92 174.16 L 180.11 173.58 L 178.02 176.51 L 175.32 177.55 L 172.62 176.51 L 170.58 173.67 L 169.8 170.11 L 170.28 167.31 L 171.18 166.45 L 172.09 167.31 L 172.57 170.11 L 171.78 173.67 L 169.75 176.51 L 167.05 177.55 L 164.34 176.51 L 162.31 173.67 L 161.52 170.11 L 162 167.31 L 162.91 166.45 L 163.81 167.31 L 164.3 170.11 L 163.51 173.67 L 161.47 176.51 L 158.77 177.55 L 156.07 176.51 L 154.03 173.67 L 153.25 170.11 L 153.73 167.31 L 154.64 166.45 L 155.54 167.31 L 156.03 170.22 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_178" d="M 181 173.98 L 181.84 170.15 L 181.27 166.9 L 179.45 165.45 L 177.64 166.9 L 177.07 170.15 L 177.94 174.07 L 180.26 177.28 L 183.59 178.55 L 186.92 177.28 L 189.24 174.07 L 190.11 170.15 L 189.54 166.9 L 187.73 165.45 L 185.91 166.9 L 185.34 170.15 L 186.21 174.07 L 188.53 177.28 L 191.86 178.55 L 195.19 177.28 L 197.52 174.07 L 198.39 170.15 L 197.82 166.9 L 196 165.45 L 194.18 166.9 L 193.61 170.15 L 194.48 174.07 L 196.81 177.28 L 200.14 178.55 L 203.33 177.36 L 202.97 176.43 L 200.14 177.55 L 197.43 176.51 L 195.4 173.67 L 194.61 170.11 L 195.09 167.31 L 196 166.45 L 196.91 167.31 L 197.39 170.11 L 196.6 173.67 L 194.57 176.51 L 191.86 177.55 L 189.16 176.51 L 187.13 173.67 L 186.34 170.11 L 186.82 167.31 L 187.73 166.45 L 188.63 167.31 L 189.11 170.11 L 188.33 173.67 L 186.29 176.51 L 183.59 177.55 L 180.89 176.51 L 178.85 173.67 L 178.07 170.11 L 178.55 167.31 L 179.45 166.45 L 180.36 167.31 L 180.84 170.11 L 180.03 173.76 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_179" d="M 203.56 177.19 L 205.79 174.07 L 206.66 170.15 L 206.09 166.9 L 204.27 165.45 L 202.46 166.9 L 201.89 170.15 L 202.76 174.07 L 205.08 177.28 L 208.41 178.55 L 211.74 177.28 L 214.06 174.07 L 214.93 170.15 L 214.36 166.9 L 212.55 165.45 L 210.73 166.9 L 210.16 170.15 L 211.03 174.07 L 213.35 177.28 L 216.68 178.55 L 220.01 177.28 L 222.33 174.07 L 223.2 170.15 L 222.63 166.9 L 220.82 165.45 L 219 166.9 L 218.43 170.15 L 219.3 174.07 L 221.63 177.28 L 224.78 178.52 L 225.13 177.58 L 222.25 176.51 L 220.22 173.67 L 219.43 170.11 L 219.91 167.31 L 220.82 166.45 L 221.72 167.31 L 222.2 170.11 L 221.42 173.67 L 219.38 176.51 L 216.68 177.55 L 213.98 176.51 L 211.94 173.67 L 211.16 170.11 L 211.64 167.31 L 212.55 166.45 L 213.45 167.31 L 213.93 170.11 L 213.15 173.67 L 211.11 176.51 L 208.41 177.55 L 205.71 176.51 L 203.67 173.67 L 202.89 170.11 L 203.37 167.31 L 204.27 166.45 L 205.18 167.31 L 205.66 170.11 L 204.87 173.67 L 202.75 176.6 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_180" d="M 225.13 178.52 L 228.28 177.28 L 230.61 174.07 L 231.48 170.15 L 230.91 166.9 L 229.09 165.45 L 227.27 166.9 L 226.71 170.15 L 227.58 174.07 L 229.9 177.28 L 233.23 178.55 L 236.56 177.28 L 238.88 174.07 L 239.75 170.15 L 239.18 166.9 L 237.36 165.45 L 235.55 166.9 L 234.98 170.15 L 235.85 174.07 L 238.17 177.28 L 241.5 178.55 L 244.83 177.28 L 247.15 174.07 L 248.02 170.15 L 247.45 166.9 L 245.64 165.45 L 243.82 166.9 L 243.25 170.15 L 244.12 174.07 L 246.35 177.19 L 247.16 176.6 L 245.03 173.67 L 244.25 170.11 L 244.73 167.31 L 245.64 166.45 L 246.54 167.31 L 247.02 170.11 L 246.24 173.67 L 244.2 176.51 L 241.5 177.55 L 238.8 176.51 L 236.76 173.67 L 235.98 170.11 L 236.46 167.31 L 237.36 166.45 L 238.27 167.31 L 238.75 170.11 L 237.97 173.67 L 235.93 176.51 L 233.23 177.55 L 230.53 176.51 L 228.49 173.67 L 227.7 170.11 L 228.19 167.31 L 229.09 166.45 L 230 167.31 L 230.48 170.11 L 229.69 173.67 L 227.66 176.51 L 224.78 177.58 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_181" d="M 246.58 177.36 L 249.77 178.55 L 253.1 177.28 L 255.42 174.07 L 256.29 170.15 L 255.73 166.9 L 253.91 165.45 L 252.09 166.9 L 251.52 170.15 L 252.39 174.07 L 254.72 177.28 L 258.05 178.55 L 261.37 177.28 L 263.7 174.07 L 264.57 170.15 L 264 166.9 L 262.18 165.45 L 260.37 166.9 L 259.8 170.15 L 260.67 174.07 L 262.99 177.28 L 266.32 178.55 L 269.65 177.28 L 271.97 174.07 L 272.84 170.15 L 272.27 166.9 L 270.45 165.45 L 268.64 166.9 L 268.07 170.15 L 268.91 173.98 L 269.88 173.76 L 269.07 170.11 L 269.55 167.31 L 270.45 166.45 L 271.36 167.31 L 271.84 170.11 L 271.06 173.67 L 269.02 176.51 L 266.32 177.55 L 263.62 176.51 L 261.58 173.67 L 260.8 170.11 L 261.28 167.31 L 262.18 166.45 L 263.09 167.31 L 263.57 170.11 L 262.78 173.67 L 260.75 176.51 L 258.05 177.55 L 255.34 176.51 L 253.31 173.67 L 252.52 170.11 L 253 167.31 L 253.91 166.45 L 254.81 167.31 L 255.3 170.11 L 254.51 173.67 L 252.47 176.51 L 249.77 177.55 L 246.94 176.43 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_182" d="M 268.99 174.16 L 271.26 177.28 L 274.59 178.55 L 277.92 177.28 L 280.24 174.07 L 281.11 170.15 L 280.54 166.9 L 278.73 165.45 L 276.91 166.9 L 276.34 170.15 L 277.21 174.07 L 279.53 177.28 L 282.86 178.55 L 286.19 177.28 L 288.52 174.07 L 289.39 170.15 L 288.82 166.9 L 287.32 165.57 L 286.68 166.33 L 287.91 167.31 L 288.39 170.11 L 287.6 173.67 L 285.57 176.51 L 282.86 177.55 L 280.16 176.51 L 278.13 173.67 L 277.34 170.11 L 277.82 167.31 L 278.73 166.45 L 279.63 167.31 L 280.11 170.11 L 279.33 173.67 L 277.29 176.51 L 274.59 177.55 L 271.89 176.51 L 269.8 173.58 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_183" d="M 244 162 L 256 162 L 256 167 L 244 167 Z" fill="#4B4B4B" stroke="#7D7D7D" stroke-width="1.0"/>
+<path id="clew_node_184" d="M 300 130.5 L 318 130.5 L 318 129.5 L 300 129.5 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_185" d="M 329.73 76.84 L 434.34 110.83 L 434.89 109.15 L 330.27 75.16 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_186" d="M 334.48 76.45 L 333.99 78.08 L 332.93 79.41 L 331.46 80.26 L 329.78 80.49 L 328.12 80.09 L 326.74 79.1 L 325.82 77.67 L 325.5 76 L 325.82 74.33 L 326.74 72.9 L 328.12 71.91 L 329.78 71.51 L 331.46 71.74 L 332.93 72.59 L 333.99 73.92 L 334.48 75.55 L 333.48 75.65 L 333.1 74.38 L 332.28 73.35 L 331.13 72.69 L 329.83 72.5 L 328.54 72.82 L 327.46 73.59 L 326.75 74.7 L 326.5 76 L 326.75 77.3 L 327.46 78.41 L 328.54 79.18 L 329.83 79.5 L 331.13 79.31 L 332.28 78.65 L 333.1 77.62 L 333.48 76.35 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_187" d="M 329.5 80 L 329.53 171.83 L 296 171.5 L 296 172.5 L 330.47 172.17 L 330.5 80 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_188" d="M 329.66 62.63 L 328.9 63.39 L 328.71 65.14 L 329.37 67.18 L 330.89 68.85 L 333 69.5 L 335.11 68.85 L 336.63 67.18 L 337.29 65.14 L 337.1 63.39 L 336 62.5 L 334.9 63.39 L 334.71 65.14 L 335.37 67.18 L 336.89 68.85 L 339 69.5 L 341.11 68.85 L 342.63 67.18 L 343.29 65.14 L 343.1 63.39 L 342 62.5 L 340.9 63.39 L 340.71 65.14 L 341.37 67.18 L 342.89 68.85 L 345 69.5 L 347.11 68.85 L 348.63 67.18 L 349.29 65.14 L 349.13 63.52 L 348.14 63.63 L 348.3 65.01 L 347.77 66.67 L 346.56 68.01 L 345 68.5 L 343.44 68.01 L 342.23 66.67 L 341.7 65.01 L 341.83 63.75 L 342 63.5 L 342.17 63.75 L 342.3 65.01 L 341.77 66.67 L 340.56 68.01 L 339 68.5 L 337.44 68.01 L 336.23 66.67 L 335.7 65.01 L 335.83 63.75 L 336 63.5 L 336.17 63.75 L 336.3 65.01 L 335.77 66.67 L 334.56 68.01 L 333 68.5 L 331.44 68.01 L 330.23 66.67 L 329.7 65.01 L 329.83 63.75 L 330.34 63.37 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_189" d="M 348.97 63.2 L 348 62.5 L 346.9 63.39 L 346.71 65.14 L 347.37 67.18 L 348.89 68.85 L 351 69.5 L 353.11 68.85 L 354.63 67.18 L 355.29 65.14 L 355.1 63.39 L 354 62.5 L 352.9 63.39 L 352.71 65.14 L 353.37 67.18 L 354.89 68.85 L 357 69.5 L 359.11 68.85 L 360.63 67.18 L 361.29 65.14 L 361.1 63.39 L 360.34 62.63 L 359.66 63.37 L 360.17 63.75 L 360.3 65.01 L 359.77 66.67 L 358.56 68.01 L 357 68.5 L 355.44 68.01 L 354.23 66.67 L 353.7 65.01 L 353.83 63.75 L 354 63.5 L 354.17 63.75 L 354.3 65.01 L 353.77 66.67 L 352.56 68.01 L 351 68.5 L 349.44 68.01 L 348.23 66.67 L 347.7 65.01 L 347.83 63.75 L 348 63.5 L 348.3 63.94 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_190" d="M 429.5 113.99 L 429.83 128.47 L 470 128.5 L 470 127.5 L 430.17 127.53 L 430.5 113.99 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_191" d="M 26.5 128 L 26.07 64.49 L 451.93 64.49 L 451.5 128 L 452.5 128 L 452.07 63.51 L 25.93 63.51 L 25.5 128 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<text transform="matrix(1 0 0 1 14 122)" fill="#7D7D7D" stroke="none" font-family="UniversNextPro-Light" font-size="10px">in</text>
+<text transform="matrix(1 0 0 1 450 122)" fill="#7D7D7D" stroke="none" font-family="UniversNextPro-Light" font-size="10px">out</text>
+</svg>

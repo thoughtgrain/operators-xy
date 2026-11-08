@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="220" viewBox="0 0 480 220">
+<g id="preview_canvas"><rect x="0" y="0" width="480" height="220" fill="#000000" stroke="none"/></g>
+<g id="preview_header">
+<rect x="0" y="0" width="60" height="20" fill="#000000" stroke="none"/>
+<rect x="60" y="0" width="60" height="20" fill="#323232" stroke="none"/>
+<rect x="120" y="0" width="60" height="20" fill="#4B4B4B" stroke="none"/>
+<rect x="180" y="0" width="60" height="20" fill="#646464" stroke="none"/>
+<rect x="240" y="0" width="60" height="20" fill="#7D7D7D" stroke="none"/>
+<rect x="300" y="0" width="60" height="20" fill="#969696" stroke="none"/>
+<rect x="360" y="0" width="60" height="20" fill="#AFAFAF" stroke="none"/>
+<rect x="420" y="0" width="60" height="20" fill="#CDCDCD" stroke="none"/>
+<text transform="matrix(1 0 0 1 5 10)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="10px">squeeze</text>
+<text transform="matrix(1 0 0 1 65 17.44)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="20px">35</text>
+<text transform="matrix(1 0 0 1 125 10)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="10px">echo</text>
+<text transform="matrix(1 0 0 1 185 17.44)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="20px">1/8</text>
+<text transform="matrix(1 0 0 1 245 10)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="10px">space</text>
+<text transform="matrix(1 0 0 1 305 17.44)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="20px">35</text>
+<text transform="matrix(1 0 0 1 365 10)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="10px">blend</text>
+<text transform="matrix(1 0 0 1 425 17.44)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="20px">50</text>
+<text transform="matrix(1 0 0 1 5 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">tone</text>
+<text transform="matrix(1 0 0 1 65 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">0</text>
+<text transform="matrix(1 0 0 1 125 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">motion</text>
+<text transform="matrix(1 0 0 1 185 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">20</text>
+<text transform="matrix(1 0 0 1 245 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">dry</text>
+<text transform="matrix(1 0 0 1 305 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">100</text>
+<text transform="matrix(1 0 0 1 365 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">attack</text>
+<text transform="matrix(1 0 0 1 425 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">5.0</text>
+</g>
+<path id="clew_node_0" d="M 6 196.5 L 474 196.5 L 474 195.5 L 6 195.5 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_1" d="M 29.67 198.38 L 43.67 210.38 L 44.33 209.62 L 30.33 197.62 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_2" d="M 99.67 198.38 L 113.67 210.38 L 114.33 209.62 L 100.33 197.62 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_3" d="M 169.67 198.38 L 183.67 210.38 L 184.33 209.62 L 170.33 197.62 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_4" d="M 239.67 198.38 L 253.67 210.38 L 254.33 209.62 L 240.33 197.62 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_5" d="M 309.67 198.38 L 323.67 210.38 L 324.33 209.62 L 310.33 197.62 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_6" d="M 379.67 198.38 L 393.67 210.38 L 394.33 209.62 L 380.33 197.62 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_7" d="M 449.67 198.38 L 463.67 210.38 L 464.33 209.62 L 450.33 197.62 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_8" d="M 6 150.5 L 40 150.5 L 40 149.5 L 6 149.5 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_9" d="M 40 113 L 86 113 L 86 187 L 40 187 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_10" d="M 53.8 115 L 72.2 115 L 72.2 138 L 53.8 138 Z" fill="#000000" stroke="#CDCDCD" stroke-width="1.5"/>
+<path id="clew_node_11" d="M 53.8 162 L 72.2 162 L 72.2 185 L 53.8 185 Z" fill="#000000" stroke="#CDCDCD" stroke-width="1.5"/>
+<path id="clew_node_12" d="M 52 184 L 74 184 L 74 196 L 52 196 Z" fill="#000000" stroke="#7D7D7D" stroke-width="1.0"/>
+<path id="clew_node_13" d="M 120 180 L 330 180 L 330 196 L 120 196 Z" fill="#000000" stroke="#7D7D7D" stroke-width="1.0"/>
+<path id="clew_node_14" d="M 204 106 L 203.59 112.26 L 202.38 118.4 L 200.39 124.28 L 197.65 129.79 L 194.23 134.81 L 190.19 139.25 L 185.63 143.02 L 180.62 146.02 L 175.27 148.22 L 169.69 149.55 L 164 150 L 158.31 149.55 L 152.73 148.22 L 147.38 146.02 L 142.37 143.02 L 137.81 139.25 L 133.77 134.81 L 130.35 129.79 L 127.61 124.28 L 125.62 118.4 L 124.41 112.26 L 124 106 L 124.41 99.74 L 125.62 93.6 L 127.61 87.72 L 130.35 82.21 L 133.77 77.19 L 137.81 72.75 L 142.37 68.98 L 147.38 65.98 L 152.73 63.78 L 158.31 62.45 L 164 62 L 169.69 62.45 L 175.27 63.78 L 180.62 65.98 L 185.63 68.98 L 190.19 72.75 L 194.23 77.19 L 197.65 82.21 L 200.39 87.72 L 202.38 93.6 L 203.59 99.74 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_15" d="M 181.5 106.46 L 180.8 111.45 L 178.98 116.08 L 176.15 120.03 L 172.51 123.04 L 168.3 124.9 L 163.79 125.5 L 159.31 124.79 L 155.13 122.81 L 151.55 119.71 L 148.81 115.68 L 147.09 111.01 L 146.5 106 L 147.09 100.99 L 148.81 96.32 L 151.55 92.29 L 155.13 89.19 L 159.31 87.21 L 163.79 86.5 L 168.3 87.1 L 172.51 88.96 L 176.15 91.97 L 178.98 95.92 L 180.8 100.55 L 181.5 105.54 L 180.5 105.56 L 179.84 100.83 L 178.12 96.44 L 175.46 92.69 L 172.02 89.84 L 168.05 88.07 L 163.81 87.5 L 159.57 88.18 L 155.64 90.05 L 152.26 93 L 149.68 96.81 L 148.05 101.25 L 147.5 106 L 148.05 110.75 L 149.68 115.19 L 152.26 119 L 155.64 121.95 L 159.57 123.82 L 163.81 124.5 L 168.05 123.93 L 172.02 122.16 L 175.46 119.31 L 178.12 115.56 L 179.84 111.17 L 180.5 106.44 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_16" d="M 171.8 103.81 L 194.73 96.13 L 194.41 95.18 L 171.48 102.87 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_17" d="M 161.74 114.67 L 156.41 140.03 L 157.39 140.23 L 162.72 114.88 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_18" d="M 158.49 99.53 L 140.88 81.86 L 140.17 82.57 L 157.78 100.24 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_19" d="M 163.25 150 L 163.25 180 L 164.75 180 L 164.75 150 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_20" d="M 326 106 L 325.59 112.26 L 324.38 118.4 L 322.39 124.28 L 319.65 129.79 L 316.23 134.81 L 312.19 139.25 L 307.63 143.02 L 302.62 146.02 L 297.27 148.22 L 291.69 149.55 L 286 150 L 280.31 149.55 L 274.73 148.22 L 269.38 146.02 L 264.37 143.02 L 259.81 139.25 L 255.77 134.81 L 252.35 129.79 L 249.61 124.28 L 247.62 118.4 L 246.41 112.26 L 246 106 L 246.41 99.74 L 247.62 93.6 L 249.61 87.72 L 252.35 82.21 L 255.77 77.19 L 259.81 72.75 L 264.37 68.98 L 269.38 65.98 L 274.73 63.78 L 280.31 62.45 L 286 62 L 291.69 62.45 L 297.27 63.78 L 302.62 65.98 L 307.63 68.98 L 312.19 72.75 L 316.23 77.19 L 319.65 82.21 L 322.39 87.72 L 324.38 93.6 L 325.59 99.74 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_21" d="M 303.5 106.46 L 302.8 111.45 L 300.98 116.08 L 298.15 120.03 L 294.51 123.04 L 290.3 124.9 L 285.79 125.5 L 281.31 124.79 L 277.13 122.81 L 273.55 119.71 L 270.81 115.68 L 269.09 111.01 L 268.5 106 L 269.09 100.99 L 270.81 96.32 L 273.55 92.29 L 277.13 89.19 L 281.31 87.21 L 285.79 86.5 L 290.3 87.1 L 294.51 88.96 L 298.15 91.97 L 300.98 95.92 L 302.8 100.55 L 303.5 105.54 L 302.5 105.56 L 301.84 100.83 L 300.12 96.44 L 297.46 92.69 L 294.02 89.84 L 290.05 88.07 L 285.81 87.5 L 281.57 88.18 L 277.64 90.05 L 274.26 93 L 271.68 96.81 L 270.05 101.25 L 269.5 106 L 270.05 110.75 L 271.68 115.19 L 274.26 119 L 277.64 121.95 L 281.57 123.82 L 285.81 124.5 L 290.05 123.93 L 294.02 122.16 L 297.46 119.31 L 300.12 115.56 L 301.84 111.17 L 302.5 106.44 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_22" d="M 293.8 103.81 L 316.73 96.13 L 316.41 95.18 L 293.48 102.87 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_23" d="M 283.74 114.67 L 278.41 140.03 L 279.39 140.23 L 284.72 114.88 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_24" d="M 280.49 99.53 L 262.88 81.86 L 262.17 82.57 L 279.78 100.24 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_25" d="M 285.25 150 L 285.25 180 L 286.75 180 L 286.75 150 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_26" d="M 123.25 106 L 123.81 158.73 L 326.19 158.73 L 326.75 106 L 325.25 106 L 325.81 157.27 L 124.19 157.27 L 124.75 106 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_27" d="M 194 159 L 206 159 L 206 175 L 194 175 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_28" d="M 199.5 160 L 199.5 166.2 L 200.5 166.2 L 200.5 160 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_29" d="M 246 159 L 258 159 L 258 175 L 246 175 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_30" d="M 251.5 160 L 251.5 166.2 L 252.5 166.2 L 252.5 160 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_31" d="M 231.48 165.44 L 230.92 167.46 L 229.65 169.12 L 227.85 170.18 L 225.78 170.5 L 223.74 170.02 L 222.03 168.81 L 220.9 167.05 L 220.5 165 L 220.9 162.95 L 222.03 161.19 L 223.74 159.98 L 225.78 159.5 L 227.85 159.82 L 229.65 160.88 L 230.92 162.54 L 231.48 164.56 L 230.49 164.64 L 230.03 162.99 L 228.99 161.63 L 227.51 160.76 L 225.82 160.5 L 224.15 160.9 L 222.76 161.88 L 221.83 163.32 L 221.5 165 L 221.83 166.68 L 222.76 168.12 L 224.15 169.1 L 225.82 169.5 L 227.51 169.24 L 228.99 168.37 L 230.03 167.01 L 230.49 165.36 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_32" d="M 346 196 L 474 196 L 474 174 L 346 166 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_33" d="M 351.53 174.18 L 355.85 184.63 L 359.72 174.77 L 363.58 184.9 L 367.45 175.03 L 371.32 185.17 L 375.18 175.3 L 379.05 185.43 L 382.92 175.57 L 386.78 185.7 L 390.65 175.83 L 394.52 185.97 L 398.38 176.1 L 402.25 186.23 L 406.12 176.37 L 409.98 186.5 L 413.85 176.63 L 417.72 186.77 L 421.58 176.9 L 425.45 187.03 L 429.32 177.17 L 433.18 187.3 L 437.05 177.43 L 440.92 187.57 L 444.78 177.7 L 448.65 187.83 L 452.52 177.97 L 456.38 188.1 L 460.25 178.23 L 464.12 188.37 L 468.47 178.18 L 467.53 177.82 L 464.15 187.37 L 460.28 177.23 L 456.42 187.1 L 452.55 176.97 L 448.68 186.83 L 444.82 176.7 L 440.95 186.57 L 437.08 176.43 L 433.22 186.3 L 429.35 176.17 L 425.48 186.03 L 421.62 175.9 L 417.75 185.77 L 413.88 175.63 L 410.02 185.5 L 406.15 175.37 L 402.28 185.23 L 398.42 175.1 L 394.55 184.97 L 390.68 174.83 L 386.82 184.7 L 382.95 174.57 L 379.08 184.43 L 375.22 174.3 L 371.35 184.17 L 367.48 174.03 L 363.62 183.9 L 359.75 173.77 L 355.88 183.63 L 352.47 173.82 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_34" d="M 380.75 166 L 380.75 64 L 379.25 64 L 379.25 166 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_35" d="M 380.05 63.12 L 150.05 51.12 L 149.95 52.88 L 379.95 64.88 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_36" d="M 384.48 64.45 L 383.99 66.08 L 382.93 67.41 L 381.46 68.26 L 379.78 68.49 L 378.12 68.09 L 376.74 67.1 L 375.82 65.67 L 375.5 64 L 375.82 62.33 L 376.74 60.9 L 378.12 59.91 L 379.78 59.51 L 381.46 59.74 L 382.93 60.59 L 383.99 61.92 L 384.48 63.55 L 383.48 63.65 L 383.1 62.38 L 382.28 61.35 L 381.13 60.69 L 379.83 60.5 L 378.54 60.82 L 377.46 61.59 L 376.75 62.7 L 376.5 64 L 376.75 65.3 L 377.46 66.41 L 378.54 67.18 L 379.83 67.5 L 381.13 67.31 L 382.28 66.65 L 383.1 65.62 L 383.48 64.35 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_37" d="M 86 150.5 L 120 150.5 L 120 149.5 L 86 149.5 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_38" d="M 330 150.5 L 474 150.5 L 474 149.5 L 330 149.5 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<text transform="matrix(1 0 0 1 10 144)" fill="#7D7D7D" stroke="none" font-family="UniversNextPro-Light" font-size="10px">in</text>
+<text transform="matrix(1 0 0 1 452 144)" fill="#7D7D7D" stroke="none" font-family="UniversNextPro-Light" font-size="10px">out</text>
+</svg>
