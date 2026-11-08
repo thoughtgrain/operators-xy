@@ -3,7 +3,7 @@
   "category": "effect",
   "kind": "revision",
   "number": 3,
-  "state": "ready_for_pick",
+  "state": "selected",
   "created": "2026-11-07T16:15:31",
   "focus": "The owner asked for five more unique designs, unlike the five cutaway-schematic rest frames of pass 02. Each variant a different subject, drawn as a rest frame. Clew: compressor + tempo-synced delay + small room; one level follower ducks the tails while playing so they swell in the gaps. Controls Squeeze, Echo, Space, Blend / Tone, Motion, Dry, Attack; Shift Order. Two-page header y 0-38.",
   "subject": {
@@ -143,5 +143,11 @@
     "problems": [],
     "checked": "2026-11-07T16:17:05"
   },
-  "selection": null
+  "selection": {
+    "variant": "v3",
+    "reason": "The owner picked the scope staircase, to develop: the wave echoing, a line angling down that compresses it, and that compressor line carrying a tail that ripples the sound (or ripples within the descending line).",
+    "chosenBy": "owner",
+    "at": "2026-11-07T16:30:53",
+    "frame": "screens/clew/passes/03-revision/v3/rest.svg"
+  }
 }
