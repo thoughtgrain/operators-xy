@@ -13,7 +13,7 @@ while something sounds), **ease** (exponential, settles in 0.15 s), **snap**.
 | loud input (*levels*) | the first step | dips up to 10·sq² px with the gain reduction (all steps with FX first) | follow, whole pixels | follow |
 | playing with Blend up (*levels*) | steps 1–3 | dip up to 16 px with the ducking, back in the gaps | follow | follow |
 | anything sounding (*levels*) | the wave's cycles | ripple sideways at 0.9 cycles a second | ripple: the phase moves only while it sounds | still |
-| the room ringing (*levels*) | the tails' ripple | grows with the room; flips half a cycle every ~13 frames, so it travels | ripple, the same phase × 1.3 | still, at its height |
+| the room ringing (*levels*) | the tails' ripple | grows with the room along each tail; moves a third of a cycle every ~6.6 frames, so it travels | ripple, the same phase × 1.3 | still, at its height |
 | anything sounding, Motion up (*levels*) | steps 1–3 | sway ±3·motion px, alternate steps opposite, 0.3 cycles a second | ripple: moves only while it sounds | still |
 | sound stops | everything | the swells fade with the input, the steps rise back, the phases stop | follow, then nothing | snap |
 | turn any control | what it shapes (see the brief) | to its new value | ease 0.15 s | snap |

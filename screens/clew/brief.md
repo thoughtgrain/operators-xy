@@ -128,9 +128,9 @@ change lands, `sim/scope.cpp` stands in for it by running toro and Clew's engine
 
 | # | score | channel | part (node) | travel 0 → 100 | what the player sees |
 | --- | --- | --- | --- | --- | --- |
-| 1 Squeeze | 4 | position | 4 steps × 10 cells, 3 risers | the line from 64 px above the centre to 24, each later step 0.82× lower; the first dips up to 10·sq² px more with the gain reduction | the line comes down and presses the wave flatter |
+| 1 Squeeze | 4 | position | 4 steps × 12 cells, 3 risers | the line from 64 px above the centre to 24, each later step 0.82× lower; the first dips up to 10·sq² px more with the gain reduction | the line comes down and presses the wave flatter |
 | 2 Echo | 5 | shape (path) | paths 1–3 | the repeats' swells, at the input's level a delay time ago, times Echo's level and its feedback | each note comes back on the next steps |
-| 3 Space | 4 | count + shape | tail cells | ripple over 25 → 85 % of each step, its height with the room (more on later steps), travelling half a cycle at a time | the steps' ends ripple, longer and taller |
+| 3 Space | 4 | count + shape | tail cells | ripple over 15 → 90 % of each step, its height with the room (more on later steps), travelling half a cycle at a time | the steps' ends ripple, longer and taller |
 | 4 Blend | 3 | position | steps 1–3 | the later steps dip up to 16 px with the ducking | the tails' steps press down while you play and come back in the gaps |
 | 5 Tone | 3 | shape | paths 1–3, tail cells | darker: the repeats fade sooner and the ripple is shorter and lower; brighter: longer and taller | darker tails die quicker |
 | 6 Motion | 2 | position | steps 1–3 | sway ±3 px, alternate steps opposite, while it sounds | the line rocks gently |
@@ -144,20 +144,23 @@ visible difference from the sketch.
 
 ```json
 "display": {"stateBytes": 64, "stateAlignment": 4,
-            "paths": 4, "points": 64, "nodes": 322, "texts": 16, "palette": 4}
+            "paths": 4, "points": 64, "nodes": 510, "texts": 16, "palette": 4}
 ```
 
-Nodes: 4 paths, 8 header bars, 280 step cells (4 × 10 cells × 7 variants: flat, then three ripple heights at two
-phases), 30 riser segments. 322 nodes needs SDK 1.8 or later.
+Nodes: 4 paths, 8 header bars, 480 step cells (4 × 12 cells × 10 variants: flat, then three ripple heights at three
+phases), 18 riser segments. 510 of the 512 a frame allows; over 256 needs SDK 1.8 or later. The cells are 9.75 px, one
+ripple cycle each, which is the sketch's ripple (about 8.4 px a cycle) as closely as fixed artwork can draw it.
 
 Budget (`python3 gen_clew.py budget`, the phrase at 120 BPM through Clew from the second bar on):
 
 | case | changed nodes / frame |
 | --- | --- |
 | at rest (silence, controls still) | 0 |
-| playing, defaults | avg 17.8 · peak 63 |
-| playing, Space 100 | avg 20.6 · peak 79 |
-| playing, Echo, Space and Blend 100 | avg 22.2 · peak 81 |
+| playing, defaults | avg 22.7 · peak 71 |
+| playing, Space 100 | avg 25.1 · peak 91 |
+| playing, Echo, Space and Blend 100 | avg 27.2 · peak 92 |
 
-The wave's four paths change every frame while it sounds; the peaks are the frames where the ripple flips half a
-cycle on every tail at once (every ~13 frames).
+The wave's four paths change every frame while it sounds, and the ripple moves a third of a cycle on every tail at
+once every ~6.6 frames, which is where the peaks are. That's over the ~20 average: the travelling ripple is the
+sketch's, and slowing it or thinning it would change the picture the owner picked, so I've kept it and stated the
+cost.

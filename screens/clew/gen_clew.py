@@ -8,9 +8,9 @@ redrawing:
 
   paths 0..3   the wave, one mutable outline per column (32 samples along it, 32 back 1 px below: a closed ribbon)
   nodes 4..11  the SDK's two-page header bar
-  treads       4 steps x 10 cells; each cell is a flat segment or one cycle of ripple at three heights and two phases (7 nodes, one
+  treads       4 steps x 12 cells; each cell is a flat segment or one cycle of ripple at three heights and three phases (10 nodes, one
                shown), authored at the cell's left end on the step line, so a cell only ever translates
-  risers       3 risers x 10 segments of 4 px, stacked from one step down to the next; spare segments hidden
+  risers       3 risers x 6 segments of 7 px, stacked from one step down to the next; spare segments hidden
 
 Every frame comes from pose(controls, live, phase, sway). live() works out what's sounding from the send's input
 peaks and the tempo; effect pages don't receive those yet (it needs an SDK change, handoff.md), so sim/scope.cpp
@@ -31,11 +31,12 @@ G = ['#000000', '#323232', '#4B4B4B', '#646464', '#7D7D7D', '#969696', '#AFAFAF'
 C_Y = 150                                   # the wave's centre line
 COL_X = [6 + 117 * k for k in range(5)]     # column edges: 6 .. 474
 SAMPLES = 32                                # wave samples per column (64 points with the way back)
-CELLS = 10
+CELLS = 12
 CELL_W = 117 / CELLS
-WIGGLE = [0, 1.5, 3.5, 6.0]                 # ripple heights: flat, low, mid, high (one cycle per cell)
-VARIANTS = 7                                # flat, then three heights at two phases (0 and half a cycle)
-RISER_SEG, RISER_N = 4.0, 10
+WIGGLE = [0, 1.5, 3.0, 4.5]                 # ripple heights: flat, low, mid, high (one 9.75 px cycle per cell; taller folds the 1 px ribbon)
+PHASES = 3                                  # the ripple travels a third of a cycle at a time
+VARIANTS = 1 + 3 * PHASES                   # flat, then each height at each phase
+RISER_SEG, RISER_N = 7.0, 6
 
 # palette: (name, fill, stroke, width). Paths draw hollow, so their fill is none.
 PALETTE = [('P_WAVE', 'none', G[5], 1.5), ('P_WAVE_DRY', 'none', G[7], 2.0),
@@ -77,7 +78,7 @@ def live(c, inp, head, bpm=120.0):
 
     def x(i, spread=0):
         got = [inp[j] for j in range(i - spread, i + spread + 1) if 0 <= j < len(inp)]
-        return 0.8 * max(got) if got else 0.0
+        return 1.6 * max(got) if got else 0.0
     step = 60.0 / bpm / 4
     div = DIVS[min(7, int(echo * 8))]
     delay = div * step / WIN_S                                      # in windows
@@ -85,8 +86,8 @@ def live(c, inp, head, bpm=120.0):
     fb = 0.15 + 0.6 * echo
     swells = [x(head) * dry] + [x(head - round(k * delay), 2) * level * fb ** (k - 1) for k in range(1, 4)]
     decay = (0.25 + 3 * space * space) / WIN_S
-    room = space * 0.12 * sum(x(head - j) * math.exp(-j / decay) for j in range(HISTORY))
-    follower = min(1.0, x(head) / 0.35)
+    room = space * 0.29 * sum(x(head - j) * math.exp(-j / decay) for j in range(HISTORY))
+    follower = min(1.0, x(head) / 0.6)
     return {'swells': swells, 'room': min(1.2, room), 'duck': blend * follower, 'gr': sq * follower}
 
 
@@ -122,8 +123,8 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
 
     # the tails: the far part of each step ripples with the room, more on the later steps, travelling with the
     # phase. Tone: darker shorter and lower (the room damps sooner), brighter taller.
-    reach = int(round(CELLS * (0.25 + 0.6 * space) * (1 - 0.4 * max(0.0, -tone)))) if space > 0.01 else 0   # darker damps sooner
-    flip = int(math.floor(1.3 * phase / math.pi)) % 2              # the ripple travels: half a cycle at a time
+    reach = int(round(CELLS * (0.15 + 0.75 * space) * (1 - 0.4 * max(0.0, -tone)))) if space > 0.01 else 0   # darker damps sooner
+    turn = int(math.floor(1.3 * phase / (2 * math.pi / PHASES))) % PHASES   # the ripple travels with the phase
     cells = []                                                      # (tread, cell, variant, x, y)
     for k in range(4):
         amp = (1.0 + 7 * lv['room']) * (0.6 + 0.4 * k / 3) if reach else 0.0
@@ -135,8 +136,8 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
             v = 0
             if reach and j >= first:
                 a = amp * (1 + 0.5 * tone) * (j - first + 1) / reach   # grows along the tail; Tone: brighter taller
-                h = 0 if a < 0.75 else (1 if a < 2.5 else (2 if a < 4.75 else 3))
-                v = h + 3 * flip if h else 0
+                h = 0 if a < 0.75 else (1 if a < 2.25 else (2 if a < 3.75 else 3))
+                v = h + 3 * turn if h else 0
             if k == 0 and j * CELL_W + CELL_W / 2 < 3 + attack * 80:
                 v = -1                                              # Attack: the first step starts late
             cells.append((k, j, v, round(x * 2) / 2, tread_y[k]))
@@ -196,8 +197,8 @@ def cell_shape(v):
     """a cell's outline, relative to its left end on the tread: flat, or one cycle of ripple at a height and phase"""
     if v == 0:
         return ribbon([(0, 0), (CELL_W, 0)], 1.5)
-    h = WIGGLE[(v - 1) % 3 + 1] * (1 if v <= 3 else -1)
-    pts = [(CELL_W * t / 16, -h * math.sin(2 * math.pi * t / 16)) for t in range(17)]
+    h, ph = WIGGLE[(v - 1) % 3 + 1], (v - 1) // 3
+    pts = [(CELL_W * t / 12, -h * math.sin(2 * math.pi * t / 12 - 2 * math.pi * ph / PHASES)) for t in range(13)]
     return ribbon(pts, 1.0)
 
 

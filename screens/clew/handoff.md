@@ -33,7 +33,7 @@ Until it lands, `sim/scope.cpp` writes the same peaks from the engine code on a 
 
 ```json
 "display": {"stateBytes": 64, "stateAlignment": 4,
-            "paths": 4, "points": 64, "nodes": 322, "texts": 16, "palette": 4}
+            "paths": 4, "points": 64, "nodes": 510, "texts": 16, "palette": 4}
 ```
 
 ## Coordinates
@@ -48,23 +48,24 @@ Until it lands, `sim/scope.cpp` writes the same peaks from the engine code on a 
 | --- | --- | --- |
 | paths 0–3 | the wave, one per column; path 0 carries the playing's swell | what's sounding, Squeeze, Tone, Attack |
 | 4–11 | header bars | `page_header()` |
-| 12–291 | step cells: step k, cell j, variant v at `12 + (k·10 + j)·7 + v` | Squeeze, the gain reduction and ducking, Space, the room, Tone, Motion, Attack, Order |
-| 292–321 | riser segments: riser r, segment s at `292 + r·10 + s` | follows the steps |
+| 12–491 | step cells: step k, cell j, variant v at `12 + (k·12 + j)·10 + v` | Squeeze, the gain reduction and ducking, Space, the room, Tone, Motion, Attack, Order |
+| 492–509 | riser segments: riser r, segment s at `492 + r·6 + s` | follows the steps |
 
-Cell variants, each authored at the cell's left end on the step line (11.7 px wide): v0 a flat 1.5 px ribbon
-(`P_TREAD`); v1–v3 one cycle of ripple, 1.5 / 3.5 / 6.0 px high; v4–v6 the same half a cycle on (`P_RIPPLE`, 1.0 px
-ribbons). Show one variant, hide the others; a cell only translates. Riser segments are 1.5 × 4 px.
+Cell variants, each authored at the cell's left end on the step line (9.75 px wide): v0 a flat 1.5 px ribbon
+(`P_TREAD`); then one cycle of ripple (`P_RIPPLE`, 1.0 px ribbons) at height h (1.5 / 3.0 / 4.5 px, h = 1..3) and
+phase p (0, ⅓, ⅔ of a cycle on, p = 0..2), as variant `h + 3p`. Show one variant, hide the others; a cell only
+translates. Taller ripple would fold the 1 px ribbon at its crests. Riser segments are 1.5 × 7 px.
 
 ## What's sounding
 
-Each frame, from the levels (`x(i) = 0.8 · max(in(i−s..i+s))`, s = 0 unless given):
+Each frame, from the levels (`x(i) = 1.6 · max(in(i−s..i+s))`, s = 0 unless given):
 
 ```
 delay   = division(e) · (60 / bpm / 4) / 0.0319          windows; division as stock's note lengths, in 16ths
 level   = e > 0.01 ? min(1, 8e) · 0.8 : 0;   fb = 0.15 + 0.6e
 swell0  = x(h) · d;   swellk = x(h − round(k·delay), s = 2) · level · fb^(k−1),  k = 1..3
-room    = min(1.2, sp · 0.12 · Σ_{j<128} x(h − j) · exp(−j · 0.0319 / (0.25 + 3·sp²)))
-follow  = min(1, x(h) / 0.35);   duck = b · follow;   gr = sq · follow
+room    = min(1.2, sp · 0.29 · Σ_{j<128} x(h − j) · exp(−j · 0.0319 / (0.25 + 3·sp²)))
+follow  = min(1, x(h) / 0.6);   duck = b · follow;   gr = sq · follow
 energy  = min(1, 4 · (Σ swells + room))
 phase  += 2π · 0.9 / fps · energy;   sway += 2π · 0.3 / fps · energy        (kept in DisplayState)
 ```
@@ -75,14 +76,14 @@ phase  += 2π · 0.9 / fps · energy;   sway += 2π · 0.3 / fps · energy      
 `duck·16` on steps 1–3; at least 4. y = `150 − limit_k`, plus `±3·m·sin(sway)` on steps 1–3 (odd down, even up),
 whole pixels.
 
-**Ripple.** `reach = round(10·(0.25 + 0.6·sp)·(1 − 0.4·max(0, −t)))` cells at each step's end, none when
+**Ripple.** `reach = round(12·(0.15 + 0.75·sp)·(1 − 0.4·max(0, −t)))` cells at each step's end, none when
 `sp ≤ 0.01`. `amp_k = (1 + 7·room)·(0.6 + 0.4·k/3)`, at most 1 with FX first. For a tail cell,
-`a = amp_k·(1 + 0.5t)·(j − first + 1)/reach`; height 0 below 0.75, 1 below 2.5, 2 below 4.75, else 3. Variant is the
-height, plus 3 when `⌊1.3·phase/π⌋` is odd. Other cells are v0.
+`a = amp_k·(1 + 0.5t)·(j − first + 1)/reach`; height 0 below 0.75, 1 below 2.25, 2 below 3.75, else 3. Variant is
+`h + 3p` with `p = ⌊1.3·phase / (2π/3)⌋ mod 3`, so the ripple travels a third of a cycle at a time. Other cells are v0.
 
 **Attack.** Hide step 0's cells whose middle is within `3 + 80·a` px of x 6.
 
-**Risers.** From step k to step k+1 at the column edge, 4 px segments from the top, up to 10, the last pulled up to
+**Risers.** From step k to step k+1 at the column edge, 7 px segments from the top, up to 6, the last pulled up to
 end on the lower step; none when the gap is under 3 px.
 
 **Wave.** Column k's 32 samples at `x = 6 + 117k + 117·s/31`:
@@ -137,9 +138,9 @@ sounds (`energy > 0`) or a control it depends on eases. In silence it stays put,
 
 ## Budget
 
-`python3 gen_clew.py budget`: 0 at rest; 17.8 a frame on average while the phrase plays at the defaults (peak 63);
-20.6 at Space 100 (peak 79); 22.2 at Echo, Space and Blend 100 (peak 81). The peaks are the ripple flipping on every
-tail at once, about every 13 frames.
+`python3 gen_clew.py budget`: 0 at rest; 22.7 a frame on average while the phrase plays at the defaults (peak 71);
+25.1 at Space 100 (peak 91); 27.2 at Echo, Space and Blend 100 (peak 92). The peaks are the ripple moving on every
+tail at once, about every 6.6 frames.
 
 ## Open checks
 

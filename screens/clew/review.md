@@ -18,7 +18,7 @@ differences:
 
 - The wave's cycle is 16.7 px, not 11: a mutable outline holds 32 points along a 117 px column, and an 11 px cycle at
   that spacing breaks the SDK's path rules (3 points a cycle).
-- The tails' ripple is one cycle per 11.7 px cell, flipping half a cycle every ~13 frames, instead of a smooth
+- The tails' ripple is one 9.75 px cycle per cell, moving a third of a cycle every ~6.6 frames, instead of a smooth
   travelling sine: the cells are fixed artwork that can only be placed, not reshaped.
 - The step layout is fixed to the encoder columns; the sketch widened the steps with longer echoes. The device can't
   reshape the cells, and the column layout ties each step to a control's column.
@@ -45,12 +45,13 @@ differences:
 - [x] Text: only the SDK header.
 - [x] Meaningful non-text parts ≥ 3:1: `#7D7D7D` 5.1:1 (ripple), `#969696` 7.1:1, `#CDCDCD` 13.2:1. The floor,
       `#4B4B4B` 2.4:1, is ground.
-- [x] No part under ~3 px; no repeated lines closer than ~3 px: the wave's cycle is 16.7 px; the ripple's 11.7 px.
+- [x] No part under ~3 px; no repeated lines closer than ~3 px: the wave's cycle is 16.7 px; the ripple's 9.75 px.
 - [x] No state by shade alone.
-- [x] Each control visibly different at 0 / 50 / 100 while playing, and `perceptibility.py` passes: squeeze 2.27 %,
-      echo 3.95, space 5.34, blend 1.74, tone 1.47, motion 1.67, dry 3.36, attack 1.65; note response 4.74.
-- [ ] Visual travel matches the audible score: Space (4) shows more than Echo (5), because the room ripples every
-      tail. Every control clears its floor, so I kept the sketch's proportions rather than shrink the ripple.
+- [x] Each control visibly different at 0 / 50 / 100 while playing, and `perceptibility.py` passes: squeeze 4.52 %,
+      echo 2.57, space 3.84, blend 2.21, tone 2.52, motion 1.83, dry 3.72, attack 2.83; note response 6.49.
+- [ ] Visual travel matches the audible score: Squeeze (4) and Space (4) show more than Echo (5), which only just
+      clears its floor (2.57 against 2.50) at this moment of the phrase. Every control clears its floor, so I kept the
+      sketch's proportions.
 - [x] Nothing moves at rest; nothing flashes more than 3×/s: the ripple flips about twice a second.
 - [x] Reduced-motion end states differ by more than shade.
 - [x] Labels ≤ 8 characters, lower case. Captions in Univers Next Pro Light: **pending device**.
@@ -59,8 +60,9 @@ differences:
 
 ## Before you submit (open-xy PR #260, house rules)
 
-- [ ] ~20 changed nodes a frame on average while notes sound, 0 at rest: 17.8 at the defaults; 20.6 at Space 100;
-      22.2 at Echo, Space and Blend 100 (peaks 63 / 79 / 81, the frames where every tail's ripple flips). 0 at rest.
+- [ ] ~20 changed nodes a frame on average while notes sound, 0 at rest: 22.7 at the defaults; 25.1 at Space 100;
+      27.2 at Echo, Space and Blend 100 (peaks 71 / 91 / 92, the frames where every tail's ripple moves). Over, to
+      keep the sketch's travelling ripple. 0 at rest.
       The device cost: **pending device**.
 - [x] A path's key changes only when its points do (handoff, Path keys).
 - [x] Moving fills: none.
