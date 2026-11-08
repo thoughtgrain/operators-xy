@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Clew's screen (pass 05 v2, the wave as the audio) over the audio demo, drawn by gen_clew.py, the generator behind
-the stills.
+"""Clew's screen (pass 05 v2) over the audio demo, drawn by gen_clew.py, the generator behind the stills and the
+handoff, so it's the device's drawing: one wave (the playing's swell, then each repeat's) under a compressor line
+that steps down, dipping with the gain reduction and the ducking, the room rippling on each step's tail.
 
-The wave is Clew's output scrolling from right to left, the step line above it is the compressor pushed down by what
-comes in, and the ripple on each step's tail is the room. All of it comes from the send's input and output peaks,
-which sim/scope.cpp writes while it runs toro and Clew's engine code on a computer. The device page doesn't receive
-those levels yet (it needs an SDK change, see review.md); this is what it draws once it does.
+What's sounding comes from the send's input levels, which sim/scope.cpp writes while it runs toro and Clew's engine
+code on a computer. The device page needs an SDK change before it receives them (handoff.md).
 
 The score: toro plays a phrase at 120 BPM through Clew and a control changes every 8 s. Page 2 controls (Motion,
 Tone) show the second header page; the Order change shows Shift held for 1.5 s.
@@ -44,6 +43,7 @@ FONT = '/usr/share/fonts/opentype/inter/Inter-Regular.otf'
 def score(peaks):
     """per frame: the eased controls, the header page, Shift and the section title, stepped like the device"""
     out, shown = [], list(SECTIONS[0][1])
+    phase = sway = 0.0
     for i in range(int(DUR * FPS)):
         t = i / FPS
         k = min(len(SECTIONS) - 1, int(t / SEC))
@@ -53,11 +53,9 @@ def score(peaks):
         shown = [b if abs(a - b) < 1e-3 else a for a, b in zip(shown, target)]    # settled: stop exactly
         shift = k == 6 and t - k * SEC < 1.5
         page = 1 if k == 5 else 0
-        head = int(t * gen_clew.SR / gen_clew.WINDOW)
-        lo = head - gen_clew.WINDOWS + 1
-        pad = [0.0] * max(0, -lo)
-        scope = (pad + peaks[0][max(0, lo):head + 1], pad + peaks[1][max(0, lo):head + 1])
-        out.append((tuple(round(v, 4) for v in shown), page, shift, title, scope, head, i))
+        lv = gen_clew.live(shown, peaks[0], int(t / gen_clew.WIN_S))
+        phase, sway = gen_clew.advance(phase, sway, lv, FPS)
+        out.append((tuple(round(v, 4) for v in shown), page, shift, title, lv, phase, sway))
     return out
 
 
@@ -76,7 +74,7 @@ def main():
     wav, peaks_txt = str(folder / 'demo.wav'), str(folder / 'peaks.txt')
     subprocess.run([str(gen_clew.SIM_BIN), 'demo', wav, peaks_txt], check=True)
     frames = score(gen_clew.read_peaks(peaks_txt))
-    svgs = [gen_clew.frame_svg(list(c), page=p, shift=s, scope=sc, head=h, tick=i) for c, p, s, _, sc, h, i in frames]
+    svgs = [gen_clew.frame_svg(list(c), page=p, shift=s, lv=lv, phase=ph, sway=sw) for c, p, s, _, lv, ph, sw in frames]
     unique = {}
     for svg in svgs:
         unique.setdefault(hashlib.sha1(svg.encode()).hexdigest(), svg)

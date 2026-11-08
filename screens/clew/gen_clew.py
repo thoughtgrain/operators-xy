@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
-"""Clew's screen (pass 05 v2): the send's audio as one wave, scrolling from right to left, under a compressor line
-that steps down onto it, one step per encoder column, with the room rippling on each step's tail.
+"""Clew's screen (pass 05 v2): one wave, the playing's swell then each repeat's, under a compressor line stepping
+down, one step per encoder column; the first step dips with the gain reduction, the later ones with the ducking, and
+the room ripples along each step's tail.
 
 The design is authored the way the device will draw it, so the frames here become panel.svg.fragment with no
 redrawing:
 
   paths 0..3   the wave, one mutable outline per column (32 samples along it, 32 back 1 px below: a closed ribbon)
   nodes 4..11  the SDK's two-page header bar
-  treads       4 steps x 10 cells; each cell is a flat segment or a ripple arch of one of three heights (4 nodes, one
+  treads       4 steps x 10 cells; each cell is a flat segment or one cycle of ripple at three heights and two phases (7 nodes, one
                shown), authored at the cell's left end on the step line, so a cell only ever translates
   risers       3 risers x 10 segments of 4 px, stacked from one step down to the next; spare segments hidden
 
-Every frame comes from pose(controls, scope): the controls, and the send's input and output peaks over the last
-1.9 s. Effect pages don't receive those peaks yet (it needs an SDK change, handoff.md), so sim/scope.cpp stands in
-for them by running toro's and Clew's engine code on a computer.
+Every frame comes from pose(controls, live, phase, sway). live() works out what's sounding from the send's input
+peaks and the tempo; effect pages don't receive those yet (it needs an SDK change, handoff.md), so sim/scope.cpp
+stands in for them by running toro's and Clew's engine code on a computer.
 
     python3 gen_clew.py frames     # writes frames/*.svg (rest, playing, c1..c8 at 0/50/100 while playing, order-fx)
     python3 gen_clew.py budget     # changed nodes per frame at rest and while the phrase plays
@@ -32,18 +33,19 @@ COL_X = [6 + 117 * k for k in range(5)]     # column edges: 6 .. 474
 SAMPLES = 32                                # wave samples per column (64 points with the way back)
 CELLS = 10
 CELL_W = 117 / CELLS
-BUMPS = [0, 2.5, 4.5, 7.0]                  # ripple arch heights: flat, low, mid, high
+WIGGLE = [0, 1.5, 3.5, 6.0]                 # ripple heights: flat, low, mid, high (one cycle per cell)
+VARIANTS = 7                                # flat, then three heights at two phases (0 and half a cycle)
 RISER_SEG, RISER_N = 4.0, 10
 
 # palette: (name, fill, stroke, width). Paths draw hollow, so their fill is none.
-PALETTE = [('P_WAVE', 'none', G[5], 1.5), ('P_WAVE_NOW', 'none', G[7], 2.0),
+PALETTE = [('P_WAVE', 'none', G[5], 1.5), ('P_WAVE_DRY', 'none', G[7], 2.0),
            ('P_TREAD', G[5], G[5], 0.3), ('P_RIPPLE', G[4], G[4], 0.3)]
 P = {n: k for k, (n, *_r) in enumerate(PALETTE)}
 
 N_PATH = 0
 N_HDR = 4
-N_CELL = N_HDR + 8                          # tread t, cell j, variant v: N_CELL + (t * CELLS + j) * 4 + v
-N_RISER = N_CELL + 4 * CELLS * 4            # riser r, segment s: N_RISER + r * RISER_N + s
+N_CELL = N_HDR + 8                          # tread t, cell j, variant v: N_CELL + (t * CELLS + j) * VARIANTS + v
+N_RISER = N_CELL + 4 * CELLS * VARIANTS            # riser r, segment s: N_RISER + r * RISER_N + s
 NODES = N_RISER + 3 * RISER_N
 
 DEFAULTS = [0.35, 0.6, 0.35, 0.5, 0.5, 0.2, 1.0, 0.5624, 0.0]
@@ -61,96 +63,113 @@ def soft(v, limit):
 
 
 WINDOW = 22 * 64                            # one level window: 1408 samples, 31.9 ms
-WINDOWS = 60                                # on screen: 15 per column, about 1.9 s
-PX_FS = 60                                  # the wave's height for a full-scale peak
-CYCLE = 4                                   # the drawn wave's cycle, in windows (31 px)
+WIN_S = WINDOW / 44100
+HISTORY = 128                               # windows of input the page keeps in view: about 4.1 s
 SR = 44100
+PERIOD = 117 / 7                            # the wave's drawn cycle: seven per column, as fine as 32 samples allow
 
 
-def pose(c, scope=None, head=0, tick=0):
-    """everything the screen draws for controls c (eight controls and Order, each 0..1) and the send's levels
+def live(c, inp, head, bpm=120.0):
+    """what's sounding, worked out from the send's input peaks (oldest first, `head` the newest) and the tempo:
+    the playing's swell, each repeat's (the input a delay time ago, at Echo's level), the room, the ducking and
+    the gain reduction. The device does this from the levels the SDK change would give it."""
+    sq, echo, space, blend, tone, motion, dry, attack, order = c
 
-    scope: (inp, out), the last WINDOWS peaks of the send's input and of Clew's output, oldest first, 0..1 of full
-    scale; None is silence. head: the newest window's running count, so the wave's cycles travel with the audio.
-    tick: the frame count, which walks the ripple along the tails while the room sounds.
-    """
+    def x(i, spread=0):
+        got = [inp[j] for j in range(i - spread, i + spread + 1) if 0 <= j < len(inp)]
+        return 0.8 * max(got) if got else 0.0
+    step = 60.0 / bpm / 4
+    div = DIVS[min(7, int(echo * 8))]
+    delay = div * step / WIN_S                                      # in windows
+    level = min(1.0, echo * 8) * 0.8 if echo > 0.01 else 0.0
+    fb = 0.15 + 0.6 * echo
+    swells = [x(head) * dry] + [x(head - round(k * delay), 2) * level * fb ** (k - 1) for k in range(1, 4)]
+    decay = (0.25 + 3 * space * space) / WIN_S
+    room = space * 0.12 * sum(x(head - j) * math.exp(-j / decay) for j in range(HISTORY))
+    follower = min(1.0, x(head) / 0.35)
+    return {'swells': swells, 'room': min(1.2, room), 'duck': blend * follower, 'gr': sq * follower}
+
+
+def advance(phase, sway, lv, fps=30):
+    """the wave's phase and the steps' sway move only while something sounds, so silence is still"""
+    energy = min(1.0, 4 * (sum(lv['swells']) + lv['room']))
+    return phase + 2 * math.pi * 0.9 / fps * energy, sway + 2 * math.pi * 0.3 / fps * energy
+
+
+def pose(c, lv=None, phase=0.0, sway=0.0):
+    """everything the screen draws for controls c (eight controls and Order, each 0..1) and what's sounding (lv,
+    from live(); None is silence). phase and sway advance only while it sounds (advance())."""
     sq, echo, space, blend, tone, motion, dry, attack, order = c
     tone = 2 * tone - 1
-    inp, out = scope if scope else ([0.0] * WINDOWS, [0.0] * WINDOWS)
+    lv = lv or {'swells': [0.0] * 4, 'room': 0.0, 'duck': 0.0, 'gr': 0.0}
     fx_first = order > 0.5                                          # FX first: the compressor presses the tails too
 
-    # the compressor line: one step per column, at Squeeze's ceiling, pushed down by the gain reduction that
-    # column's input caused (the engine's threshold and ratio) until it rests on the wave; Motion staggers the steps
-    thr_db, ratio = -3 - 30 * sq, 1 + 7 * sq
+    # the compressor line: steps down from Squeeze's ceiling; the first dips with the gain reduction, the later
+    # ones with the ducking (with FX first, all with the gain reduction); Motion sways them while it sounds
     base = 64 - 40 * sq
-    stagger = motion * 7
+    sw = motion * 3 * math.sin(sway)
     tread_y, limits = [], []
     for k in range(4):
-        pk = max(inp[15 * k:15 * k + 15])
-        over = max(0.0, 20 * math.log10(pk + 1e-6) - thr_db)
-        gr = over * (1 - 1 / ratio)                                 # dB of gain reduction
-        top = PX_FS * max(out[15 * k:15 * k + 15]) + 3              # it comes down onto the wave, never through it
-        lim = max(5.0, top, base * 0.9 ** k - 1.2 * gr)
-        lim = 4 * round(lim / 4)                                    # 4 px steps: fewer redraws as the audio scrolls
+        lim = base * 0.82 ** k
+        if k == 0 or fx_first:
+            lim -= lv['gr'] * 10 * sq
+        else:
+            lim -= lv['duck'] * 16
+        lim = max(4.0, lim)
         limits.append(lim)
-        y = C_Y - lim + (stagger if k % 2 else -stagger * (k > 0))
+        y = C_Y - lim + ((sw if k % 2 else -sw) if k > 0 else 0)
         tread_y.append(float(round(y)))
 
-    # the tails: ripple on the last `reach` cells of each step while the room sounds there (Space times Clew's
-    # output over that column's last windows); it walks along the tail as time passes. Blend leans the tail down
-    # by how hard that column's input played (the ducking). Tone: darker is shorter and broader, brighter sharper.
-    reach = int(round(CELLS * (0.2 + 0.6 * space) * (1 - 0.5 * max(0.0, -tone)))) if space > 0.02 else 0
-    every = 2 if tone < -0.33 else 1
-    lift = 1 if tone > 0.33 else 0
+    # the tails: the far part of each step ripples with the room, more on the later steps, travelling with the
+    # phase. Tone: darker shorter and lower (the room damps sooner), brighter taller.
+    reach = int(round(CELLS * (0.25 + 0.6 * space) * (1 - 0.4 * max(0.0, -tone)))) if space > 0.01 else 0   # darker damps sooner
+    flip = int(math.floor(1.3 * phase / math.pi)) % 2              # the ripple travels: half a cycle at a time
     cells = []                                                      # (tread, cell, variant, x, y)
     for k in range(4):
-        room = space * sum(out[15 * k + 10:15 * k + 15]) / 5
-        amp = 3 * min(1.0, room * 6)
+        amp = (1.0 + 7 * lv['room']) * (0.6 + 0.4 * k / 3) if reach else 0.0
         if fx_first:
-            amp = min(amp, 1)
-        duck = min(1.0, 3 * max(inp[15 * k + 11:15 * k + 15]))
-        walk = (tick + 3 * k // 2) // 6                             # one cell every six frames, the steps out of step
+            amp = min(amp, 1.0)
         first = CELLS - reach
         for j in range(CELLS):
             x = COL_X[k] + j * CELL_W
-            y = tread_y[k]
             v = 0
-            if j >= first and reach:
-                u = (j - first + 1) / reach                         # 0..1 along the tail
-                y += 0 if fx_first else blend * 28 * u * duck
-                y = min(y, C_Y - 8 - 6 * u)                         # it stays above the wave's line
-                if amp >= 0.5 and (j - first + walk) % (2 * every) == 0:
-                    v = max(1, min(3, int(round(amp * (0.5 + 0.5 * u))) + lift))
-            if j * CELL_W + CELL_W / 2 < 3 + attack * 40:
-                v = -1                                              # Attack: each step starts late, a peak gets out
-            cells.append((k, j, v, round(x * 2) / 2, float(round(y))))
+            if reach and j >= first:
+                a = amp * (1 + 0.5 * tone) * (j - first + 1) / reach   # grows along the tail; Tone: brighter taller
+                h = 0 if a < 0.75 else (1 if a < 2.5 else (2 if a < 4.75 else 3))
+                v = h + 3 * flip if h else 0
+            if k == 0 and j * CELL_W + CELL_W / 2 < 3 + attack * 80:
+                v = -1                                              # Attack: the first step starts late
+            cells.append((k, j, v, round(x * 2) / 2, tread_y[k]))
 
     risers = []
     for k in range(3):
-        y0 = cells[k * CELLS + CELLS - 1][4]
-        y1 = tread_y[k + 1]
-        top, bot = min(y0, y1), max(y0, y1)
+        top, bot = min(tread_y[k], tread_y[k + 1]), max(tread_y[k], tread_y[k + 1])
         gap = bot - top
-        n = 0 if gap < 3 else min(RISER_N, int(math.ceil(gap / RISER_SEG)))   # under 3 px the steps meet: no riser
+        n = 0 if gap < 3 else min(RISER_N, int(math.ceil(gap / RISER_SEG)))
         risers.append([(COL_X[k + 1], max(top, min(top + s * RISER_SEG, bot - RISER_SEG))) for s in range(n)])
 
-    # the wave: Clew's output, oldest at the left, newest at the right. Its envelope is the output's peaks; its
-    # cycles are the drawing's (CYCLE windows each), fixed to the audio so they scroll with it. The output is
-    # compressed already, so the step only touches its peaks, and not where Attack starts it late.
-    att_px = 3 + attack * 40
+    # the wave: one line, a swell per step (the playing, then each repeat), each pressed by its step
+    amps = [80 * v for v in lv['swells']]
+    att_px = 3 + attack * 80
     waves = []
     for k in range(4):
         pts = []
         for s in range(SAMPLES):
             x = COL_X[k] + 117 * s / (SAMPLES - 1)
-            w = 15 * k + 15 * s / (SAMPLES - 1) - 0.5               # window position, its centre at .5
-            i = max(0, min(WINDOWS - 2, int(math.floor(w))))
-            t = max(0.0, min(1.0, w - i))
-            env = PX_FS * (out[i] * (1 - t) + out[i + 1] * t)
-            v = env * math.sin(2 * math.pi * (head - (WINDOWS - 1) + w) / CYCLE)
-            d = x - COL_X[k]
-            if d >= att_px:
-                v = soft(v, max(2.0, limits[k] - 1))                # the output is compressed already: a light touch
+            env = 1.2                                               # the line never quite vanishes
+            for j in range(4):
+                d0 = x - COL_X[j]
+                if d0 >= -2:
+                    d0 = max(0.0, d0)
+                    fade = 0.022 if j == 0 else 0.022 * (1 - 0.5 * tone)   # Tone: darker repeats die sooner
+                    env = max(env, amps[j] * (1 - math.exp(-d0 / 4)) * math.exp(-d0 * fade))
+            v = env * math.sin(2 * math.pi * (x - COL_X[0]) / PERIOD - phase)
+            if k == 0 and x - COL_X[0] < att_px:
+                v *= 1 + 0.8 * attack                               # the transient the compressor didn't catch
+                v = max(-limits[0] - 20, min(limits[0] + 20, v))   # a slow attack lets the note's start out
+            else:
+                v = soft(v, max(1.5, limits[k] - 2))
+            v = max(-62.0, min(62.0, v))                            # the outline stays within 64 px of its origin
             pts.append((x, C_Y - v))
         waves.append(pts)
     return {'tread_y': tread_y, 'cells': cells, 'risers': risers, 'waves': waves}
@@ -173,12 +192,12 @@ def ribbon(pts, w):
     return left + right[::-1]
 
 
-def cell_shape(v, up):
-    """a cell's outline, relative to its left end on the tread: flat, or an arch of height BUMPS[v]"""
+def cell_shape(v):
+    """a cell's outline, relative to its left end on the tread: flat, or one cycle of ripple at a height and phase"""
     if v == 0:
         return ribbon([(0, 0), (CELL_W, 0)], 1.5)
-    h = BUMPS[v] * (-1 if up else 1)
-    pts = [(CELL_W * t / 10, h * math.sin(math.pi * t / 10)) for t in range(11)]
+    h = WIGGLE[(v - 1) % 3 + 1] * (1 if v <= 3 else -1)
+    pts = [(CELL_W * t / 16, -h * math.sin(2 * math.pi * t / 16)) for t in range(17)]
     return ribbon(pts, 1.0)
 
 
@@ -194,8 +213,8 @@ def header_values(c):
             f'{round(motion * 100)}', f'{round(dry * 100)}', f'{0.5 * 60 ** attack:.1f}']
 
 
-def frame_svg(c, page=0, shift=False, scope=None, head=0, tick=0):
-    p = pose(c, scope, head, tick)
+def frame_svg(c, page=0, shift=False, lv=None, phase=0.0, sway=0.0):
+    p = pose(c, lv, phase, sway)
     vals = header_values(c)
     o = ['<svg xmlns="http://www.w3.org/2000/svg" width="480" height="220" viewBox="0 0 480 220">',
          '<g id="preview_canvas"><rect x="0" y="0" width="480" height="220" fill="#000000" stroke="none"/></g>',
@@ -219,9 +238,8 @@ def frame_svg(c, page=0, shift=False, scope=None, head=0, tick=0):
     o.append(f'<path d="M 6 205.5 L 474 205.5 L 474 206.5 L 6 206.5 Z" fill="{G[2]}" stroke="{G[2]}" stroke-width="0.3"/>')   # the floor, static
     # treads: every variant of every cell is a node; the one shown sits on the tread, the rest park off screen
     for (k, j, v, x, y) in p['cells']:
-        up = j % 2 == 0                                              # the node's own shape never changes
-        for var in range(4):
-            n = N_CELL + (k * CELLS + j) * 4 + var
+        for var in range(VARIANTS):                                  # a node's own shape never changes
+            n = N_CELL + (k * CELLS + j) * VARIANTS + var
             shown = var == v
             pal = 'P_TREAD' if var == 0 else 'P_RIPPLE'
             _, fill, stroke, w = PALETTE[P[pal]]
@@ -229,7 +247,7 @@ def frame_svg(c, page=0, shift=False, scope=None, head=0, tick=0):
                 m = 'matrix(1 0 0 1 640 320)'
             else:
                 m = f'matrix(1 0 0 1 {f(x)} {f(y)})'
-            o.append(f'<path id="{PREFIX}_node_{n}" transform="{m}" d="{path_d(cell_shape(var, up))}" fill="{fill}" stroke="{stroke}" stroke-width="{w}"/>')
+            o.append(f'<path id="{PREFIX}_node_{n}" transform="{m}" d="{path_d(cell_shape(var))}" fill="{fill}" stroke="{stroke}" stroke-width="{w}"/>')
     for r in range(3):
         segs = p['risers'][r]
         for s in range(RISER_N):
@@ -239,7 +257,7 @@ def frame_svg(c, page=0, shift=False, scope=None, head=0, tick=0):
     # the wave: four mutable outlines, each its column's samples and back 1 px below
     for k, pts in enumerate(p['waves']):
         outline = pts + [(x, y + 1.0) for x, y in reversed(pts)]
-        pal = 'P_WAVE_NOW' if k == 3 else 'P_WAVE'
+        pal = 'P_WAVE_DRY' if k == 0 else 'P_WAVE'
         _, fill, stroke, w = PALETTE[P[pal]]
         ox = (COL_X[k] + COL_X[k + 1]) / 2                          # each outline's points stay within 64 px of its origin
         rel = [(x - ox, y - C_Y) for x, y in outline]
@@ -256,7 +274,7 @@ def frame_svg(c, page=0, shift=False, scope=None, head=0, tick=0):
 
 SIM = HERE / 'sim'
 SIM_BIN = SIM / '.build' / 'scope'
-SNAP_AT = 5.75                                  # seconds: the frames show the bar that ends here, its tails ringing
+SNAP_AT = 4.30                                  # seconds: the frames show this moment of the third bar
 
 
 def build_sim():
@@ -279,20 +297,29 @@ def read_peaks(path):
 
 
 _runs = {}
-def levels(c, at=SNAP_AT):
-    """the send's last WINDOWS input and output peaks at `at` seconds, with controls c held from the start"""
-    key = tuple(round(v, 4) for v in c)
+def run(c, seconds):
+    """the send's input peaks per window with controls c held from the start"""
+    key = (tuple(round(v, 4) for v in c), seconds)
     if key not in _runs:
         import subprocess, tempfile
         build_sim()
         with tempfile.NamedTemporaryFile(suffix='.txt', delete=False) as t:
             name = t.name
-        subprocess.run([str(SIM_BIN), 'const', *[f'{v:.6f}' for v in c], f'{at + 0.1:.2f}', name], check=True)
-        _runs[key] = read_peaks(name)
+        subprocess.run([str(SIM_BIN), 'const', *[f'{v:.6f}' for v in c], f'{seconds:.2f}', name], check=True)
+        _runs[key] = read_peaks(name)[0]
         Path(name).unlink()
-    inp, out = _runs[key]
-    head = int(at * SR / WINDOW)
-    return (inp[head - WINDOWS + 1:head + 1], out[head - WINDOWS + 1:head + 1]), head
+    return _runs[key]
+
+
+def playing_at(c, at=SNAP_AT, fps=30):
+    """(live, phase, sway) at `at` seconds, with the phase and sway run from the start as the device would"""
+    inp = run(c, at + 0.2)
+    phase = sway = 0.0
+    lv = None
+    for i in range(int(at * fps) + 1):
+        lv = live(c, inp, int(i / fps / WIN_S))
+        phase, sway = advance(phase, sway, lv, fps)
+    return lv, phase, sway
 
 
 def write_frames():
@@ -300,10 +327,11 @@ def write_frames():
     out.mkdir(exist_ok=True)
     for old in out.glob('*.svg'):
         old.unlink()
+
     def playing(c, **kw):
-        scope, head = levels(c)
-        return frame_svg(c, scope=scope, head=head, tick=0, **kw)
-    (out / 'rest.svg').write_text(frame_svg(DEFAULTS))                # silence: nothing has come in
+        lv, phase, sway = playing_at(c)
+        return frame_svg(c, lv=lv, phase=phase, sway=sway, **kw)
+    (out / 'rest.svg').write_text(frame_svg(DEFAULTS))                # silence
     (out / 'playing.svg').write_text(playing(DEFAULTS))
     for n in range(8):                                                  # every control's frames while it plays
         for v in (0.0, 0.5, 1.0):
@@ -317,19 +345,17 @@ def write_frames():
 
 def playing_budget(c, seconds=6.0, fps=30):
     """changed nodes per frame while the phrase plays through Clew at controls c, from the second bar on"""
-    import re, subprocess, tempfile
+    import re
     pat = re.compile(rf'id="{PREFIX}_node_(\d+)" transform="([^"]+)" d="([^"]+)"')
-    build_sim()
-    with tempfile.NamedTemporaryFile(suffix='.txt', delete=False) as t:
-        name = t.name
-    subprocess.run([str(SIM_BIN), 'const', *[f'{v:.6f}' for v in c], f'{seconds:.2f}', name], check=True)
-    inp, out = read_peaks(name)
-    Path(name).unlink()
+    inp = run(c, seconds + 0.2)
+    phase = sway = 0.0
     prev, counts = None, []
-    for i in range(int(2.0 * fps), int(seconds * fps) - 1):
-        head = int(i / fps * SR / WINDOW)
-        scope = (inp[head - WINDOWS + 1:head + 1], out[head - WINDOWS + 1:head + 1])
-        now = {m[0]: m[1:] for m in pat.findall(frame_svg(c, scope=scope, head=head, tick=i))}
+    for i in range(int(seconds * fps)):
+        lv = live(c, inp, int(i / fps / WIN_S))
+        phase, sway = advance(phase, sway, lv, fps)
+        if i < 2 * fps:
+            continue
+        now = {m[0]: m[1:] for m in pat.findall(frame_svg(c, lv=lv, phase=phase, sway=sway))}
         if prev:
             counts.append(sum(now[k] != prev[k] for k in now))
         prev = now
@@ -337,11 +363,11 @@ def playing_budget(c, seconds=6.0, fps=30):
 
 
 def budget():
-    """changed nodes per frame: at rest, while playing (defaults and the heaviest settings), and per control turn"""
+    """changed nodes per frame at rest and while the phrase plays (defaults and the heaviest settings)"""
     print('rest (silence, controls still): 0')
     for label, c in [('playing, defaults', DEFAULTS),
                      ('playing, Space 100', DEFAULTS[:2] + [1.0] + DEFAULTS[3:]),
-                     ('playing, Space 100 + Squeeze 100', [1.0, DEFAULTS[1], 1.0] + DEFAULTS[3:])]:
+                     ('playing, Echo, Space, Blend 100', [DEFAULTS[0], 1.0, 1.0, 1.0] + DEFAULTS[4:])]:
         avg, peak = playing_budget(list(c))
         print(f'{label:34s} avg {avg:5.1f} peak {peak:3d}')
 

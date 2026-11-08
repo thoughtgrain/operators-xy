@@ -7,12 +7,12 @@ first).
 
 ## `clew-device.mp4`: the screen
 
-`python3 anim_device.py clew-device.mp4`. Drawn by `gen_clew.py`, the generator behind the stills and the handoff:
-the wave is Clew's output scrolling in from the right, the step line is the compressor coming down onto it, and the
-ripple on each step's tail is the room. The levels come from `sim/scope.cpp`, the same run that makes the audio.
-The device page needs an SDK change before it can receive them (`handoff.md`); this is what it draws once it does.
-Page 2 controls show the second header page; the Order change shows Shift held for 1.5 s.
+`python3 anim_device.py clew-device.mp4`. Pass 05 v2 built for the device, drawn by `gen_clew.py`, the generator
+behind the stills and the handoff. What's sounding is worked out from the input levels `sim/scope.cpp` writes in
+the same run as the audio. The device page needs an SDK change before it receives them (`handoff.md`). Page 2
+controls show the second header page; the Order change shows Shift held for 1.5 s. Where it differs from the sketch,
+and why, is in `review.md`.
 
 ## `clew-v2-anim.mp4`: pass 05's sketch
 
-Made by `anim_v2.py` from a small model of Clew before the screen was built: the idea the owner picked.
+Made by `anim_v2.py` from a small model of Clew: the version the owner picked, and the reference for the build.

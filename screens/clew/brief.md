@@ -114,50 +114,50 @@ Drawing language: oscilloscope trace with a ruled ceiling, front elevation, no l
 
 ## 4 · Map and budget
 
-**The wave is the audio.** At the owner's direction, the wave is Clew's output (the playing with its echoes and room)
-scrolling from right to left over the last 1.9 s, and the step line above it is the compressor, pushed down by what
-comes in, with the room rippling on each step's tail. Effect pages don't receive the audio's levels yet: their input
-holds the controls, Shift and the time only (open-xy `docs/display.md`, Effect pages). So this design needs an SDK
-change first, a small one: the send's input and output peaks, one per 22 blocks (31.9 ms), the last 64 of each
-(`handoff.md`, The SDK change). Until then `sim/scope.cpp` stands in for it by running toro and Clew's engine code
-on a computer, and every playing frame and the preview come from its peaks.
+**The picture is pass 05 v2's animation, as the owner picked it**: one wave (the playing's swell on the first step,
+each repeat's on the next) under a compressor line stepping down, the first step dipping with the gain reduction and
+the later ones with the ducking, the room rippling and travelling along each step's tail, and the wave rippling in
+place while it sounds.
 
-Silence is the rest state: a flat line under the steps at Squeeze's ceiling, and nothing moves.
+It follows the playing, so it needs what's sounding, and effect pages don't get that: their input holds the
+controls, Shift and the time only (open-xy `docs/display.md`, Effect pages). The page needs an SDK change first: the
+send's input peaks, one per 22 blocks (31.9 ms), the last 128 (about 4 s), plus the tempo (`handoff.md`, The SDK
+change). From those the page works out everything pass 05's model did: the playing's level, each repeat's (the
+input one, two and three delay times ago, at Echo's level), the room, the ducking and the gain reduction. Until the
+change lands, `sim/scope.cpp` stands in for it by running toro and Clew's engine code on a computer.
 
 | # | score | channel | part (node) | travel 0 → 100 | what the player sees |
 | --- | --- | --- | --- | --- | --- |
-| 1 Squeeze | 4 | position | 4 steps × 10 cells, 3 risers | ceiling from 64 px above the centre line to 24; while playing, each step drops by 1.2 px per dB of gain reduction until it rests on the wave | the line comes down onto the loud parts and holds them |
-| 2 Echo | 5 | shape (path) | paths 0–3 | the repeats in the output: none at 0, longer and spaced by the note length as it rises | the wave keeps going after each note instead of stopping |
-| 3 Space | 4 | count + shape | ripple cells; paths | ripple reach 2 → 8 cells at each step's end, its height following the room in that part of the output; the room fills the wave's gaps | the steps' ends ripple while the room rings, and the wave never quite stops |
-| 4 Blend | 3 | position + shape | tail cells; paths | each tail leans down up to 28 px by how hard that part was played; the echoes dip under the notes in the wave | the tails dive under the notes and come back in the gaps |
-| 5 Tone | 3 | shape | ripple cells; paths | dark: shorter tails, every other cell; bright: a notch taller; the tails' level in the wave | darker: short broad ripples; brighter: sharp ones |
-| 6 Motion | 2 | position | steps 1–3 | stagger 0 → 7 px | the line goes uneven |
-| 7 Dry | 4 | shape (path) | paths | the playing's own share of the output | at 0 only the echoes and room are in the wave |
-| 8 Attack | 2 | count + shape | each step's first cells; paths | each step starts 3 → 43 px late; the wave isn't touched there | slow attack lets peaks out under the gap |
-| S Order | 2 | position + shape | tail cells; paths | FX first: tails stop leaning, ripple at its lowest; the tails pump in the wave | the whole wave held, not just the notes |
+| 1 Squeeze | 4 | position | 4 steps × 10 cells, 3 risers | the line from 64 px above the centre to 24, each later step 0.82× lower; the first dips up to 10·sq² px more with the gain reduction | the line comes down and presses the wave flatter |
+| 2 Echo | 5 | shape (path) | paths 1–3 | the repeats' swells, at the input's level a delay time ago, times Echo's level and its feedback | each note comes back on the next steps |
+| 3 Space | 4 | count + shape | tail cells | ripple over 25 → 85 % of each step, its height with the room (more on later steps), travelling half a cycle at a time | the steps' ends ripple, longer and taller |
+| 4 Blend | 3 | position | steps 1–3 | the later steps dip up to 16 px with the ducking | the tails' steps press down while you play and come back in the gaps |
+| 5 Tone | 3 | shape | paths 1–3, tail cells | darker: the repeats fade sooner and the ripple is shorter and lower; brighter: longer and taller | darker tails die quicker |
+| 6 Motion | 2 | position | steps 1–3 | sway ±3 px, alternate steps opposite, while it sounds | the line rocks gently |
+| 7 Dry | 4 | shape (path) | path 0 | the playing's swell on the first step | at 0 the first step has no swell, only repeats follow |
+| 8 Attack | 2 | count + shape | step 0's first cells, path 0 | the first step starts 3 → 83 px late and the swell's start under the gap overshoots up to 1.8× | slow attack lets the note's start out under the line |
+| S Order | 2 | position + shape | steps 1–3, tail cells | FX first: the later steps dip with the gain reduction too, and the ripple lies flat | the whole line presses, not just the first step |
 
-The wave's cycles are drawn (one every 4 windows, 31 px) and travel with the audio; their height at each point is the
-output's peak there, 60 px for full scale. That keeps the outline smooth enough for the SDK's path rules while every
-level in it is real.
+The wave's drawn cycle is 117/7 px (16.7 px), not pass 05's 11 px: a mutable outline holds 64 points, 32 along and
+32 back, so a column of 117 px can't carry a finer cycle without breaking the SDK's path rules. That's the one
+visible difference from the sketch.
 
 ```json
 "display": {"stateBytes": 64, "stateAlignment": 4,
-            "paths": 4, "points": 64, "nodes": 202, "texts": 16, "palette": 4}
+            "paths": 4, "points": 64, "nodes": 322, "texts": 16, "palette": 4}
 ```
 
-Nodes: 4 paths (wave, one per column), 8 header bars, 160 step cells (4 × 10 cells × 4 variants, one shown),
-30 riser segments.
+Nodes: 4 paths, 8 header bars, 280 step cells (4 × 10 cells × 7 variants: flat, then three ripple heights at two
+phases), 30 riser segments. 322 nodes needs SDK 1.8 or later.
 
 Budget (`python3 gen_clew.py budget`, the phrase at 120 BPM through Clew from the second bar on):
 
 | case | changed nodes / frame |
 | --- | --- |
 | at rest (silence, controls still) | 0 |
-| playing, defaults | avg 18.4 · peak 38 |
-| playing, heaviest (Space 100) | avg 22.9 · peak 51 |
-| playing, Space 100 + Squeeze 100 | avg 23.2 · peak 53 |
+| playing, defaults | avg 17.8 · peak 63 |
+| playing, Space 100 | avg 20.6 · peak 79 |
+| playing, Echo, Space and Blend 100 | avg 22.2 · peak 81 |
 
-The four wave paths change every frame while sound is on screen; the rest is the steps (snapped to 4 px) and the
-ripple, which walks one cell every six frames, each step out of phase with the next so their redraws don't land
-together. The heaviest settings are a little over the ~20 average; the peaks come from a step moving while its
-ripple walks.
+The wave's four paths change every frame while it sounds; the peaks are the frames where the ripple flips half a
+cycle on every tail at once (every ~13 frames).
