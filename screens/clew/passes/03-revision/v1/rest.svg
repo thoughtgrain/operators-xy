@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="220" viewBox="0 0 480 220">
+<g id="preview_canvas"><rect x="0" y="0" width="480" height="220" fill="#000000" stroke="none"/></g>
+<g id="preview_header">
+<rect x="0" y="0" width="60" height="20" fill="#000000" stroke="none"/>
+<rect x="60" y="0" width="60" height="20" fill="#323232" stroke="none"/>
+<rect x="120" y="0" width="60" height="20" fill="#4B4B4B" stroke="none"/>
+<rect x="180" y="0" width="60" height="20" fill="#646464" stroke="none"/>
+<rect x="240" y="0" width="60" height="20" fill="#7D7D7D" stroke="none"/>
+<rect x="300" y="0" width="60" height="20" fill="#969696" stroke="none"/>
+<rect x="360" y="0" width="60" height="20" fill="#AFAFAF" stroke="none"/>
+<rect x="420" y="0" width="60" height="20" fill="#CDCDCD" stroke="none"/>
+<text transform="matrix(1 0 0 1 5 10)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="10px">squeeze</text>
+<text transform="matrix(1 0 0 1 65 17.44)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="20px">35</text>
+<text transform="matrix(1 0 0 1 125 10)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="10px">echo</text>
+<text transform="matrix(1 0 0 1 185 17.44)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="20px">1/8</text>
+<text transform="matrix(1 0 0 1 245 10)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="10px">space</text>
+<text transform="matrix(1 0 0 1 305 17.44)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="20px">35</text>
+<text transform="matrix(1 0 0 1 365 10)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="10px">blend</text>
+<text transform="matrix(1 0 0 1 425 17.44)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="20px">50</text>
+<text transform="matrix(1 0 0 1 5 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">tone</text>
+<text transform="matrix(1 0 0 1 65 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">0</text>
+<text transform="matrix(1 0 0 1 125 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">motion</text>
+<text transform="matrix(1 0 0 1 185 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">20</text>
+<text transform="matrix(1 0 0 1 245 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">dry</text>
+<text transform="matrix(1 0 0 1 305 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">100</text>
+<text transform="matrix(1 0 0 1 365 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">attack</text>
+<text transform="matrix(1 0 0 1 425 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">5.0</text>
+</g>
+<path id="clew_node_0" d="M 195.87 107.62 L 111 138 L 111.27 138.76 L 196.13 108.38 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_1" d="M 207.99 111.96 L 123.12 142.34 L 123.39 143.1 L 208.26 112.72 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_2" d="M 220.11 116.3 L 135.25 146.68 L 135.51 147.44 L 220.38 117.06 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_3" d="M 232.24 120.64 L 147.37 151.02 L 147.64 151.78 L 232.51 121.4 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_4" d="M 244.36 124.98 L 159.49 155.36 L 159.76 156.12 L 244.63 125.74 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_5" d="M 256.49 129.32 L 171.62 159.7 L 171.89 160.46 L 256.75 130.08 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_6" d="M 268.61 133.66 L 183.74 164.04 L 184.01 164.8 L 268.88 134.42 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_7" d="M 280.73 138 L 195.87 168.38 L 196.13 169.14 L 281 138.76 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_8" d="M 292.86 142.34 L 207.99 172.72 L 208.26 173.48 L 293.13 143.1 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_9" d="M 304.98 146.68 L 220.11 177.06 L 220.38 177.82 L 305.25 147.44 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_10" d="M 317.11 151.02 L 232.24 181.4 L 232.51 182.16 L 317.37 151.78 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_11" d="M 329.23 155.36 L 244.36 185.74 L 244.63 186.5 L 329.5 156.12 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_12" d="M 341.35 159.7 L 256.49 190.08 L 256.75 190.84 L 341.62 160.46 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_13" d="M 353.48 164.04 L 268.61 194.42 L 268.88 195.18 L 353.75 164.8 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_14" d="M 365.6 168.38 L 280.73 198.76 L 281 199.52 L 365.87 169.14 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_15" d="M 377.73 172.72 L 292.86 203.1 L 293.13 203.86 L 377.99 173.48 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_16" d="M 389.85 177.06 L 304.98 207.44 L 305.25 208.2 L 390.12 177.82 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_17" d="M 195.87 108.38 L 389.85 177.82 L 390.12 177.06 L 196.13 107.62 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_18" d="M 183.74 112.72 L 377.73 182.16 L 377.99 181.4 L 184.01 111.96 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_19" d="M 171.62 117.06 L 365.6 186.5 L 365.87 185.74 L 171.89 116.3 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_20" d="M 159.49 121.4 L 353.48 190.84 L 353.75 190.08 L 159.76 120.64 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_21" d="M 147.37 125.74 L 341.35 195.18 L 341.62 194.42 L 147.64 124.98 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_22" d="M 135.25 130.08 L 329.23 199.52 L 329.5 198.76 L 135.51 129.32 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_23" d="M 123.12 134.42 L 317.11 203.86 L 317.37 203.1 L 123.39 133.66 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_24" d="M 111 138.76 L 304.98 208.2 L 305.25 207.44 L 111.27 138 Z" fill="#323232" stroke="#323232" stroke-width="0.3"/>
+<path id="clew_node_25" d="M 220.25 134.04 L 232.37 138.38 L 232.37 131.13 L 220.25 126.79 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_26" d="M 244.5 134.04 L 232.37 138.38 L 232.37 131.13 L 244.5 126.79 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_27" d="M 232.37 122.45 L 244.5 126.79 L 232.37 131.13 L 220.25 126.79 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_28" d="M 244.5 134.04 L 256.62 138.38 L 256.62 131.7 L 244.5 127.36 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_29" d="M 268.74 134.04 L 256.62 138.38 L 256.62 131.7 L 268.74 127.36 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_30" d="M 256.62 123.02 L 268.74 127.36 L 256.62 131.7 L 244.5 127.36 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_31" d="M 135.38 138.38 L 147.5 142.72 L 147.5 98.72 L 135.38 94.38 Z" fill="#000000" stroke="#AFAFAF" stroke-width="2.2"/>
+<path id="clew_node_32" d="M 159.63 138.38 L 147.5 142.72 L 147.5 98.72 L 159.63 94.38 Z" fill="#000000" stroke="#AFAFAF" stroke-width="2.2"/>
+<path id="clew_node_33" d="M 147.5 90.04 L 159.63 94.38 L 147.5 98.72 L 135.38 94.38 Z" fill="#CDCDCD" stroke="#AFAFAF" stroke-width="2.2"/>
+<path id="clew_node_34" d="M 232.37 138.38 L 244.5 142.72 L 244.5 136.18 L 232.37 131.84 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_35" d="M 256.62 138.38 L 244.5 142.72 L 244.5 136.18 L 256.62 131.84 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_36" d="M 244.5 127.5 L 256.62 131.84 L 244.5 136.18 L 232.37 131.84 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_37" d="M 256.62 138.38 L 268.74 142.72 L 268.74 136.55 L 256.62 132.21 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_38" d="M 280.87 138.38 L 268.74 142.72 L 268.74 136.55 L 280.87 132.21 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_39" d="M 268.74 127.87 L 280.87 132.21 L 268.74 136.55 L 256.62 132.21 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_40" d="M 196 142.72 L 208.12 147.06 L 208.12 142.61 L 196 138.27 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_41" d="M 220.25 142.72 L 208.12 147.06 L 208.12 142.61 L 220.25 138.27 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_42" d="M 208.12 133.93 L 220.25 138.27 L 208.12 142.61 L 196 138.27 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_43" d="M 268.74 142.72 L 280.87 147.06 L 280.87 141.94 L 268.74 137.6 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_44" d="M 292.99 142.72 L 280.87 147.06 L 280.87 141.94 L 292.99 137.6 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_45" d="M 280.87 133.26 L 292.99 137.6 L 280.87 141.94 L 268.74 137.6 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_46" d="M 183.88 147.06 L 196 151.4 L 196 121.4 L 183.88 117.06 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_47" d="M 208.12 147.06 L 196 151.4 L 196 121.4 L 208.12 117.06 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_48" d="M 196 112.72 L 208.12 117.06 L 196 121.4 L 183.88 117.06 Z" fill="#646464" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_49" d="M 171.75 151.4 L 183.88 155.74 L 183.88 125.74 L 171.75 121.4 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_50" d="M 196 151.4 L 183.88 155.74 L 183.88 125.74 L 196 121.4 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_51" d="M 183.88 117.06 L 196 121.4 L 183.88 125.74 L 171.75 121.4 Z" fill="#646464" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_52" d="M 220.25 151.4 L 232.37 155.74 L 232.37 147.45 L 220.25 143.11 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_53" d="M 244.5 151.4 L 232.37 155.74 L 232.37 147.45 L 244.5 143.11 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_54" d="M 232.37 138.77 L 244.5 143.11 L 232.37 147.45 L 220.25 143.11 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_55" d="M 268.74 151.4 L 280.87 155.74 L 280.87 151.15 L 268.74 146.81 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_56" d="M 292.99 151.4 L 280.87 155.74 L 280.87 151.15 L 292.99 146.81 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_57" d="M 280.87 142.47 L 292.99 146.81 L 280.87 151.15 L 268.74 146.81 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_58" d="M 183.88 155.74 L 196 160.08 L 196 153.17 L 183.88 148.83 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_59" d="M 208.12 155.74 L 196 160.08 L 196 153.17 L 208.12 148.83 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_60" d="M 196 144.49 L 208.12 148.83 L 196 153.17 L 183.88 148.83 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_61" d="M 232.37 155.74 L 244.5 160.08 L 244.5 137.08 L 232.37 132.74 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_62" d="M 256.62 155.74 L 244.5 160.08 L 244.5 137.08 L 256.62 132.74 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_63" d="M 244.5 128.4 L 256.62 132.74 L 244.5 137.08 L 232.37 132.74 Z" fill="#646464" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_64" d="M 305.12 155.74 L 317.24 160.08 L 317.24 155.78 L 305.12 151.44 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_65" d="M 329.36 155.74 L 317.24 160.08 L 317.24 155.78 L 329.36 151.44 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_66" d="M 317.24 147.1 L 329.36 151.44 L 317.24 155.78 L 305.12 151.44 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_67" d="M 171.75 160.08 L 183.88 164.42 L 183.88 157.02 L 171.75 152.68 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_68" d="M 196 160.08 L 183.88 164.42 L 183.88 157.02 L 196 152.68 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_69" d="M 183.88 148.34 L 196 152.68 L 183.88 157.02 L 171.75 152.68 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_70" d="M 220.25 160.08 L 232.37 164.42 L 232.37 141.42 L 220.25 137.08 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_71" d="M 244.5 160.08 L 232.37 164.42 L 232.37 141.42 L 244.5 137.08 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_72" d="M 232.37 132.74 L 244.5 137.08 L 232.37 141.42 L 220.25 137.08 Z" fill="#646464" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_73" d="M 232.37 164.42 L 244.5 168.76 L 244.5 161.89 L 232.37 157.55 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_74" d="M 256.62 164.42 L 244.5 168.76 L 244.5 161.89 L 256.62 157.55 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_75" d="M 244.5 153.21 L 256.62 157.55 L 244.5 161.89 L 232.37 157.55 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_76" d="M 280.87 164.42 L 292.99 168.76 L 292.99 152.76 L 280.87 148.42 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_77" d="M 305.12 164.42 L 292.99 168.76 L 292.99 152.76 L 305.12 148.42 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_78" d="M 292.99 144.08 L 305.12 148.42 L 292.99 152.76 L 280.87 148.42 Z" fill="#646464" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_79" d="M 244.5 168.76 L 256.62 173.1 L 256.62 167.01 L 244.5 162.67 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_80" d="M 268.74 168.76 L 256.62 173.1 L 256.62 167.01 L 268.74 162.67 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_81" d="M 256.62 158.33 L 268.74 162.67 L 256.62 167.01 L 244.5 162.67 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_82" d="M 268.74 168.76 L 280.87 173.1 L 280.87 157.1 L 268.74 152.76 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_83" d="M 292.99 168.76 L 280.87 173.1 L 280.87 157.1 L 292.99 152.76 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_84" d="M 280.87 148.42 L 292.99 152.76 L 280.87 157.1 L 268.74 152.76 Z" fill="#646464" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_85" d="M 317.24 168.76 L 329.36 173.1 L 329.36 166.66 L 317.24 162.32 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_86" d="M 341.49 168.76 L 329.36 173.1 L 329.36 166.66 L 341.49 162.32 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_87" d="M 329.36 157.98 L 341.49 162.32 L 329.36 166.66 L 317.24 162.32 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_88" d="M 341.49 168.76 L 353.61 173.1 L 353.61 165.76 L 341.49 161.42 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_89" d="M 365.74 168.76 L 353.61 173.1 L 353.61 165.76 L 365.74 161.42 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_90" d="M 353.61 157.08 L 365.74 161.42 L 353.61 165.76 L 341.49 161.42 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_91" d="M 329.36 173.1 L 341.49 177.44 L 341.49 168.44 L 329.36 164.1 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_92" d="M 353.61 173.1 L 341.49 177.44 L 341.49 168.44 L 353.61 164.1 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_93" d="M 341.49 159.76 L 353.61 164.1 L 341.49 168.44 L 329.36 164.1 Z" fill="#646464" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_94" d="M 317.24 177.44 L 329.36 181.78 L 329.36 172.78 L 317.24 168.44 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_95" d="M 341.49 177.44 L 329.36 181.78 L 329.36 172.78 L 341.49 168.44 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_96" d="M 329.36 164.1 L 341.49 168.44 L 329.36 172.78 L 317.24 168.44 Z" fill="#646464" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_97" d="M 232.37 181.78 L 244.5 186.12 L 244.5 178.61 L 232.37 174.27 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_98" d="M 256.62 181.78 L 244.5 186.12 L 244.5 178.61 L 256.62 174.27 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_99" d="M 244.5 169.93 L 256.62 174.27 L 244.5 178.61 L 232.37 174.27 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_100" d="M 268.74 186.12 L 280.87 190.46 L 280.87 184.15 L 268.74 179.81 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_101" d="M 292.99 186.12 L 280.87 190.46 L 280.87 184.15 L 292.99 179.81 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_102" d="M 280.87 175.47 L 292.99 179.81 L 280.87 184.15 L 268.74 179.81 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_103" d="M 292.99 186.12 L 305.12 190.46 L 305.12 185.87 L 292.99 181.53 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_104" d="M 317.24 186.12 L 305.12 190.46 L 305.12 185.87 L 317.24 181.53 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_105" d="M 305.12 177.19 L 317.24 181.53 L 305.12 185.87 L 292.99 181.53 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_106" d="M 317.24 186.12 L 329.36 190.46 L 329.36 182.62 L 317.24 178.28 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_107" d="M 341.49 186.12 L 329.36 190.46 L 329.36 182.62 L 341.49 178.28 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_108" d="M 329.36 173.94 L 341.49 178.28 L 329.36 182.62 L 317.24 178.28 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_109" d="M 341.49 186.12 L 353.61 190.46 L 353.61 185.22 L 341.49 180.88 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_110" d="M 365.74 186.12 L 353.61 190.46 L 353.61 185.22 L 365.74 180.88 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_111" d="M 353.61 176.54 L 365.74 180.88 L 353.61 185.22 L 341.49 180.88 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_112" d="M 305.12 190.46 L 317.24 194.8 L 317.24 188.55 L 305.12 184.21 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_113" d="M 329.36 190.46 L 317.24 194.8 L 317.24 188.55 L 329.36 184.21 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_114" d="M 317.24 179.87 L 329.36 184.21 L 317.24 188.55 L 305.12 184.21 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_115" d="M 280.87 199.14 L 292.99 203.48 L 292.99 197.4 L 280.87 193.06 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_116" d="M 305.12 199.14 L 292.99 203.48 L 292.99 197.4 L 305.12 193.06 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_117" d="M 292.99 188.72 L 305.12 193.06 L 292.99 197.4 L 280.87 193.06 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<text transform="matrix(1 0 0 1 20 206)" fill="#7D7D7D" stroke="none" font-family="UniversNextPro-Light" font-size="10px">in</text>
+<text transform="matrix(1 0 0 1 446 150)" fill="#7D7D7D" stroke="none" font-family="UniversNextPro-Light" font-size="10px">out</text>
+</svg>

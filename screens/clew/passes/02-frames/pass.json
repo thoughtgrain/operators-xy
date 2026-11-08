@@ -3,7 +3,7 @@
   "category": "effect",
   "kind": "frames",
   "number": 2,
-  "state": "ready_for_pick",
+  "state": "selected",
   "created": "2026-11-07T16:10:11",
   "focus": "Chosen subject v4: a cutaway engineering schematic of one box: gain valve on the signal path, tape loop with record head and sliding playback head (distance = note length), coil spring tank (room), a follower lever from the input that presses the tape and spring outputs down while playing; damper pad (Tone), guide roller (Motion), bypass link (Dry), lever spring (Attack); Order moves the valve before/after. Two-page header y 0-38.",
   "subject": {
@@ -143,5 +143,11 @@
     "problems": [],
     "checked": "2026-11-07T16:13:07"
   },
-  "selection": null
+  "selection": {
+    "variant": "v4",
+    "reason": "Closed without a pick so a new pass can open; v4 recorded only as the recommendation from this pass, not the owner's choice.",
+    "chosenBy": "not picked: the owner asked for five more designs instead",
+    "at": "2026-11-07T16:15:31",
+    "frame": "screens/clew/passes/02-frames/v4/rest.svg"
+  }
 }

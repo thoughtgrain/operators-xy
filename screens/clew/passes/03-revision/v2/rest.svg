@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="220" viewBox="0 0 480 220">
+<g id="preview_canvas"><rect x="0" y="0" width="480" height="220" fill="#000000" stroke="none"/></g>
+<g id="preview_header">
+<rect x="0" y="0" width="60" height="20" fill="#000000" stroke="none"/>
+<rect x="60" y="0" width="60" height="20" fill="#323232" stroke="none"/>
+<rect x="120" y="0" width="60" height="20" fill="#4B4B4B" stroke="none"/>
+<rect x="180" y="0" width="60" height="20" fill="#646464" stroke="none"/>
+<rect x="240" y="0" width="60" height="20" fill="#7D7D7D" stroke="none"/>
+<rect x="300" y="0" width="60" height="20" fill="#969696" stroke="none"/>
+<rect x="360" y="0" width="60" height="20" fill="#AFAFAF" stroke="none"/>
+<rect x="420" y="0" width="60" height="20" fill="#CDCDCD" stroke="none"/>
+<text transform="matrix(1 0 0 1 5 10)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="10px">squeeze</text>
+<text transform="matrix(1 0 0 1 65 17.44)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="20px">35</text>
+<text transform="matrix(1 0 0 1 125 10)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="10px">echo</text>
+<text transform="matrix(1 0 0 1 185 17.44)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="20px">1/8</text>
+<text transform="matrix(1 0 0 1 245 10)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="10px">space</text>
+<text transform="matrix(1 0 0 1 305 17.44)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="20px">35</text>
+<text transform="matrix(1 0 0 1 365 10)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="10px">blend</text>
+<text transform="matrix(1 0 0 1 425 17.44)" fill="#000000" stroke="none" font-family="UniversNextPro-Light" font-size="20px">50</text>
+<text transform="matrix(1 0 0 1 5 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">tone</text>
+<text transform="matrix(1 0 0 1 65 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">0</text>
+<text transform="matrix(1 0 0 1 125 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">motion</text>
+<text transform="matrix(1 0 0 1 185 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">20</text>
+<text transform="matrix(1 0 0 1 245 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">dry</text>
+<text transform="matrix(1 0 0 1 305 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">100</text>
+<text transform="matrix(1 0 0 1 365 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">attack</text>
+<text transform="matrix(1 0 0 1 425 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">5.0</text>
+</g>
+<path id="clew_node_0" d="M 249.61 52.22 L 259.61 70.22 L 260.39 69.78 L 250.39 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_1" d="M 253.61 52.22 L 263.61 70.22 L 264.39 69.78 L 254.39 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_2" d="M 257.85 52.22 L 267.85 70.22 L 268.63 69.78 L 258.63 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_3" d="M 262.34 52.22 L 272.34 70.22 L 273.13 69.78 L 263.13 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_4" d="M 267.11 52.22 L 277.11 70.22 L 277.89 69.78 L 267.89 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_5" d="M 272.16 52.22 L 282.16 70.22 L 282.94 69.78 L 272.94 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_6" d="M 277.51 52.22 L 287.51 70.22 L 288.29 69.78 L 278.29 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_7" d="M 283.18 52.22 L 293.18 70.22 L 293.97 69.78 L 283.97 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_8" d="M 289.2 52.22 L 299.2 70.22 L 299.98 69.78 L 289.98 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_9" d="M 295.57 52.22 L 305.57 70.22 L 306.36 69.78 L 296.36 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_10" d="M 302.33 52.22 L 312.33 70.22 L 313.12 69.78 L 303.12 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_11" d="M 309.49 52.22 L 319.49 70.22 L 320.28 69.78 L 310.28 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_12" d="M 317.09 52.22 L 327.09 70.22 L 327.87 69.78 L 317.87 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_13" d="M 325.14 52.22 L 335.14 70.22 L 335.92 69.78 L 325.92 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_14" d="M 333.67 52.22 L 343.67 70.22 L 344.45 69.78 L 334.45 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_15" d="M 342.71 52.22 L 352.71 70.22 L 353.5 69.78 L 343.5 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_16" d="M 352.3 52.22 L 362.3 70.22 L 363.08 69.78 L 353.08 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_17" d="M 362.46 52.22 L 372.46 70.22 L 373.24 69.78 L 363.24 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_18" d="M 373.23 52.22 L 383.23 70.22 L 384.02 69.78 L 374.02 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_19" d="M 384.65 52.22 L 394.65 70.22 L 395.43 69.78 L 385.43 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_20" d="M 396.75 52.22 L 406.75 70.22 L 407.54 69.78 L 397.54 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_21" d="M 409.58 52.22 L 419.58 70.22 L 420.36 69.78 L 410.36 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_22" d="M 423.18 52.22 L 433.18 70.22 L 433.96 69.78 L 423.96 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_23" d="M 437.59 52.22 L 447.59 70.22 L 448.38 69.78 L 438.38 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_24" d="M 452.87 52.22 L 462.87 70.22 L 463.66 69.78 L 453.66 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_25" d="M 469.06 52.22 L 479.06 70.22 L 479.85 69.78 L 469.85 51.78 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_26" d="M 6 200.5 L 474 200.5 L 474 199.5 L 6 199.5 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
+<path id="clew_node_27" d="M 52.45 60.03 L 67.55 63.03 L 67.55 195.08 L 52.45 198.08 Z" fill="#000000" stroke="#AFAFAF" stroke-width="1.5"/>
+<path id="clew_node_28" d="M 52.38 81.23 L 67.49 83.23 L 67.62 82.24 L 52.51 80.24 Z" fill="#AFAFAF" stroke="#AFAFAF" stroke-width="0.3"/>
+<path id="clew_node_29" d="M 143.46 69.1 L 156.54 72.1 L 156.54 190.76 L 143.46 193.76 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_30" d="M 143.38 88.3 L 156.47 90.3 L 156.62 89.31 L 143.53 87.31 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_31" d="M 222.33 76.97 L 233.67 79.97 L 233.67 187.02 L 222.33 190.02 Z" fill="#000000" stroke="#7D7D7D" stroke-width="1.0"/>
+<path id="clew_node_32" d="M 222.24 94.42 L 233.58 96.42 L 233.76 95.43 L 222.42 93.43 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_33" d="M 291.09 83.82 L 300.91 86.82 L 300.91 183.75 L 291.09 186.75 Z" fill="#000000" stroke="#7D7D7D" stroke-width="1.0"/>
+<path id="clew_node_34" d="M 290.99 99.75 L 300.81 101.75 L 301.01 100.77 L 291.19 98.77 Z" fill="#7D7D7D" stroke="#7D7D7D" stroke-width="0.3"/>
+<path id="clew_node_35" d="M 347.72 89.47 L 356.28 92.47 L 356.28 181.06 L 347.72 184.06 Z" fill="#000000" stroke="#646464" stroke-width="1.0"/>
+<path id="clew_node_36" d="M 347.6 104.14 L 356.17 106.14 L 356.4 105.17 L 347.83 103.17 Z" fill="#646464" stroke="#646464" stroke-width="0.3"/>
+<path id="clew_node_37" d="M 34 106 L 48 106 L 48 160 L 34 160 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_38" d="M 72 106 L 86 106 L 86 160 L 72 160 Z" fill="#000000" stroke="#969696" stroke-width="1.5"/>
+<path id="clew_node_39" d="M 48 133.75 L 52 133.75 L 52 132.25 L 48 132.25 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_40" d="M 68 133.75 L 72 133.75 L 72 132.25 L 68 132.25 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
+<path id="clew_node_41" d="M 30 98.88 L 90 98.88 L 90 97.12 L 30 97.12 Z" fill="#CDCDCD" stroke="#CDCDCD" stroke-width="0.3"/>
+<text transform="matrix(1 0 0 1 10 214)" fill="#7D7D7D" stroke="none" font-family="UniversNextPro-Light" font-size="10px">in</text>
+<text transform="matrix(1 0 0 1 440 214)" fill="#7D7D7D" stroke="none" font-family="UniversNextPro-Light" font-size="10px">room</text>
+</svg>
