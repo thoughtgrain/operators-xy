@@ -33,7 +33,7 @@ Until it lands, `sim/scope.cpp` writes the same peaks from the engine code on a 
 
 ```json
 "display": {"stateBytes": 64, "stateAlignment": 4,
-            "paths": 4, "points": 64, "nodes": 442, "texts": 16, "palette": 4}
+            "paths": 4, "points": 64, "nodes": 442, "texts": 16, "palette": 3}
 ```
 
 ## Coordinates
@@ -48,13 +48,19 @@ Until it lands, `sim/scope.cpp` writes the same peaks from the engine code on a 
 | --- | --- | --- |
 | paths 0–3 | the wave, one per column; path 0 carries the playing's swell | what's sounding, Squeeze, Tone, Attack |
 | 4–11 | header bars | `page_header()` |
-| 12–411 | step cells: step k, cell j, variant v at `12 + (k·10 + j)·10 + v` | Squeeze, the gain reduction and ducking, Space, the room, Tone, Motion, Attack, Order |
+| 12–51 | the flat line: step k, cell j at `12 + k·10 + j` | Squeeze, the gain reduction and ducking, Space, the room, Tone, Motion, Attack, Order |
+| 52–411 | the tails: step k, reach i, segment s, height h, phase p at `52 + k·90 + ((SEG_AT[i] + s)·3 + h − 1)·3 + p` | Space, the room, Tone, the phase, Order |
 | 412–441 | riser segments: riser r, segment s at `412 + r·10 + s` | follows the steps |
 
-Cell variants, each authored at the cell's left end on the step line (11.7 px wide): v0 a flat 1.5 px ribbon
-(`P_TREAD`); then one cycle of ripple (`P_RIPPLE`, 1.0 px ribbons) at height h (1.5 / 3.5 / 6.0 px, h = 1..3) and
-phase p (0, ⅓, ⅔ of a cycle on, p = 0..2), as variant `h + 3p`. Show one variant, hide the others; a cell only
-translates. Riser segments are 1.5 × 4 px.
+The flat line: 11.7 px ribbons of 1.5 px (`P_TREAD`), each authored at its left end on the step line; shown left of
+the tail, hidden under it. The tails: each step's tail is `REACHES[i]` = 2, 4, 6 or 8 cells long, drawn as 1, 2, 3 or
+4 segments of two 11.7 px cycles (`SEG_AT = [0, 1, 3, 6]`), authored at each segment's left end on the step line,
+in the same 1.5 px ribbon and grey as the flat line so the two read as one line. Segment s of a tail of length
+`L = REACHES[i]·11.7` at height `H = [2.0, 4.0, 6.5][h−1]` and phase p is
+`y(t) = −H·((s·23.4 + t)/L)·sin(2π·t/11.7 − 2π·p/3)`, t = 0..23.4 in 24 steps: it starts from nothing where the
+tail leaves the flat line, every segment starts on a whole cycle so neighbours meet exactly, and the last ends at
+the riser at `H·sin(2π·p/3)` below the step, where the riser starts. A cell or segment only translates. Riser
+segments are 1.5 × 4 px.
 
 ## What's sounding
 
@@ -76,10 +82,11 @@ phase  += 2π · 0.9 / fps · energy;   sway += 2π · 0.3 / fps · energy      
 `duck·16` on steps 1–3; at least 4. y = `150 − limit_k`, plus `±3·m·sin(sway)` on steps 1–3 (odd down, even up),
 whole pixels.
 
-**Ripple.** `reach = min(9, round(10·(0.2 + 0.85·sp)·(1 − 0.4·max(0, −t))))` cells at each step's end, none when
-`sp ≤ 0.01`. `amp_k = (3 + k)·√min(2, sp/0.35)·(1 + 0.8·room)`, at most 1 with FX first. For a tail cell,
-`a = amp_k·(1 + 0.5t)·(j − first + 1)/reach`; height 0 below 0.75, 1 below 2.5, 2 below 4.75, else 3. Variant is
-`h + 3p` with `p = ⌊1.3·phase / (2π/3)⌋ mod 3`, so the ripple travels a third of a cycle at a time. Other cells are v0.
+**Tails.** `reach = 10·(0.2 + 0.85·sp)·(1 − 0.4·max(0, −t))` cells, none when `sp ≤ 0.01`; the tail takes the
+nearest of 2, 4, 6, 8. `amp_k = (3 + k)·√min(2, sp/0.35)·(1 + 0.8·room)`, at most 1 with FX first; its height at the
+riser is `a = amp_k·(1 + 0.5t)`: none below 0.75, h 1 below 3.0, 2 below 5.25, else 3. Phase
+`p = ⌊1.3·phase / (2π/3)⌋ mod 3`, so the ripple travels a third of a cycle at a time. Flat cells left of the tail
+show; the rest hide. The riser starts at the tail's end.
 
 **Attack.** Sets the knee of the squeeze: `knee = 0.4 + 0.45·a²`. Every cell stays on its step.
 
@@ -98,7 +105,7 @@ env = max(1.2, max over j of amp_j · (1 − exp(−dj/4)) · exp(−dj·f_j)), 
 v   = env · sin(2π·(x − 6)/11 − phase)
 push_k  = 0.55 · max(0, 50·0.77^k − limit_k)        the wave sinks as a step comes below the design's default
 centre  = 150 + push, eased from one column's push to the next over 24 px around each riser (smoothstep)
-ceiling = the lowest underside within 3 px of x: the step's y plus its ripple's height there, plus 2 px
+ceiling = the lowest underside within 3 px of x: the step's y plus the tail's envelope there (H·u), plus 2 px
 up      = max(1, centre − ceiling);   down = max(1, min(203 − centre, up + 2·(centre − 150) + 4))
 v       = v > 0 ? soft(v, up, knee) : soft(v, down, knee)
 y       = centre − v, held within 62 px of 150; then the same points 1 px lower in reverse: a closed 64-point ribbon
@@ -114,8 +121,7 @@ its column's centre (`6 + 117k + 58.5`, 150) with points relative to it.
 | --- | --- | --- | --- | --- |
 | 0 | `P_WAVE` | none / `#969696` | 1.5 | paths 1–3 |
 | 1 | `P_WAVE_DRY` | none / `#CDCDCD` | 2.0 | path 0, the playing: the one brightest element |
-| 2 | `P_TREAD` | `#969696` / `#969696` | 0.3 | flat cells |
-| 3 | `P_RIPPLE` | `#7D7D7D` / `#7D7D7D` | 0.3 | arches |
+| 2 | `P_TREAD` | `#969696` / `#969696` | 0.3 | the flat line and the tails, one grey so they read as one line |
 
 Riser segments carry their own `#969696`; the floor (x 6–474, y 205.5–206.5, `#4B4B4B`) is static.
 
@@ -146,9 +152,9 @@ sounds (`energy > 0`) or a control it depends on eases. In silence it stays put,
 
 ## Budget
 
-`python3 gen_clew.py budget`: 0 at rest; 21.1 a frame on average while the phrase plays at the defaults (peak 74);
-24.1 at Space 100 (peak 90); 25.9 at Echo, Space and Blend 100 (peak 92). The peaks are the ripple moving on every
-tail at once, about every 6.6 frames.
+`python3 gen_clew.py budget`: 0 at rest; 17.7 a frame on average while the phrase plays at the defaults (peak 57);
+17.2 at Space 100 (peak 57); 18.5 at Echo, Space and Blend 100 (peak 59). A tail moving is two nodes (one hidden,
+one shown) per segment, not a node per cell.
 
 ## Open checks
 

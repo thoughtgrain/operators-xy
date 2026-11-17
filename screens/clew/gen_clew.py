@@ -8,7 +8,9 @@ redrawing:
 
   paths 0..3   the wave, one mutable outline per column (32 samples along it, 32 back 1 px below: a closed ribbon)
   nodes 4..11  the SDK's two-page header bar
-  treads       4 steps x 10 cells; each cell is a flat segment or one 11.7 px cycle of ripple at three heights and three phases (10 nodes, one
+  treads       4 steps x 10 flat cells, then each step's rippling tail in 2-cell segments that continue the flat line
+               (same weight and grey) and grow out of it: a node per reach (2, 4, 6, 8 cells), segment, height (3) and
+               phase (3); a tail shows its segments (one
                shown), authored at the cell's left end on the step line, so a cell only ever translates
   risers       3 risers x 10 segments of 4 px, stacked from one step down to the next; spare segments hidden
 
@@ -33,20 +35,24 @@ COL_X = [6 + 117 * k for k in range(5)]     # column edges: 6 .. 474
 SAMPLES = 32                                # wave samples per column (64 points with the way back)
 CELLS = 10
 CELL_W = 117 / CELLS
-WIGGLE = [0, 1.5, 3.5, 6.0]                 # ripple heights: flat, low, mid, high (one 11.7 px cycle per cell)
+TAIL_H = [0, 2.0, 4.0, 6.5]                 # a tail's height at the riser: none, low, mid, high
 PHASES = 3                                  # the ripple travels a third of a cycle at a time
-VARIANTS = 1 + 3 * PHASES                   # flat, then each height at each phase
+REACHES = [2, 4, 6, 8]                      # a tail's length in cells, drawn in segments of 2
+SEG_AT = [0, 1, 3, 6]                       # the first segment index of each reach
+TAILS = 10 * 3 * PHASES                     # per step: 1 + 2 + 3 + 4 segments x height x phase
 RISER_SEG, RISER_N = 4.0, 10
 
 # palette: (name, fill, stroke, width). Paths draw hollow, so their fill is none.
 PALETTE = [('P_WAVE', 'none', G[5], 1.5), ('P_WAVE_DRY', 'none', G[7], 2.2),
-           ('P_TREAD', G[5], G[5], 0.3), ('P_RIPPLE', G[4], G[4], 0.3)]
+           ('P_TREAD', G[5], G[5], 0.3)]
 P = {n: k for k, (n, *_r) in enumerate(PALETTE)}
 
 N_PATH = 0
 N_HDR = 4
-N_CELL = N_HDR + 8                          # tread t, cell j, variant v: N_CELL + (t * CELLS + j) * VARIANTS + v
-N_RISER = N_CELL + 4 * CELLS * VARIANTS            # riser r, segment s: N_RISER + r * RISER_N + s
+N_FLAT = N_HDR + 8                          # tread t, cell j: N_FLAT + t * CELLS + j
+N_TAIL = N_FLAT + 4 * CELLS                 # tread t, reach i, segment s, height h, phase q:
+                                            #   N_TAIL + t * TAILS + ((SEG_AT[i] + s) * 3 + h-1) * PHASES + q
+N_RISER = N_TAIL + 4 * TAILS            # riser r, segment s: N_RISER + r * RISER_N + s
 NODES = N_RISER + 3 * RISER_N
 
 DEFAULTS = [0.35, 0.6, 0.35, 0.5, 0.5, 0.2, 1.0, 0.5624, 0.0]
@@ -139,24 +145,25 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
     # the phase. Tone: darker shorter and lower (the room damps sooner), brighter taller.
     reach = min(CELLS - 1, int(round(CELLS * (0.2 + 0.85 * space) * (1 - 0.4 * max(0.0, -tone))))) if space > 0.01 else 0
     turn = int(math.floor(1.3 * phase / (2 * math.pi / PHASES))) % PHASES
-    cells = []                                                      # (tread, cell, variant, x, y)
+    cells = []                                                      # (tread, cell, shown, x, y): the flat line
+    tails = []                                                      # (tread, reach, height, phase) or None
+    tail_end = []                                                   # the tail's last point, where the riser starts
     for k in range(4):
         amp = (3 + k) * min(2.0, space / 0.35) ** 0.5 * (1 + 0.8 * lv['room']) if reach else 0.0
         if fx_first:
             amp = min(amp, 1.0)
-        first = CELLS - reach
+        a = amp * (1 + 0.5 * tone)                                  # its height at the riser
+        h = 0 if a < 0.75 else (1 if a < 3.0 else (2 if a < 5.25 else 3))
+        ri = min(range(4), key=lambda i: abs(REACHES[i] - reach))  # the tail's length, in whole segments
+        first = CELLS - REACHES[ri] if h else CELLS
         for j in range(CELLS):
-            x = COL_X[k] + j * CELL_W
-            v = 0
-            if reach and j >= first:
-                a = amp * (1 + 0.5 * tone) * (j - first + 1) / reach
-                h = 0 if a < 0.75 else (1 if a < 2.5 else (2 if a < 4.75 else 3))
-                v = h + 3 * turn if h else 0
-            cells.append((k, j, v, round(x * 2) / 2, tread_y[k]))
+            cells.append((k, j, j < first, round((COL_X[k] + j * CELL_W) * 2) / 2, tread_y[k]))
+        tails.append((ri, h, turn) if h else None)
+        tail_end.append(tread_y[k] + (TAIL_H[h] * math.sin(2 * math.pi * turn / PHASES) if h else 0.0))
 
     risers = []
     for k in range(3):
-        top, bot = min(tread_y[k], tread_y[k + 1]), max(tread_y[k], tread_y[k + 1])
+        top, bot = min(tail_end[k], tread_y[k + 1]), max(tail_end[k], tread_y[k + 1])
         gap = bot - top
         n = 0 if gap < 3 else min(RISER_N, int(math.ceil(gap / RISER_SEG)))
         risers.append([(COL_X[k + 1], max(top, min(top + s * RISER_SEG, bot - RISER_SEG))) for s in range(n)])
@@ -171,9 +178,15 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
     # squeezed: its lower half has the room the push gave it.
     # Attack sets the knee: a fast one bends the wave early, a slow one lets more through before it flattens.
     knee = 0.4 + 0.45 * attack ** 2
-    drop = {}                                                       # the ripple's reach below each tail cell
-    for (k, j, v, x, y) in cells:
-        drop[(k, j)] = WIGGLE[(v - 1) % 3 + 1] if v > 0 else 0.0
+
+    def drop(k, x):
+        """how far the tail's ripple reaches below its step at x"""
+        t = tails[k]
+        if not t:
+            return 0.0
+        length = REACHES[t[0]] * CELL_W
+        start = COL_X[k + 1] - length
+        return TAIL_H[t[1]] * max(0.0, min(1.0, (x - start) / length))
     push = [0.55 * d for d in dips]                                 # the wave sinks with the step: about half its drop
 
     def centre(x):
@@ -188,8 +201,7 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
         low = 0.0
         for k in range(4):
             if COL_X[k] - 3 <= x < COL_X[k + 1] + 3:
-                j = max(0, min(CELLS - 1, int((x - COL_X[k]) / CELL_W)))
-                low = max(low, tread_y[k] + drop[(k, j)])
+                low = max(low, tread_y[k] + drop(k, x))
         return low + 2
 
     def value(x, k):
@@ -239,7 +251,7 @@ def pose(c, lv=None, phase=0.0, sway=0.0):
         ys = {x: C_Y - value(x, k) for x in pts[:SAMPLES]}
         ys[a + 0.5], ys[b - 0.5] = ys[a], ys[b]
         waves.append([(x, ys[x]) for x in pts[:SAMPLES]])
-    return {'tread_y': tread_y, 'cells': cells, 'risers': risers, 'waves': waves}
+    return {'tread_y': tread_y, 'cells': cells, 'tails': tails, 'risers': risers, 'waves': waves}
 
 
 # ---------- the drawing ----------
@@ -259,17 +271,25 @@ def ribbon(pts, w):
     return left + right[::-1]
 
 
-def cell_shape(v):
-    """a cell's outline, relative to its left end on the tread: flat, or one cycle of ripple at a height and phase"""
-    if v == 0:
-        return ribbon([(0, 0), (CELL_W, 0)], 1.5)
-    h, ph = WIGGLE[(v - 1) % 3 + 1], (v - 1) // 3
-    pts = [(CELL_W * t / 12, -h * math.sin(2 * math.pi * t / 12 - 2 * math.pi * ph / PHASES)) for t in range(13)]
-    return ribbon(pts, 1.0)
+def tail_shape(ri, seg, h, q):
+    """segment `seg` of a step's rippling tail REACHES[ri] cells long, relative to the segment's left end on the step:
+    two 11.7 px cycles whose height grows from nothing where the tail leaves the flat line to TAIL_H[h] at the riser,
+    a phase q/PHASES of a cycle on. Every segment starts on a whole cycle, so neighbours meet exactly."""
+    length = REACHES[ri] * CELL_W
+    t0 = seg * 2 * CELL_W
+    pts = []
+    for i in range(25):
+        t = 2 * CELL_W * i / 24
+        u = (t0 + t) / length
+        pts.append((t, -TAIL_H[h] * u * math.sin(2 * math.pi * t / CELL_W - 2 * math.pi * q / PHASES)))
+    return ribbon(pts, 1.5)
 
 
 def path_d(pts):
     return 'M ' + ' L '.join(f'{f(x)} {f(y)}' for x, y in pts) + ' Z'
+
+
+
 
 
 def header_values(c):
@@ -304,17 +324,21 @@ def frame_svg(c, page=0, shift=False, lv=None, phase=0.0, sway=0.0):
     o.append('</g>')
     o.append(f'<path d="M 6 205.5 L 474 205.5 L 474 206.5 L 6 206.5 Z" fill="{G[2]}" stroke="{G[2]}" stroke-width="0.3"/>')   # the floor, static
     # treads: every variant of every cell is a node; the one shown sits on the tread, the rest park off screen
-    for (k, j, v, x, y) in p['cells']:
-        for var in range(VARIANTS):                                  # a node's own shape never changes
-            n = N_CELL + (k * CELLS + j) * VARIANTS + var
-            shown = var == v
-            pal = 'P_TREAD' if var == 0 else 'P_RIPPLE'
-            _, fill, stroke, w = PALETTE[P[pal]]
-            if not shown:
-                m = 'matrix(1 0 0 1 640 320)'
-            else:
-                m = f'matrix(1 0 0 1 {f(x)} {f(y)})'
-            o.append(f'<path id="{PREFIX}_node_{n}" transform="{m}" d="{path_d(cell_shape(var))}" fill="{fill}" stroke="{stroke}" stroke-width="{w}"/>')
+    _, fill, stroke, w = PALETTE[P['P_TREAD']]
+    for (k, j, shown, x, y) in p['cells']:                         # the flat line, cell by cell
+        m = f'matrix(1 0 0 1 {f(x)} {f(y)})' if shown else 'matrix(1 0 0 1 640 320)'
+        o.append(f'<path id="{PREFIX}_node_{N_FLAT + k * CELLS + j}" transform="{m}" d="{path_d(ribbon([(0, 0), (CELL_W, 0)], 1.5))}" fill="{fill}" stroke="{stroke}" stroke-width="{w}"/>')
+    for k in range(4):                                              # each step's tail: every variant a node
+        t = p['tails'][k]
+        for ri in range(4):
+            for seg in range(ri + 1):
+                for h in range(1, 4):
+                    for q in range(PHASES):
+                        n = N_TAIL + k * TAILS + ((SEG_AT[ri] + seg) * 3 + h - 1) * PHASES + q
+                        x = COL_X[k + 1] - REACHES[ri] * CELL_W + seg * 2 * CELL_W
+                        shown = t == (ri, h, q)
+                        m = f'matrix(1 0 0 1 {f(x)} {f(p["tread_y"][k])})' if shown else 'matrix(1 0 0 1 640 320)'
+                        o.append(f'<path id="{PREFIX}_node_{n}" transform="{m}" d="{path_d(tail_shape(ri, seg, h, q))}" fill="{fill}" stroke="{stroke}" stroke-width="{w}"/>')
     for r in range(3):
         segs = p['risers'][r]
         for s in range(RISER_N):

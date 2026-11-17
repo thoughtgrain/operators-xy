@@ -20,9 +20,10 @@ riser, the same 11 px wave. The differences:
 - The wave's points: 32 along a 117 px column can't sample an 11 px cycle evenly, so they sit on the crests and
   troughs and round the tallest crests. The low stretches read a little more angular than the design's.
 - The bright part is the whole first column (one outline), where the design brightens its first 70 px.
-- The tails' ripple is one 11.7 px cycle per cell (five on a half step; the design has four to seven), moving a
-  third of a cycle every ~6.6 frames instead of sliding smoothly: the cells are fixed artwork that can only be
-  placed.
+- The tails grow out of the flat line as one continuous line in its weight and grey, two 11.7 px cycles per
+  segment (five or six on a half step; the design has four to seven). They move a third of a cycle every ~6.6
+  frames instead of sliding smoothly, and their length steps in two cells at a time: the segments are fixed
+  artwork that can only be placed.
 - While playing, the swells grow with the simulated audio, the first step dips with the gain reduction, the later
   ones with the ducking, and the steps sway only while something sounds (the animated sketch swayed in silence too).
 
@@ -33,7 +34,7 @@ riser, the same 11 px wave. The differences:
 | question | answer |
 | --- | --- |
 | Every element drawn in the named language (scope trace under a ruled ceiling)? | Yes. |
-| Line weights match the table at every zoom? | Yes. The first swell 2.0 px, the rest of the wave and the steps 1.5 px, ripple 1.0 px, risers 1.5 px. Parts only translate. |
+| Line weights match the table at every zoom? | Yes. The first swell 2.0 px, the rest of the wave, the steps and their tails 1.5 px, risers 1.5 px. Parts only translate. |
 | Exactly one brightest element? | Yes: the first swell (the playing), `#CDCDCD`. |
 | Anything look like an icon? | No. |
 | Sits in the same set as the reference? | Yes: mid-grey line drawing on black, one bright part. |
@@ -43,12 +44,12 @@ riser, the same 11 px wave. The differences:
 - [x] Every frame viewed at 1:1: contact sheet and spot checks of rest, playing, c2-000, c2-100, c8-000, c8-100, and
       four stills of the preview against the sketch.
 - [x] Text: only the SDK header.
-- [x] Meaningful non-text parts ≥ 3:1: `#7D7D7D` 5.1:1 (ripple), `#969696` 7.1:1, `#CDCDCD` 13.2:1. The floor,
+- [x] Meaningful non-text parts ≥ 3:1: `#969696` 7.1:1 (wave, steps, tails, risers), `#CDCDCD` 13.2:1. The floor,
       `#4B4B4B` 2.4:1, is ground.
 - [x] No part under ~3 px; no repeated lines closer than ~3 px: the wave's cycle is 11 px; the ripple's 11.7 px.
 - [x] No state by shade alone.
-- [x] Each control visibly different at 0 / 50 / 100 while playing, and `perceptibility.py` passes: squeeze 15.99 %,
-      echo 5.74, space 6.25, blend 9.62, tone 6.61, motion 2.12, dry 6.68, attack 2.93; note response 11.38.
+- [x] Each control visibly different at 0 / 50 / 100 while playing, and `perceptibility.py` passes: squeeze 16.05 %,
+      echo 5.75, space 5.84, blend 9.65, tone 6.40, motion 2.14, dry 6.68, attack 2.93; note response 11.46.
 - [ ] Visual travel matches the audible score: Squeeze (4), Dry (4) and Space (4) show more than Echo (5). Every
       control clears its floor, so I kept the design's proportions.
 - [x] Nothing moves at rest; nothing flashes more than 3×/s: the ripple moves about five times a second, a travelling ripple rather than a flash.
@@ -59,12 +60,12 @@ riser, the same 11 px wave. The differences:
 
 ## Before you submit (open-xy PR #260, house rules)
 
-- [ ] ~20 changed nodes a frame on average while notes sound, 0 at rest: 21.1 at the defaults; 24.1 at Space 100;
-      25.9 at Echo, Space and Blend 100 (peaks 74 / 90 / 92, the frames where every tail's ripple moves). Over, to
-      keep the design's travelling ripple. 0 at rest.
+- [x] ~20 changed nodes a frame on average while notes sound, 0 at rest: 17.7 at the defaults; 17.2 at Space 100;
+      18.5 at Echo, Space and Blend 100 (peaks 57 / 57 / 59). 0 at rest.
       The device cost: **pending device**.
 - [x] A path's key changes only when its points do (handoff, Path keys).
 - [x] Moving fills: none.
 - [x] Path rules: `lint_frame.py` 0 errors, 0 warnings on all 28 frames.
-- [ ] Touching parts: risers, cells and the wave are separate nodes. Seams: **pending device**.
+- [ ] Touching parts: the flat cells, the tail segments and the risers meet end to end as separate nodes, each
+      start or end on the same point as its neighbour. Seams: **pending device**.
 - [x] No on/off controls; no grey-only differences.
