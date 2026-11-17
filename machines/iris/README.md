@@ -28,15 +28,17 @@ The screen is a rainbow. Four grey bands are the four waveforms going in, sine o
 
 | Control | What moves |
 |---|---|
-| Morph | the bright line walks inward across the bow and takes each band's shape in turn |
-| Overlap | the bands pull in toward the bright line; at 100 they crowd it and their waves cross |
+| Morph | the bright line walks inward across the bow and takes each band's shape in turn; the rings in the blend slide onto it and swell, the rest shrink to a ripple |
+| Overlap | more rings join the blend, slide onto the bright line and swell; at 100 they crowd it and cross |
 | Spread | each band's cycles stretch or shrink along its arc; the bright line swells and thins where the bands beat |
 | Tone | the bright line's corners round off, and the inner bands' teeth melt into humps, band by band |
 | Skew | the bright line leans; on the square it narrows to spikes |
 | Phase | the bands slide along their arcs, and the bright line hollows where they overlap |
 | a note | the bright line brightens and travels along the arc while a note is held, then settles |
 
-How it fits the device: the bands are chains of one-cycle nodes (`gen_panel.py` authors one cycle per band, 16 copies, plus a rounded copy for when Tone cuts the band), which `display.cpp` only moves, turns and scales. The bright line is the four reshapable outlines, a quarter of the arc each, rewritten only when its key changes. So nothing redraws at rest, and while a note is held only those four outlines change. That's 140 nodes and 5 palette entries.
+The bow's centre sits below the screen, so the bands run off the bottom edge, and the rings are 10 px apart so their crests interlock.
+
+How it fits the device: the bands are chains of one-cycle nodes that `display.cpp` only moves, turns and scales. `gen_panel.py` authors three chains of 16 per band: a ripple (out of the blend), full height, and full height rounded (for when Tone cuts the band). The bright line is the four reshapable outlines, a quarter of the arc each, rewritten only when its key changes. So nothing redraws at rest, and while a note is held only those four outlines change. That's 204 nodes and 5 palette entries. `panel.svg.fragment` has to stay under the SDK preview's 64 KiB (it's 62,972 bytes), which is why the band chains are written at one decimal with few points per cycle.
 
 ## Status
 

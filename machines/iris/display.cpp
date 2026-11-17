@@ -1,8 +1,9 @@
 /* iris for the OP-XY: the rainbow screen. Four grey bands are the four waveforms that go in (sine outermost, then
  * triangle, square, saw innermost, as a real bow orders its wavelengths) and the one bright line is what comes out:
  * the mix, computed from the engine's own maths, riding at the radius Morph sets.
- *   Morph    the bright line walks inward across the bow, sine band to saw band, and takes that band's shape
- *   Overlap  the bands pull in toward the bright line; at 100 they crowd it and their waves cross
+ *   Morph    the bright line walks inward across the bow, sine band to saw band, and takes that band's shape; the
+ *            rings in the blend slide onto it and swell to full height, the rest shrink to a ripple
+ *   Overlap  widens the blend: more rings slide onto the bright line and swell; at 100 they crowd it and cross
  *   Spread   each band's cycles stretch or shrink along its arc, so crests fall out of line, and the bright line
  *            swells and thins round the bow where the detuned bands beat
  *   Tone     the bright line's corners round off, and band by band from the inside the teeth melt into humps
@@ -14,8 +15,9 @@
  *   a note   the bright line brightens and travels along the arc while any note is held, then settles
  *
  * The design and its frames live in operator-design, screens/iris (handoff.md is the spec this follows). The art is
- * retained (panel.svg.fragment from gen_panel.py, indices in nodes.h). The bands are chains of one-cycle nodes that
- * only move, turn and scale; the bright line is the four mutable outlines, rewritten only when its key changes, so
+ * retained (panel.svg.fragment from gen_panel.py, indices in nodes.h). The bow's centre sits below the screen, so the
+ * bands run off the bottom edge. The bands are chains of one-cycle nodes that only move, turn and scale, with three
+ * pre-drawn chains per band (a ripple, full height, full height rounded); the bright line is the four mutable outlines, rewritten only when its key changes, so
  * nothing redraws at rest. Integer maths only, Q10 throughout. Copyright (c) 2026 briannhinton. MIT. */
 #include "display.h"
 #include "nodes.h"
@@ -139,10 +141,15 @@ inline void display(DisplayState& st, const Input& in, Frame& fr)
     static const int CYCLES_Q10[4] = { 11 * 1024, 13 * 1024, 14 * 1024, 16 * 1024 };
     const i32 n_mix = lerp_band(CYCLES_Q10, c);                                   /* Q10 cycles */
 
-    /* the bands: chains of one-cycle nodes, raw or rounded (Tone's cut), placed round their arcs */
-    static const i32 CUT_BELOW[4] = { -1, 205, 461, 666 };                         /* tone 0.20, 0.45, 0.65; sine never */
+    /* the bands: chains of one-cycle nodes placed round their arcs. A ring in the blend slides onto the bright line by
+     * its share of the mix (further with Overlap) and swells to full height; a ring out of it shrinks to a ripple.
+     * Tone's cut swaps in the rounded chains. */
+    static const i32 CUT_BELOW[4] = { -1, 256, 614, 666 };                         /* tone 0.25, 0.60, 0.65; sine never */
     for (int b = 0; b < 4; ++b) {
-        const i32 r = RADIUS_Q10[b] + static_cast<i32>((static_cast<i64>(r_mix - RADIUS_Q10[b]) * ((819 * overlap) >> 10)) >> 10);
+        const i32 wn = (w[b] << 10) / wmax;                                        /* share of the top weight, Q10 */
+        i32 pull = (wn * (614 + ((614 * overlap) >> 10))) >> 10;                   /* wn (0.6 + 0.6 overlap), at most 1 */
+        if (pull > unit) pull = unit;
+        const i32 r = RADIUS_Q10[b] + static_cast<i32>((static_cast<i64>(r_mix - RADIUS_Q10[b]) * pull) >> 10);
         const i32 stretch = unit + ((123 * spread >> 10) * (2 * b - 3)) / 2;       /* 1 + 0.12 spread (b - 1.5) */
         const i32 n_b = (CYCLES_N[b] << 20) / stretch;                             /* Q10 cycles round the half-turn */
         const i32 dphi = (HALF_TURN << 20) / n_b;                                  /* tenths, Q10 */
@@ -152,10 +159,16 @@ inline void display(DisplayState& st, const Input& in, Frame& fr)
         const bool cut = tone < CUT_BELOW[b];
         if (cut && level > 0) level--;
         const u32 paint = level >= 3 ? P_BAND_HI : level == 2 ? P_BAND_MID : P_BAND_LO;
-        const u32 show = cut ? N_ROUND : N_RAW, park = cut ? N_RAW : N_ROUND;
+        const i32 lvl3 = (3 * w[b] + wmax / 2) / wmax;                             /* before the cut's step down */
+        const u32 kind = lvl3 == 0 ? 0u : cut ? 2u : 1u;                           /* ripple, full, full rounded */
+        const u32 chain = kind * 4 + static_cast<u32>(b);
+        for (u32 other = 0; other < 3; ++other) {                                  /* the band's other two chains */
+            const u32 c2 = other * 4 + static_cast<u32>(b);
+            if (c2 != chain) for (int k = 0; k < PER_BAND; ++k) hide(fr, N_BAND + PER_BAND * c2 + static_cast<u32>(k));
+        }
+        const u32 show = N_BAND + PER_BAND * chain;
         for (int k = 0; k < PER_BAND; ++k) {
-            const u32 n = static_cast<u32>(PER_BAND * b + k);
-            hide(fr, park + n);
+            const u32 n = static_cast<u32>(k);
             /* cycle j = k - 1 (one spare on each side for the wrap); its mid-angle, in tenths Q10 */
             const i64 mid = (static_cast<i64>(HALF_TURN) << 10) - ((static_cast<i64>(k - 1) * unit + 512 + shift) * dphi >> 10);
             if (mid - dphi / 2 >= (static_cast<i64>(HALF_TURN) << 10) || mid + dphi / 2 <= 0) { hide(fr, show + n); continue; }
@@ -172,8 +185,9 @@ inline void display(DisplayState& st, const Input& in, Frame& fr)
     const u32 key = mix_key(st.eased, st.travel);
     if (key != st.key) {
         st.key = key;
-        /* the waves' Fourier coefficients x Tone's drawn low-pass (Q14): fc = 2^(0.5 + 3 tone) harmonics */
-        const i32 fc = exp2_q10(512 + 3 * tone);
+        /* the waves' Fourier coefficients x Tone's drawn low-pass (Q14): fc = 2^(3.5 tone) harmonics, the engine's
+         * curve fitted to what a ~10-points-per-cycle line can show (operator-design gen_frames.py, gain()) */
+        const i32 fc = exp2_q10((3584 * tone) >> 10);
         i32 coef[4][NH + 1];
         for (int n = 1; n <= NH; ++n) {
             const i64 ratio = (static_cast<i64>(n) << 20) / fc;                    /* Q10 */

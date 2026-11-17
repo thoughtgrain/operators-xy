@@ -7,12 +7,13 @@ this file shares its geometry constants. If you change one, change both.
 What's authored here:
   - nodes 0..3: the mix line's four mutable outlines (64 points each), drawn at the defaults. display() rewrites them.
   - nodes 4..11: the header bar (one row; Shift swaps its texts, it never adds a row).
-  - nodes 12..75: raw band cycles, 16 per band (sine, triangle, square, saw). Every cycle of a band is the same shape:
-    one cycle of its wave bent to its rest radius, authored at the top of the bow (turn 0) about its own origin on the
-    arc. display() moves, turns and scales each one into place.
-  - nodes 76..139: the same chains with each cycle rounded to a hump (what gets through when Tone cuts that band).
-  - the black ground mask under the horizon, then the horizon: static art, not nodes. They never move, and a
-    bound mask would take its palette entry's paint (paint recolours a fill), turning it grey.
+  - nodes 12..395: the band chains, 16 one-cycle nodes per chain. Every cycle of a chain is the same shape: one cycle
+    of its band's wave bent to the band's rest radius, authored at the top of the bow (turn 0) about its own origin on
+    the arc. display() moves, turns and scales each one into place. Each band has three chains: a ripple (out of the
+    blend), full height (in it) and full height rounded (in it, cut by Tone). Chain index kind * 4 + band (kind 0
+    ripple, 1 full, 2 full rounded), node N_BAND + 16 * chain + cycle. Three, not more, and few points per cycle,
+    written at one decimal: panel.svg has to fit the SDK preview's 64 KiB.
+  - no horizon: the bow's centre sits below the screen, so the bands run off the bottom edge (revision 03).
 
     python3 gen_panel.py          # writes panel.svg.fragment, nodes.h and the display block in definition.json
 Copyright (c) 2026 briannhinton. MIT."""
@@ -23,10 +24,11 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 PREFIX = 'iris'
 
-CX, CY = 240.0, 204.0                     # the bow's centre, on the horizon
-RADII = [156.0, 140.0, 124.0, 108.0]      # sine, triangle, square, saw
+CX, CY = 240.0, 232.0                     # the bow's centre, below the screen: the ends run off the bottom
+RADII = [156.0, 146.0, 136.0, 126.0]      # sine, triangle, square, saw: 10 px apart, so crests interlock
 CYCLES = [11, 13, 14, 16]                 # cycles across the half-turn: denser inward
-AMP_BAND, AMP_MIX = 4.5, 5.0              # radial wave height, px
+AMP_LEVELS = [0.8, 5.5]                   # band wave heights: out of the blend (a ripple), in it (px)
+AMP_MIX = 5.0                             # the mix line's wave height, px
 BAND_W, MIX_W, HAIR_W = 1.5, 2.5, 1.2     # line, subject, hairline
 KINDS = ['sine', 'tri', 'square', 'saw']
 START = {'sine': 0.0, 'tri': 0.0, 'square': 0.25, 'saw': 0.0}
@@ -34,9 +36,9 @@ PER_BAND = 16
 DEFAULTS = {'morph': 0.3333, 'overlap': 0.25, 'spread': 0.0, 'tone': 0.7, 'skew': 0.0, 'phase': 0.0}
 
 N_MIX, N_HDR = 0, 4
-N_RAW = N_HDR + 8
-N_ROUND = N_RAW + 4 * PER_BAND
-NODES = N_ROUND + 4 * PER_BAND
+N_BAND = N_HDR + 8
+CHAINS = 3 * 4                            # (ripple, full, full rounded) x band
+NODES = N_BAND + CHAINS * PER_BAND
 
 G = ['#000000', '#323232', '#4B4B4B', '#646464', '#7D7D7D', '#969696', '#AFAFAF', '#CDCDCD']
 # (fill, stroke, width): ribbons stroke in their own fill, a hair wide, so a 1.5 px line stays about 1.5 px
@@ -79,30 +81,27 @@ def dedupe(line, gap=0.3):
     return out
 
 
-def cycle_line(kind, r, phi0, dphi, t0):
-    """One cycle's centreline, as gen_frames.py draws it (skew 0: the bands are drawn raw)."""
+def cycle_line(kind, r, phi0, dphi, t0, amp):
+    """One cycle's centreline, exactly as gen_frames.py draws it: a sine at 12 points, the straight-sided waves by
+    their corners (a jump leans by 0.02 cycle so the ribbon has a flat end, not a fold)."""
     e = 0.01
     if kind == 'sine':
-        pts = [(k / 24, math.sin(2 * math.pi * (t0 + k / 24))) for k in range(25)]
+        pts = [(k / 12, math.sin(2 * math.pi * (t0 + k / 12))) for k in range(13)]
     else:
-        keys = {'tri': [(0, 0), (0.25, 1), (0.75, -1), (1, 0)],
-                'square': [(0, 1), (0.25 - e, 1), (0.25 + e, -1), (0.75 - e, -1), (0.75 + e, 1), (1, 1)],
-                'saw': [(0, 0), (0.5 - e, 1), (0.5 + e, -1), (1, 0)]}[kind]
-        pts, seg_len = [], abs(dphi) * r
-        for (u0, v0), (u1, v1) in zip(keys, keys[1:]):
-            m = max(1, int(math.ceil(math.hypot((u1 - u0) * seg_len, (v1 - v0) * AMP_BAND) / 3.0)))
-            pts += [(u0 + (u1 - u0) * s / m, v0 + (v1 - v0) * s / m) for s in range(m)]
-        pts.append(keys[-1])
-    return dedupe([polar(r + AMP_BAND * v, phi0 + dphi * u) for u, v in pts])
+        pts = {'tri': [(0, 0), (0.25, 1), (0.75, -1), (1, 0)],
+               'square': [(0, 1), (0.25 - e, 1), (0.25 + e, -1), (0.75 - e, -1), (0.75 + e, 1), (1, 1)],
+               'saw': [(0, 0), (0.5 - e, 1), (0.5 + e, -1), (1, 0)]}[kind]
+    return dedupe([polar(r + amp * v, phi0 + dphi * u) for u, v in pts])
 
 
-def f(v):
-    s = f'{v:.3f}'.rstrip('0').rstrip('.')
+def f(v, places=3):
+    s = f'{v:.{places}f}'.rstrip('0').rstrip('.')
     return '0' if s in ('-0', '', '-') else s
 
 
-def d_of(poly, ox, oy):
-    return 'M ' + ' L '.join(f'{f(x - ox)} {f(y - oy)}' for x, y in poly) + ' Z'
+def d_of(poly, ox, oy, places=3):
+    """M x y L x y ... Z, compact: one decimal for the band chains (places=1), where the 64 KiB budget bites."""
+    return 'M' + 'L'.join(f'{f(x - ox, places)} {f(y - oy, places)}' for x, y in poly) + 'Z'
 
 
 def mix_rest():
@@ -111,7 +110,7 @@ def mix_rest():
     c, width = v['morph'] * 3, 1 + 3 * v['overlap']
     w = [max(0.0, 1 - abs(i - c) / width) for i in range(4)]
     w = [x / sum(w) for x in w]
-    fc = 2 ** (0.5 + 3 * v['tone'])
+    fc = 2 ** (3.5 * v['tone'])                                    # drawn bandwidth, as gen_frames.py
     gain = lambda n: 1 / math.sqrt(1 + (n / fc) ** 4)
 
     def series(kind, x):
@@ -157,23 +156,19 @@ def header_fragment():
 def main():
     o = [f'<g id="{PREFIX}_panel">'] + header_fragment()
     # band chains: one cycle, authored at the top of the bow (turn 0), centred on its own origin on the arc
-    for first, rounded in ((N_RAW, False), (N_ROUND, True)):
+    for kind_i, (rounded, amp) in enumerate(((True, AMP_LEVELS[0]), (False, AMP_LEVELS[1]), (True, AMP_LEVELS[1]))):
         for b, kind in enumerate(KINDS):
+            chain = kind_i * 4 + b
             r, dphi = RADII[b], -math.pi / CYCLES[b]
-            line = cycle_line('sine' if rounded else kind, r, math.pi / 2 - dphi / 2, dphi, START[kind])
+            line = cycle_line('sine' if rounded else kind, r, math.pi / 2 - dphi / 2, dphi, START[kind], amp)
             ox, oy = polar(r, math.pi / 2)
-            d = d_of(ribbon(line, BAND_W / 2), ox, oy)
-            grey = PALETTE[3 if b == 1 else 2][0]
+            d = d_of(ribbon(line, BAND_W / 2), ox, oy, places=1)
+            grey = PALETTE[2][0]
             for k in range(PER_BAND):
-                o.append(f'<path id="{PREFIX}_node_{first + PER_BAND * b + k}" transform="matrix(1 0 0 1 {f(ox)} {f(oy)})" d="{d}" fill="{grey}" stroke="{grey}" stroke-width="0.2"/>')
-    hy = CY + 0.6
-    mask = [(-200, HAIR_W / 2), (200, HAIR_W / 2), (200, 220 - hy), (-200, 220 - hy)]
-    hz = [(-200, -HAIR_W / 2), (200, -HAIR_W / 2), (200, HAIR_W / 2), (-200, HAIR_W / 2)]
-    o.append(f'<path transform="matrix(1 0 0 1 {f(CX)} {f(hy)})" d="{d_of(mask, 0, 0)}" fill="#000000" stroke="none"/>')
-    o.append(f'<path transform="matrix(1 0 0 1 {f(CX)} {f(hy)})" d="{d_of(hz, 0, 0)}" fill="{G[2]}" stroke="none"/>')
+                o.append(f'<path id="{PREFIX}_node_{N_BAND + PER_BAND * chain + k}" transform="matrix(1 0 0 1 {f(ox, 1)} {f(oy, 1)})" d="{d}" fill="{grey}" stroke="none"/>')
     # the mix line last, so it's drawn over the bands
     for q, (poly, (ox, oy)) in enumerate(mix_rest()):
-        o.append(f'<path id="{PREFIX}_node_{N_MIX + q}" transform="matrix(1 0 0 1 {f(ox)} {f(oy)})" d="{d_of(poly, ox, oy)}" fill="{G[6]}" stroke="{G[6]}" stroke-width="0.2"/>')
+        o.append(f'<path id="{PREFIX}_node_{N_MIX + q}" transform="matrix(1 0 0 1 {f(ox, 2)} {f(oy, 2)})" d="{d_of(poly, ox, oy, places=2)}" fill="{G[6]}" stroke="{G[6]}" stroke-width="0.2"/>')
     for i, (fill, stroke, width) in enumerate(PALETTE):
         o.append(f'<path id="{PREFIX}_palette_{i}" transform="matrix(1 0 0 1 640 320)" d="M0,0 L4,0 L4,4 L0,4 Z" fill="{fill}" stroke="{stroke}" stroke-width="{width}"/>')
     o.append('</g>')
@@ -182,8 +177,9 @@ def main():
     q10 = lambda v: int(round(v * 1024))
     h = ('#pragma once\n// iris for the OP-XY: node indices and the bow\'s geometry, written by gen_panel.py.\n'
          '// Edit the generator, not this file.\nnamespace iris {\n')
-    h += (f'enum {{ N_MIX = {N_MIX}, N_HDR = {N_HDR}, N_RAW = {N_RAW}, N_ROUND = {N_ROUND}, PER_BAND = {PER_BAND}, '
+    h += (f'enum {{ N_MIX = {N_MIX}, N_HDR = {N_HDR}, N_BAND = {N_BAND}, PER_BAND = {PER_BAND}, CHAINS = {CHAINS}, '
           f'N_TOTAL = {NODES} }};\n')
+    h += '// band b: chain kind * 4 + b, kind 0 ripple (out of the blend), 1 full height, 2 full height rounded (Tone cut)\n'
     h += 'enum { ' + ', '.join(f'{n} = {k}' for k, n in enumerate(PALETTE_NAMES)) + f', PALETTE_N = {len(PALETTE)} }};\n'
     h += '// Q10 px: the bow\'s centre, each band\'s rest radius, the wave heights and the mix ribbon\'s half width\n'
     h += f'const int CX_Q10 = {q10(CX)}, CY_Q10 = {q10(CY)};\n'

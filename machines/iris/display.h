@@ -4,7 +4,7 @@
 // iris for the OP-XY: the rainbow screen's state. Matches resources.display in definition.json.
 // Copyright (c) 2026 briannhinton. MIT.
 namespace iris {
-using Frame = opxy::draw::Frame<4, 64, 140, 8, 5>;   // paths, points, nodes, texts, palette
+using Frame = opxy::draw::Frame<4, 64, 204, 8, 5>;   // paths, points, nodes, texts, palette
 struct DisplayState {
     opxy::draw::PageHeader header;     // 20 bytes
     opxy::i32 eased[6];                // the six controls as drawn, Q10, easing toward the knobs
