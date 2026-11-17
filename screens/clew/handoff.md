@@ -129,8 +129,12 @@ Riser segments carry their own `#969696`; the floor (x 6–474, y 205.5–206.5,
 
 0–15 are the two-page header's (`page_header()`). Captions: amounts with `header_amount`; Echo as the division name
 (`1/32 3/64 1/16 3/32 1/8 3/16 1/4 1/2`, `off` at 0); Tone signed; Attack in ms with one decimal (`0.5·60^a`). While
-`shift` is 1, the edited row (`line`) shows `order` and `comp` / `fx` in its first column and leaves the other three
-empty (frame `shift-order-fx.svg`); write those slots after the helper.
+Shift is held (`draw::shift_row(input).held`), Shift replaces the header (operator-design `constraints.md`, Shift in
+the header; `shift_policy` is `replace`): one row, the four slots showing the Shift controls, `order` and `comp` /
+`fx` in the first and the other three empty, and no second row under it (frame `shift-order-fx.svg`). Draw that row
+yourself in place of the page's titles and values rather than passing the Shift row to `page_header`, which would
+stack it. Release puts the two-page header back. Only the header's texts and bars change, in one frame; nothing
+below it moves.
 
 ## `DisplayState` (64 bytes)
 
@@ -160,4 +164,4 @@ one shown) per segment, not a node per cell.
 
 - **Pending SDK:** the levels on the page.
 - **Pending device:** photos at rest, playing and Echo, Space and Blend at 100; the redraw cost while playing; seams where risers meet
-  steps; header captions in Univers Next Pro Light (`3/64`, `30.0`, `comp`); the Shift row in the edited header row.
+  steps; header captions in Univers Next Pro Light (`3/64`, `30.0`, `comp`); the Shift header (Order alone, no second row).

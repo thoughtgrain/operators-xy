@@ -313,12 +313,12 @@ def frame_svg(c, page=0, shift=False, lv=None, phase=0.0, sway=0.0):
     for k, i in enumerate(top):
         col = '#CBCBCB' if k < 2 else '#000000'
         name, val = NAMES[i], vals[i]
-        if shift:                                                   # Shift held: the edited row shows the Shift row
+        if shift:                                                   # Shift held: the header shows the Shift row alone
             name, val = ('order', 'fx' if c[8] > 0.5 else 'comp') if k == 0 else ('', '')
         if name:
             o.append(f'<text transform="matrix(1 0 0 1 {5 + 120 * k} 10)" fill="{col}" stroke="none" font-family="UniversNextPro-Light" font-size="10px">{name}</text>')
             o.append(f'<text transform="matrix(1 0 0 1 {65 + 120 * k} 17.44)" fill="{col}" stroke="none" font-family="UniversNextPro-Light" font-size="20px">{val}</text>')
-    for k, i in enumerate(low):
+    for k, i in enumerate([] if shift else low):                  # Shift swaps the header: no second row under it
         o.append(f'<text transform="matrix(1 0 0 1 {5 + 120 * k} 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">{NAMES[i]}</text>')
         o.append(f'<text transform="matrix(1 0 0 1 {65 + 120 * k} 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">{vals[i]}</text>')
     o.append('</g>')

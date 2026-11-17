@@ -18,7 +18,7 @@ while something sounds), **ease** (exponential, settles in 0.15 s), **snap**.
 | sound stops | everything | the swells fade with the input, the steps rise back, the phases stop | follow, then nothing | snap |
 | turn any control | what it shapes (see the brief) | to its new value | ease 0.15 s | snap |
 | page press | header only | the SDK's two-page header swaps rows | `page_header()` | the helper snaps |
-| hold Shift | the header's edited row | `order` and `comp` / `fx` | text | same |
+| hold Shift | the header | swaps to the Shift row alone: `order` and `comp` / `fx`, no second row; release swaps it back | one frame, text and bars only | same |
 
 Gate:
 

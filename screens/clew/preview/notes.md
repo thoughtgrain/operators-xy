@@ -10,7 +10,7 @@ first).
 `python3 anim_device.py clew-device.mp4`. Pass 05 v2 built for the device, drawn by `gen_clew.py`, the generator
 behind the stills and the handoff. What's sounding is worked out from the input levels `sim/scope.cpp` writes in
 the same run as the audio. The device page needs an SDK change before it receives them (`handoff.md`). Page 2
-controls show the second header page; the Order change shows Shift held for 1.5 s. Where it differs from the sketch,
+controls show the second header page; the Order change shows Shift held for 1.5 s, which swaps the header to the Order row alone. Where it differs from the sketch,
 and why, is in `review.md`.
 
 ## `clew-v2-anim.mp4`: pass 05's sketch

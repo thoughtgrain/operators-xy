@@ -11,14 +11,6 @@
 <path id="clew_node_11" transform="matrix(1 0 0 1 420 0)" d="M 0 0 L 60 0 L 60 20 L 0 20 Z" fill="#CDCDCD" stroke="#CDCDCD" stroke-width="0.5"/>
 <text transform="matrix(1 0 0 1 5 10)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="10px">order</text>
 <text transform="matrix(1 0 0 1 65 17.44)" fill="#CBCBCB" stroke="none" font-family="UniversNextPro-Light" font-size="20px">fx</text>
-<text transform="matrix(1 0 0 1 5 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">tone</text>
-<text transform="matrix(1 0 0 1 65 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">0</text>
-<text transform="matrix(1 0 0 1 125 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">motion</text>
-<text transform="matrix(1 0 0 1 185 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">20</text>
-<text transform="matrix(1 0 0 1 245 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">dry</text>
-<text transform="matrix(1 0 0 1 305 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">100</text>
-<text transform="matrix(1 0 0 1 365 33)" fill="#5A5A5A" stroke="none" font-family="UniversNextPro-Light" font-size="10px">attack</text>
-<text transform="matrix(1 0 0 1 425 33)" fill="#707070" stroke="none" font-family="UniversNextPro-Light" font-size="13px">5.0</text>
 </g>
 <path d="M 6 205.5 L 474 205.5 L 474 206.5 L 6 206.5 Z" fill="#4B4B4B" stroke="#4B4B4B" stroke-width="0.3"/>
 <path id="clew_node_12" transform="matrix(1 0 0 1 6 101)" d="M 0 0.75 L 11.7 0.75 L 11.7 -0.75 L 0 -0.75 Z" fill="#969696" stroke="#969696" stroke-width="0.3"/>
