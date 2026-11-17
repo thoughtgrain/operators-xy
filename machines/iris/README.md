@@ -20,8 +20,24 @@ The engine is in `engine.cpp` and the voice state in `core.h`. It's integer-only
 - **Tone.** It's key-tracked, from 0.5 to 7.5 octaves above the note. It means "how many harmonics get through", which is exactly what the four bands differ in, and it doesn't go silent on high notes the way a fixed cutoff did.
 - **Aliasing.** The square and saw are band-limited with a polynomial BLEP at each jump. The reciprocal comes from the block's first pitch, so the correction is a few multiplies.
 
+## The screen
+
+The screen is a rainbow. Four grey bands are the four waveforms going in, sine on the outside and saw on the inside, the way a real bow orders its wavelengths. One bright line is what comes out: the mix, worked out from the same maths as the engine, sitting at the radius Morph sets. The design, its frames and the handoff this code follows are in my operator-design repository, under `screens/iris/`.
+
+| Control | What moves |
+|---|---|
+| Morph | the bright line walks inward across the bow and takes each band's shape in turn |
+| Overlap | the bands pull in toward the bright line; at 100 they crowd it and their waves cross |
+| Spread | each band's cycles stretch or shrink along its arc; the bright line swells and thins where the bands beat |
+| Tone | the bright line's corners round off, and the inner bands' teeth melt into humps, band by band |
+| Skew | the bright line leans; on the square it narrows to spikes |
+| Phase | the bands slide along their arcs, and the bright line hollows where they overlap |
+| a note | the bright line brightens and travels along the arc while a note is held, then settles |
+
+How it fits the device: the bands are chains of one-cycle nodes (`gen_panel.py` authors one cycle per band, 16 copies, plus a rounded copy for when Tone cuts the band), which `display.cpp` only moves, turns and scales. The bright line is the four reshapable outlines, a quarter of the arc each, rewritten only when its key changes. So nothing redraws at rest, and while a note is held only those four outlines change. That's 140 nodes and 5 palette entries.
+
 ## Status
 
-- `engine.cpp`, `core.h`, `definition.json`, `machine.json` and `tests/sound.cpp` are drafted. The sound checks pass on the host. I built them against a small stand-in for `opxy/audio.hpp`, not the SDK itself, so the first run of `python sdk.py test --machine machines/iris` is still to do.
-- The screen comes from the design in operator-design `screens/iris/`, where the subject pass is open. `display.cpp`, `display.h`, `gen_panel.py`, `nodes.h` and `panel.svg.fragment` follow its handoff, and `resources.display` in `definition.json` is a placeholder until then.
-- Defaults and presets (Arc, Glass, Prism, Reed, Bow, Hollow) are set from the DSP. I haven't heard them on a device yet.
+- **Sound.** `engine.cpp`, `core.h`, `definition.json`, `machine.json` and `tests/sound.cpp` are written, and the sound checks pass on the host. I built them against a small stand-in for `opxy/audio.hpp`, not the SDK itself, so the first `python sdk.py test --machine machines/iris` is still to do.
+- **Screen.** `gen_panel.py`, `panel.svg.fragment`, `nodes.h`, `display.h` and `display.cpp` are written, and `tools/panel_lint.py` finds nothing. I ran `display()` on the host against a stand-in for the SDK's draw API, rendered the nodes it placed and compared them with the design frames. They match closely, and the design repo's perceptibility gate passes on that output. Three things come from reading toro and theseus rather than the SDK headers, so check them first: `rotation()`'s sign (positive taken as clockwise on screen), `in.held_notes` as the held-note count, and `Point` in Q10 px.
+- **Not done yet.** Anything that needs a device: presets by ear, CPU, the redraw cost of rewriting four 64-point outlines every frame while a note is held, caption widths in the device font, and photos.
