@@ -5,10 +5,10 @@
  * Signal path per voice: four oscillators (sine, triangle, square, saw, in order of harmonic content) -> weighted
  * mix -> 2-pole state-variable low-pass -> output. The OP-XY's own envelope, filter and effects come after.
  *
- * Page 1                                         Page 2 (press any encoder)
+ * The page                                       The Shift row (Shift + encoder)
  *   Morph    window centre: sine .. tri .. square .. saw     Skew   one breakpoint for sine, triangle and square
  *   Overlap  window width: two neighbours .. all four        Phase  each band's phase offset from the one before
- *   Spread   band detune, outer bands +-50 cents             (positions 3 and 4 have no alternate)
+ *   Spread   band detune, outer bands +-50 cents             (encoders 3 and 4 have nothing on the row)
  *   Tone     low-pass that follows the note: from 1.4x the note (almost a sine) to 128x (open)
  *
  * The mix. The bands sit at positions 0..3 and Morph puts the window's centre anywhere between them. Each band's
@@ -118,6 +118,8 @@ inline void initialize(Voice& v, Shared&, u32)
 inline void start(Voice& v, Shared& s, u32 owner) { initialize(v, s, owner); }   // every band in phase
 inline void destroy(Voice&, Shared&, u32) {}
 
+/* p[0..3] are the page (morph, overlap, spread, tone) and p[4..5] the Shift row (skew, phase), in definition order:
+ * parameters, then synth_shift. */
 inline void render(Voice& v, Shared&, u32, opxy::Output out, opxy::Parameters p, opxy::Pitch inc)
 {
     // Mix weights: triangle kernel of width 1 .. 4 bands round the Morph position, renormalised to sum to 1

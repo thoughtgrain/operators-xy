@@ -6,7 +6,7 @@ this file shares its geometry constants. If you change one, change both.
 
 What's authored here:
   - nodes 0..3: the mix line's four mutable outlines (64 points each), drawn at the defaults. display() rewrites them.
-  - nodes 4..11: the SDK's two-page header bar.
+  - nodes 4..11: the header bar (one row; Shift swaps its texts, it never adds a row).
   - nodes 12..75: raw band cycles, 16 per band (sine, triangle, square, saw). Every cycle of a band is the same shape:
     one cycle of its wave bent to its rest radius, authored at the top of the bow (turn 0) about its own origin on the
     arc. display() moves, turns and scales each one into place.
@@ -141,14 +141,15 @@ def mix_rest():
 
 
 def header_fragment():
-    o = ['<!-- SDK two-page header: keep this block before machine artwork below y=38. -->',
-         '<path d="M0,0 L480,0 L480,38 L0,38 Z" fill="#000000" stroke="none"/>']
+    """The stock single-row header: eight bar steps (nodes 4..11) and texts 0..3 (titles), 4..7 (values). Shift
+    replaces these texts while held; there is no second row."""
+    o = ['<!-- SDK header: keep this block before machine artwork below y=20. -->',
+         '<path d="M0,0 L480,0 L480,20 L0,20 Z" fill="#000000" stroke="none"/>']
     for i in range(8):
         o.append(f'<path id="{PREFIX}_node_{N_HDR + i}" transform="matrix(1 0 0 1 {60 * i} 0)" d="M0,0 L60,0 L60,20 L0,20 Z" fill="{G[i]}" stroke="{G[i]}" stroke-width="0.5"/>')
-    rows = [(5, 10, '10px', None), (65, 17.4, '20px', None), (5, 33, '10px', '#5A5A5A'), (65, 33, '13px', '#707070')]
-    for r, (x0, y, size, ink) in enumerate(rows):
+    for r, (x0, y, size) in enumerate([(5, 10, '10px'), (65, 17.4, '20px')]):
         for k in range(4):
-            col = ink or ('#CBCBCB' if k < 2 else '#000000')
+            col = '#CBCBCB' if k < 2 else '#000000'
             o.append(f'<text id="{PREFIX}_text_{4 * r + k}" transform="matrix(1 0 0 1 {x0 + 120 * k} {y})" fill="{col}" font-family="UniversNextPro-Light" font-size="{size}">-</text>')
     return o
 
@@ -193,7 +194,7 @@ def main():
     (HERE / 'nodes.h').write_text(h, encoding='utf-8')
 
     definition = json.loads((HERE / 'definition.json').read_text(encoding='utf-8'))
-    definition['resources']['display'].update({'paths': 4, 'points': 64, 'nodes': NODES, 'texts': 16, 'palette': len(PALETTE)})
+    definition['resources']['display'].update({'paths': 4, 'points': 64, 'nodes': NODES, 'texts': 8, 'palette': len(PALETTE)})
     (HERE / 'definition.json').write_text(json.dumps(definition, indent=2) + '\n', encoding='utf-8')
     print(f'{NODES} nodes, {len(PALETTE)} palette entries')
 

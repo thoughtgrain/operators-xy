@@ -6,9 +6,11 @@
  *   Spread   each band's cycles stretch or shrink along its arc, so crests fall out of line, and the bright line
  *            swells and thins round the bow where the detuned bands beat
  *   Tone     the bright line's corners round off, and band by band from the inside the teeth melt into humps
- *   Skew     (page 2) the bright line leans; on the square it narrows to spikes
- *   Phase    (page 2) the bands slide along their arcs, band i by i/8 of a cycle; the bright line hollows where
- *            bands overlap
+ *   Skew     (Shift + encoder 1) the bright line leans; on the square it narrows to spikes
+ *   Phase    (Shift + encoder 2) the bands slide along their arcs, band i by i/8 of a cycle; the bright line hollows
+ *            where bands overlap
+ *   Shift    held: the header's four slots show skew and phase (encoders 3 and 4 have nothing on the row); nothing
+ *            below the header moves. Shift replaces the header's contents, it never adds a row
  *   a note   the bright line brightens and travels along the arc while any note is held, then settles
  *
  * The design and its frames live in operator-design, screens/iris (handoff.md is the spec this follows). The art is
@@ -18,6 +20,7 @@
 #include "display.h"
 #include "nodes.h"
 #include <opxy/q31.hpp>
+#include <opxy/synth_shift.hpp>
 
 namespace iris {
 namespace {
@@ -82,13 +85,24 @@ inline void display_reset(DisplayState& st)
 
 inline void display(DisplayState& st, const Input& in, Frame& fr)
 {
-    /* header: the SDK's two pages, all values as 0..100. Page 2 repeats spread and tone where it has no alternate */
-    const char* const titles[8] = { "Morph", "Overlap", "Spread", "Tone", "Skew", "Phase", "Spread", "Tone" };
-    char values[8][header_capacity];
-    for (u32 i = 0; i < 6; ++i) header_amount(values[i], header_capacity, in.slots[i]);
-    header_amount(values[6], header_capacity, in.slots[2]);
-    header_amount(values[7], header_capacity, in.slots[3]);
-    const opxy::u8 slots[2][4] = { { 0, 1, 2, 3 }, { 4, 5, 2, 3 } };
+    /* header: one row. While Shift is held its four slots show the Shift row (skew, phase, then nothing) in place of
+     * the page's titles and values; release puts the page back. We pass the Shift row's captions to page_header
+     * ourselves rather than passing the row, which would stack it under the page (operator-design constraints.md,
+     * Shift in the header). The Shift row's values come from synth_shift.hpp; the engine reads them after the four
+     * page parameters. */
+    const auto row = shift_row(in);
+    const opxy::i32 shift_word[2] = { row.values[0], row.values[1] };              /* skew, phase (Q31) */
+    const char* const page_titles[4] = { "Morph", "Overlap", "Spread", "Tone" };
+    const char* const shift_titles[4] = { "Skew", "Phase", "", "" };
+    const char* titles[4];
+    char values[4][header_capacity];
+    for (u32 i = 0; i < 4; ++i) {
+        titles[i] = row.held ? shift_titles[i] : page_titles[i];
+        if (!row.held) header_amount(values[i], header_capacity, in.slots[i]);
+        else if (i < 2) header_amount(values[i], header_capacity, shift_word[i]);
+        else values[i][0] = 0;
+    }
+    const opxy::u8 slots[1][4] = { { 0, 1, 2, 3 } };
     page_header(st.header, in, fr, titles, values, N_HDR, slots);
 
     /* ease the controls (tau 0.05 s), and the held note's travel; reduced motion and the first frame jump */
@@ -96,7 +110,7 @@ inline void display(DisplayState& st, const Input& in, Frame& fr)
     const i32 dt = clamp(in.elapsed * 1000 / unit, 1, 100);                       /* ms */
     const i32 k_ease = still || !st.initialized ? unit : unit - expneg((dt * unit) / 50);
     for (int k = 0; k < 6; ++k) {
-        const i32 target = q10(in.slots[k]);
+        const i32 target = q10(k < 4 ? in.slots[k] : shift_word[k - 4]);
         st.eased[k] += ((target - st.eased[k]) * k_ease) >> 10;
         if (iabs(target - st.eased[k]) <= 1) st.eased[k] = target;               /* settle exactly: rest is still */
     }

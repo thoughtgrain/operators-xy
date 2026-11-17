@@ -2,12 +2,14 @@
 
 A new OP-XY synth engine, not a port. Four waveforms play at one pitch, sine, triangle, square and saw, in order of how many harmonics they carry, like the bands of a rainbow from red to violet. A mixing window slides along them and opens up to let the neighbours bleed in. It's named for Iris, the goddess of the rainbow.
 
-| Page 1 | | Page 2 (press any encoder) | |
+| The page | | The Shift row (hold Shift) | |
 |---|---|---|---|
-| Morph | where the window sits: sine → triangle → square → saw | Skew | one breakpoint: the sine and triangle lean, the square narrows to a pulse (the saw has nothing to lean) |
-| Overlap | how wide the window is: a crossfade between two neighbours → all four at once | Phase | each band slips up to an eighth of a cycle behind the one before; only heard where bands overlap |
+| Morph | where the window sits: sine → triangle → square → saw | Skew (Shift + encoder 1) | one breakpoint: the sine and triangle lean, the square narrows to a pulse (the saw has nothing to lean) |
+| Overlap | how wide the window is: a crossfade between two neighbours → all four at once | Phase (Shift + encoder 2) | each band slips up to an eighth of a cycle behind the one before; only heard where bands overlap |
 | Spread | detunes the bands apart, outer ones ±50 cents, so they beat | | |
 | Tone | a low-pass that follows the note, from almost a sine to fully open | | |
+
+There's one header row. Holding Shift swaps its contents for skew and phase (encoders 3 and 4 have nothing on the row), and letting go puts the page back. That needs SDK 1.13, for the synth Shift row (`synth_shift` in `definition.json`). The engine reads skew and phase as `p[4]` and `p[5]`, after the page's four.
 
 ## How the sound works
 
@@ -39,5 +41,5 @@ How it fits the device: the bands are chains of one-cycle nodes (`gen_panel.py` 
 ## Status
 
 - **Sound.** `engine.cpp`, `core.h`, `definition.json`, `machine.json` and `tests/sound.cpp` are written, and the sound checks pass on the host. I built them against a small stand-in for `opxy/audio.hpp`, not the SDK itself, so the first `python sdk.py test --machine machines/iris` is still to do.
-- **Screen.** `gen_panel.py`, `panel.svg.fragment`, `nodes.h`, `display.h` and `display.cpp` are written, and `tools/panel_lint.py` finds nothing. I ran `display()` on the host against a stand-in for the SDK's draw API, rendered the nodes it placed and compared them with the design frames. They match closely, and the design repo's perceptibility gate passes on that output. Three things come from reading toro and theseus rather than the SDK headers, so check them first: `rotation()`'s sign (positive taken as clockwise on screen), `in.held_notes` as the held-note count, and `Point` in Q10 px.
+- **Screen.** `gen_panel.py`, `panel.svg.fragment`, `nodes.h`, `display.h` and `display.cpp` are written, and `tools/panel_lint.py` finds nothing. I ran `display()` on the host against a stand-in for the SDK's draw API, rendered the nodes it placed and compared them with the design frames. They match closely, and the design repo's perceptibility gate passes on that output. Some things come from reading toro, theseus and my design notes rather than the SDK headers, so check them first: `rotation()`'s sign (positive taken as clockwise on screen), `in.held_notes` as the held-note count, `Point` in Q10 px, and the Shift row (the `synth_shift` field's shape, `shift_row(in).values[]`, `page_header` with one row, and the Shift values arriving at the engine as `p[4]` and `p[5]`).
 - **Not done yet.** Anything that needs a device: presets by ear, CPU, the redraw cost of rewriting four 64-point outlines every frame while a note is held, caption widths in the device font, and photos.
